@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 
-require File.dirname(__FILE__)+"/../lib/teamocil"
+$:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+
+require 'yaml'
+require 'teamocil'
 
 if ENV["TMUX"] == nil
   puts "You must be in a tmux session to use teamocil"
