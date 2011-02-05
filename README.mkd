@@ -4,7 +4,7 @@ Teamocil is a tool used to automatically create windows and splits in `tmux` wit
 
 # Usage
 
-    $ gem insstall teamocil
+    $ gem install teamocil
     $ mkdir ~/.teamocil
     $ touch ~/.teamocil/sample.yml
     $ teamocil sample
