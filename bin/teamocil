@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 
-require "teamocil"
+require File.dirname(__FILE__)+"/../lib/teamocil"
 
-layout = Teamocil::Layout.new(ARGV[0], File.join("#{ENV["HOME"]}/.teamocil", "#{ARGV[0]}.yml"))
-layout.to_tmux
+if ENV["TMUX"] == nil
+  puts "You must be in a tmux session to use teamocil"
+else
+  layout = Teamocil::Layout.new(ARGV[0], File.join("#{ENV["HOME"]}/.teamocil", "#{ARGV[0]}.yml"))
+  layout.to_tmux
+end
