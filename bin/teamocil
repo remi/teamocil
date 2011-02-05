@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require "teamocil"
+
+layout = Teamocil::Layout.new(ARGV[0], File.join("#{ENV["HOME"]}/.teamocil", "#{ARGV[0]}.yml"))
+layout.to_tmux

@@ -1,0 +1,35 @@
+# What is this?
+
+Teamocil is a tool used to automatically create windows and splits in `tmux` with Ruby and YAML. Like [tmuxinator](https://github.com/aziz/tmuxinator), but with splits, not just windows.
+
+A work in progress. Will be a gem soon. You probably should not use it. Things will change.
+
+# Usage
+
+    $ teamocil sample
+
+# Layout example
+
+    # ~/.teamocil/sample.yml
+
+    - cmd: cd ~/Code/sample/www
+    - cmd:
+      - cd ~/Code/sample/www
+      - rails s
+      width: 50
+    - cmd: memcached -p 11211 -vv
+      height: 25
+
+will create a new window named `sample` with a layout like this:
+
+    .------------------.------------------.
+    | (0)              | (1)              |
+    |                  |                  |
+    |                  |                  |
+    |                  |                  |
+    |                  |                  |
+    |                  |                  |
+    |                  |------------------|
+    |                  | (2)              |
+    |                  |                  |
+    '------------------'------------------'
