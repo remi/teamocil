@@ -1,11 +1,11 @@
 module Teamocil
   class Layout
 
-    attr_accessor :config, :name
+    attr_accessor :layout, :options
 
-    def initialize(name, file) # {{{
+    def initialize(file, options) # {{{
       @layout = YAML.load_file(file)
-      @name = name
+      @options = options
     end # }}}
 
     def to_tmux # {{{
@@ -16,9 +16,13 @@ module Teamocil
     def generate_commands # {{{
       output = []
 
-      @layout["windows"].each do |window|
+      @layout["windows"].each_with_index do |window, window_index|
 
-        output << "tmux new-window -n #{window["name"]}"
+        if options.include?(:here) and window_index == 0
+          output << "tmux rename-window #{window["name"]}"
+        else
+          output << "tmux new-window -n #{window["name"]}"
+        end
         window["splits"].each_with_index do |split, index|
           unless index == 0
             if split.include?("width")

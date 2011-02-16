@@ -1,13 +1,34 @@
 #!/usr/bin/env ruby
 
+def bail(msg)
+  puts msg
+  exit(1)
+end
+
 $:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
 
 require 'yaml'
 require 'teamocil'
+require 'optparse'
 
-if ENV["TMUX"] == nil
-  puts "You must be in a tmux session to use teamocil"
-else
-  layout = Teamocil::Layout.new(ARGV[0], File.join("#{ENV["HOME"]}/.teamocil", "#{ARGV[0]}.yml"))
-  layout.to_tmux
+bail "You must be in a tmux session to use teamocil" unless ENV["TMUX"]
+
+options = {}
+opts = OptionParser.new do |opts|
+  opts.banner = "Usage: teamocil [options] <layout>
+
+Options:
+  "
+  opts.on("--here", "Set up the first window in the current window") do |safe|
+    options[:here] = true
+  end
+
 end
+opts.parse!
+
+file = File.join("#{ENV["HOME"]}/.teamocil", "#{ARGV[0]}.yml")
+
+bail "There is no file \"#{file}\"" unless File.exists?(file)
+
+layout = Teamocil::Layout.new(file, options)
+layout.to_tmux
