@@ -14,16 +14,18 @@ Teamocil is a tool used to automatically create windows and splits in `tmux` wit
 
     # ~/.teamocil/sample.yml
 
-    windows:
-      - name: sample-window
-        splits:
-          - cmd: cd ~/Code/sample/www
-          - cmd:
-            - cd ~/Code/sample/www
-            - rails s
-            width: 50
-          - cmd: memcached -p 11211 -vv
-            height: 25
+    session:
+      name: sample-session
+      windows:
+        - name: sample-window
+          splits:
+            - cmd: cd ~/Code/sample/www
+            - cmd:
+              - cd ~/Code/sample/www
+              - rails s
+              width: 50
+            - cmd: memcached -p 11211 -vv
+              height: 25
 
 will create a new window named `sample-window` with a layout like this:
 
