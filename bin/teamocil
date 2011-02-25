@@ -19,14 +19,22 @@ opts = OptionParser.new do |opts|
 
 Options:
   "
-  opts.on("--here", "Set up the first window in the current window") do |safe|
+  opts.on("--here", "Set up the first window in the current window") do
     options[:here] = true
+  end
+
+  opts.on("--layout [LAYOUT]", "Use a specific layout file, instead of ~/.teamocil/<layout>.yml") do |layout|
+    options[:layout] = layout
   end
 
 end
 opts.parse!
 
-file = File.join("#{ENV["HOME"]}/.teamocil", "#{ARGV[0]}.yml")
+if options.include?(:layout)
+  file = options[:layout]
+else
+  file = File.join("#{ENV["HOME"]}/.teamocil", "#{ARGV[0]}.yml")
+end
 
 bail "There is no file \"#{file}\"" unless File.exists?(file)
 
