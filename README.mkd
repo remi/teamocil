@@ -1,6 +1,6 @@
 # Introduction
 
-Teamocil is a tool used to automatically create windows and splits in `tmux` with Ruby and YAML. Like [tmuxinator](https://github.com/aziz/tmuxinator), but with splits, not just windows.
+Teamocil is a tool used to automatically create sessions, windows and splits in `tmux` with Ruby and YAML. Like [tmuxinator](https://github.com/aziz/tmuxinator), but with splits, not just windows.
 
 # Usage
 
@@ -9,6 +9,11 @@ Teamocil is a tool used to automatically create windows and splits in `tmux` wit
     $ touch ~/.teamocil/sample.yml
     $ tmux
     $ teamocil sample
+
+# Options
+
+* `--here` opens the session from the current window, it doesn’t create an empty first window.
+* `--layout` takes a custom file path to a YAML layout file.
 
 # Layout example
 
@@ -27,7 +32,7 @@ Teamocil is a tool used to automatically create windows and splits in `tmux` wit
             - cmd: memcached -p 11211 -vv
               height: 25
 
-will create a new window named `sample-window` with a layout like this:
+Running `$ teamocil sample` will rename the session to `sample-session` and create a new window named `sample-window` with a layout like this:
 
     .------------------.------------------.
     | (0)              | (1)              |
