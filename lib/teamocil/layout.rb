@@ -16,7 +16,14 @@ module Teamocil
     def generate_commands # {{{
       output = []
 
-      @layout["windows"].each_with_index do |window, window_index|
+      if @layout["session"].nil?
+        windows = @layout["windows"]
+      else
+        output << "tmux rename-session #{@layout["session"]["name"]}"
+        windows = @layout["session"]["windows"]
+      end
+
+      windows.each_with_index do |window, window_index|
 
         if options.include?(:here) and window_index == 0
           output << "tmux rename-window #{window["name"]}"
