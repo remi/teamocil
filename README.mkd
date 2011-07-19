@@ -45,3 +45,7 @@ Running `$ teamocil sample` will rename the session to `sample-session` and crea
     |                  | (2)              |
     |                  |                  |
     '------------------'------------------'
+
+# Contributors
+
+* Samuel Garneau ([garno](https://github.com/garno))
