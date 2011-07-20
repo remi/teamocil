@@ -1,6 +1,6 @@
 spec = Gem::Specification.new do |s|
   s.name         = "teamocil"
-  s.version      = "0.1.7"
+  s.version      = "0.1.8"
   s.platform     = Gem::Platform::RUBY
   s.authors      = "Rémi Prévost"
   s.email        = "remi@exomel.com"
