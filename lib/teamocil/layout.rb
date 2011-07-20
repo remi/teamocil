@@ -19,7 +19,7 @@ module Teamocil
       if @layout["session"].nil?
         windows = @layout["windows"]
       else
-        output << "tmux rename-session #{@layout["session"]["name"]}"
+        output << "tmux rename-session #{@layout["session"]["name"]}" if @layout["session"]["name"]
         windows = @layout["session"]["windows"]
       end
 
