@@ -23,11 +23,12 @@ Teamocil is a tool used to automatically create sessions, windows and splits in 
       name: sample-session
       windows:
         - name: sample-window
+          root: ~/Code/sample/www
           splits:
-            - cmd: cd ~/Code/sample/www
             - cmd:
-              - cd ~/Code/sample/www
-              - rails s
+              - ls -la
+              - git status
+            - cmd: rails server --port 3000
               width: 50
             - cmd: memcached -p 11211 -vv
               height: 25

@@ -26,10 +26,11 @@ module Teamocil
       windows.each_with_index do |window, window_index|
 
         if options.include?(:here) and window_index == 0
-          output << "tmux rename-window #{window["name"]}"
+          output << "tmux rename-window \"#{window["name"]}\""
         else
-          output << "tmux new-window -n #{window["name"]}"
+          output << "tmux new-window -n \"#{window["name"]}\""
         end
+
         window["splits"].each_with_index do |split, index|
           unless index == 0
             if split.include?("width")
@@ -43,7 +44,13 @@ module Teamocil
             end
           end
 
+          # Support single command splits, but treat it as an array nevertheless
           split["cmd"] = [split["cmd"]] unless split["cmd"].is_a? Array
+
+          # If a `root` key exist, start each split in this directory
+          split["cmd"] = ["cd \"#{window["root"]}\""] + split["cmd"] if window.include?("root")
+
+          # Execute each split command
           split["cmd"].each do |command|
             output << "tmux send-keys -t #{index} \"#{command}\""
             output << "tmux send-keys -t #{index} Enter"
