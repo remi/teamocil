@@ -14,6 +14,7 @@ Teamocil is a tool used to automatically create sessions, windows and splits in 
 
 * `--here` opens the session from the current window, it doesn’t create an empty first window.
 * `--layout` takes a custom file path to a YAML layout file.
+* `--edit` opens the layout file (whether or not `--layout` is used) with `$EDITOR`.
 
 ## Layout example
 

@@ -23,6 +23,10 @@ Options:
     options[:here] = true
   end
 
+  opts.on("--edit", "Edit the YAML layout file instead of using it") do
+    options[:edit] = true
+  end
+
   opts.on("--layout [LAYOUT]", "Use a specific layout file, instead of ~/.teamocil/<layout>.yml") do |layout|
     options[:layout] = layout
   end
@@ -38,5 +42,9 @@ end
 
 bail "There is no file \"#{file}\"" unless File.exists?(file)
 
-layout = Teamocil::Layout.new(file, options)
-layout.to_tmux
+if options[:edit]
+  system("$EDITOR \"#{file}\"")
+else
+  layout = Teamocil::Layout.new(file, options)
+  layout.to_tmux
+end
