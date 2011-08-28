@@ -61,3 +61,7 @@ To get autocompletion when typing `teamocil <Tab>` in a zsh session, add this li
 Feel free to contribute and submit pull requests!
 
 * Samuel Garneau ([garno](https://github.com/garno))
+
+## License
+
+Teamocil is © 2011 Rémi Prévost and may be freely distributed under the [LITL license](http://litl.info/). See the `LICENSE` file.
