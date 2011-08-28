@@ -1,4 +1,4 @@
-## Introduction
+# Teamocil
 
 Teamocil is a tool used to automatically create sessions, windows and splits in `tmux` with Ruby and YAML. Like [tmuxinator](https://github.com/aziz/tmuxinator), but with splits, not just windows.
 
