@@ -58,4 +58,6 @@ To get autocompletion when typing `teamocil <Tab>` in a zsh session, add this li
 
 ## Contributors
 
+Feel free to contribute and submit pull requests!
+
 * Samuel Garneau ([garno](https://github.com/garno))
