@@ -48,6 +48,14 @@ Running `$ teamocil sample` will rename the session to `sample-session` and crea
     |                  |                  |
     '------------------'------------------'
 
+## Extras
+
+### Zsh autocompletion
+
+To get autocompletion when typing `teamocil <Tab>` in a zsh session, add this line to your `~/.zshrc` file:
+
+    compctl -g '~/.teamocil/*(:t:r)' teamocil
+
 ## Contributors
 
 * Samuel Garneau ([garno](https://github.com/garno))
