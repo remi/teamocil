@@ -12,7 +12,7 @@ Teamocil is a tool used to automatically create sessions, windows and splits in 
 
 ## Options
 
-* `--here` opens the session from the current window, it doesn’t create an empty first window.
+* `--here` opens the session in the current window, it doesn’t create an empty first window.
 * `--layout` takes a custom file path to a YAML layout file.
 * `--edit` opens the layout file (whether or not `--layout` is used) with `$EDITOR`.
 
@@ -33,7 +33,7 @@ Teamocil is a tool used to automatically create sessions, windows and splits in 
               width: 50
             - cmd: memcached -p 11211 -vv
               height: 25
-							target: bottom-right
+              target: bottom-right
 
 Running `$ teamocil sample` will rename the session to `sample-session` and create a new window named `sample-window` with a layout like this:
 
@@ -62,6 +62,7 @@ To get autocompletion when typing `teamocil <Tab>` in a zsh session, add this li
 Feel free to contribute and submit pull requests!
 
 * Samuel Garneau ([garno](https://github.com/garno))
+* Jimmy Bourassa ([jbourassa](https://github.com/jbourassa))
 
 ## License
 
