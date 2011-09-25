@@ -1,9 +1,6 @@
 #!/usr/bin/env ruby
 
-def bail(msg)
-  puts msg
-  exit(1)
-end
+def bail(msg); puts msg; exit(1); end
 
 $:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
 
