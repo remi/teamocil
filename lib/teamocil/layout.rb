@@ -34,14 +34,14 @@ module Teamocil
         window["splits"].each_with_index do |split, index|
           unless index == 0
             if split.include?("width")
-              output << "tmux split-window -h -p #{split["width"]}"
+              cmd = "tmux split-window -h -p #{split["width"]}"
+            elsif split.include?("height")
+              cmd = "tmux split-window -p #{split["height"]}"
             else
-              if split.include?("height")
-                output << "tmux split-window -p #{split["height"]}"
-              else
-                output << "tmux split-window"
-              end
+              cmd = "tmux split-window"
             end
+            cmd << " -t #{split["target"]}" if split.include?("target")
+            output << cmd
           end
 
           # Support single command splits, but treat it as an array nevertheless
