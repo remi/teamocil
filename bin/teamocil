@@ -10,6 +10,7 @@ $:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
 require 'yaml'
 require 'teamocil'
 require 'optparse'
+require 'fileutils'
 
 bail "You must be in a tmux session to use teamocil" unless ENV["TMUX"]
 
@@ -40,11 +41,11 @@ else
   file = File.join("#{ENV["HOME"]}/.teamocil", "#{ARGV[0]}.yml")
 end
 
-bail "There is no file \"#{file}\"" unless File.exists?(file)
-
 if options[:edit]
+  FileUtils.touch file unless File.exists?(file)
   system("$EDITOR \"#{file}\"")
 else
+  bail "There is no file \"#{file}\"" unless File.exists?(file)
   layout = Teamocil::Layout.new(file, options)
   layout.to_tmux
 end
