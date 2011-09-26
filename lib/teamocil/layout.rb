@@ -1,18 +1,25 @@
 module Teamocil
+  # This class act as a wrapper around a tmux YAML layout file.
   class Layout
 
-    attr_accessor :layout, :options
+    attr_accessor :options
 
+    # Initialize a new layout from a file
+    #
+    # @param file [String] the complete layout file path
+    # @param options [Hash]
     def initialize(file, options) # {{{
       @layout = YAML.load_file(file)
       @options = options
     end # }}}
 
+    # Generate commands and sends them to tmux
     def to_tmux # {{{
       commands = generate_commands
       execute_commands(commands)
     end # }}}
 
+    # Generate tmux commands based on the data found in the layout file
     def generate_commands # {{{
       output = []
 
@@ -62,6 +69,9 @@ module Teamocil
       output << "tmux select-pane -t 0"
     end # }}}
 
+    # Execute each command in the shell
+    #
+    # @param commands [Array] an array of complete commands to send to the shell
     def execute_commands(commands) # {{{
       `#{commands.join("; ")}`
     end # }}}

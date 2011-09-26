@@ -1,3 +1,4 @@
 *.gem
 .rvmrc
 .local*
+.yardoc

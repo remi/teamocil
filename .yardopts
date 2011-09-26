@@ -1,0 +1,13 @@
+--title             "Teamocil"
+
+--no-cache
+--protected
+--no-private
+
+--markup            "markdown"
+--markup-provider   "maruku"
+
+--format html
+
+"README.mkd"
+"lib/**/*.rb"
