@@ -2,8 +2,6 @@ module Teamocil
   # This class act as a wrapper around a tmux YAML layout file.
   class Layout
 
-    attr_accessor :options
-
     # Initialize a new layout from a file
     #
     # @param file [String] the complete layout file path
@@ -32,7 +30,7 @@ module Teamocil
 
       windows.each_with_index do |window, window_index|
 
-        if options.include?(:here) and window_index == 0
+        if @options.include?(:here) and window_index == 0
           output << "tmux rename-window \"#{window["name"]}\""
         else
           output << "tmux new-window -n \"#{window["name"]}\""
