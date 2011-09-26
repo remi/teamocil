@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  File: README
+  
+    &mdash; Teamocil
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html" title="Index">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><div id='filecontents'><h1 id='teamocil'>Teamocil</h1>
+
+<p>Teamocil is a tool used to automatically create sessions, windows and splits in <code>tmux</code> with Ruby and YAML. Like <a href='https://github.com/aziz/tmuxinator'>tmuxinator</a>, but with splits, not just windows.</p>
+
+<h2 id='usage'>Usage</h2>
+
+<pre class="code">$ <span class='gem identifier id'>gem</span> <span class='install identifier id'>install</span> <span class='teamocil identifier id'>teamocil</span>
+$ <span class='mkdir identifier id'>mkdir</span> <span class='bitnot op'>~</span><span class='regexp val'>/.teamocil
+$ touch ~/</span><span class='dot token'>.</span><span class='teamocil identifier id'>teamocil</span><span class='div op'>/</span><span class='sample identifier id'>sample</span><span class='dot token'>.</span><span class='yml identifier id'>yml</span>
+$ <span class='tmux identifier id'>tmux</span>
+$ <span class='teamocil identifier id'>teamocil</span> <span class='sample identifier id'>sample</span>
+</pre>
+
+<h2 id='options'>Options</h2>
+
+<ul>
+<li><code>--here</code> opens the session in the current window, it doesn’t create an empty first window.</li>
+
+<li><code>--layout</code> takes a custom file path to a YAML layout file.</li>
+
+<li><code>--edit</code> opens the layout file (whether or not <code>--layout</code> is used) with <code>$EDITOR</code>.</li>
+</ul>
+
+<h2 id='layout_example'>Layout example</h2>
+
+<pre class="code"><span class='comment val'># ~/.teamocil/sample.yml</span>
+
+<span class='session identifier id'>session</span><span class='colon op'>:</span>
+  <span class='name identifier id'>name</span><span class='colon op'>:</span> <span class='sample identifier id'>sample</span><span class='minus op'>-</span><span class='session identifier id'>session</span>
+  <span class='windows identifier id'>windows</span><span class='colon op'>:</span>
+    <span class='minus op'>-</span> <span class='name identifier id'>name</span><span class='colon op'>:</span> <span class='sample identifier id'>sample</span><span class='minus op'>-</span><span class='window identifier id'>window</span>
+      <span class='root identifier id'>root</span><span class='colon op'>:</span> <span class='bitnot op'>~</span><span class='regexp val'>/Code/s</span><span class='ample identifier id'>ample</span><span class='div op'>/</span><span class='www identifier id'>www</span>
+      <span class='splits identifier id'>splits</span><span class='colon op'>:</span>
+        <span class='minus op'>-</span> <span class='cmd identifier id'>cmd</span><span class='colon op'>:</span>
+          <span class='minus op'>-</span> <span class='ls identifier id'>ls</span> <span class='minus op'>-</span><span class='la identifier id'>la</span>
+          <span class='minus op'>-</span> <span class='git identifier id'>git</span> <span class='status identifier id'>status</span>
+        <span class='minus op'>-</span> <span class='cmd identifier id'>cmd</span><span class='colon op'>:</span> <span class='rails identifier id'>rails</span> <span class='server identifier id'>server</span> <span class='minus op'>-</span><span class='minus op'>-</span><span class='port identifier id'>port</span> <span class='integer val'>3000</span>
+          <span class='width identifier id'>width</span><span class='colon op'>:</span> <span class='integer val'>50</span>
+        <span class='minus op'>-</span> <span class='cmd identifier id'>cmd</span><span class='colon op'>:</span> <span class='memcached identifier id'>memcached</span> <span class='minus op'>-</span><span class='p identifier id'>p</span> <span class='integer val'>11211</span> <span class='minus op'>-</span><span class='vv identifier id'>vv</span>
+          <span class='height identifier id'>height</span><span class='colon op'>:</span> <span class='integer val'>25</span>
+          <span class='target identifier id'>target</span><span class='colon op'>:</span> <span class='bottom identifier id'>bottom</span><span class='minus op'>-</span><span class='right identifier id'>right</span>
+</pre>
+
+<p>Running <code>$ teamocil sample</code> will rename the session to <code>sample-session</code> and create a new window named <code>sample-window</code> with a layout like this:</p>
+
+<pre class="code"><span class='dot token'>.</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='dot token'>.</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='dot token'>.</span>
+<span class='bitor op'>|</span> <span class='lparen token'>(</span><span class='integer val'>0</span><span class='rparen token'>)</span>              <span class='bitor op'>|</span> <span class='lparen token'>(</span><span class='integer val'>1</span><span class='rparen token'>)</span>              <span class='bitor op'>|</span>
+<span class='bitor op'>|</span>                  <span class='bitor op'>|</span>                  <span class='bitor op'>|</span>
+<span class='bitor op'>|</span>                  <span class='bitor op'>|</span>                  <span class='bitor op'>|</span>
+<span class='bitor op'>|</span>                  <span class='bitor op'>|</span>                  <span class='bitor op'>|</span>
+<span class='bitor op'>|</span>                  <span class='bitor op'>|</span>                  <span class='bitor op'>|</span>
+<span class='bitor op'>|</span>                  <span class='bitor op'>|</span>                  <span class='bitor op'>|</span>
+<span class='bitor op'>|</span>                  <span class='bitor op'>|</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='bitor op'>|</span>
+<span class='bitor op'>|</span>                  <span class='bitor op'>|</span> <span class='lparen token'>(</span><span class='integer val'>2</span><span class='rparen token'>)</span>              <span class='bitor op'>|</span>
+<span class='bitor op'>|</span>                  <span class='bitor op'>|</span>                  <span class='bitor op'>|</span>
+<span class='string val'>'------------------'</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='string val'>'
+</span></pre>
+
+<h2 id='extras'>Extras</h2>
+
+<h3 id='zsh_autocompletion'>Zsh autocompletion</h3>
+
+<p>To get autocompletion when typing <code>teamocil &lt;Tab&gt;</code> in a zsh session, add this line to your <code>~/.zshrc</code> file:</p>
+
+<pre class="code"><span class='compctl identifier id'>compctl</span> <span class='minus op'>-</span><span class='g identifier id'>g</span> <span class='string val'>'~/.teamocil/*(:t:r)'</span> <span class='teamocil identifier id'>teamocil</span>
+</pre>
+
+<h2 id='contributors'>Contributors</h2>
+
+<p>Feel free to contribute and submit pull requests!</p>
+
+<ul>
+<li>Samuel Garneau (<a href='https://github.com/garno'>garno</a>)</li>
+
+<li>Jimmy Bourassa (<a href='https://github.com/jbourassa'>jbourassa</a>)</li>
+</ul>
+
+<h2 id='license'>License</h2>
+
+<p>Teamocil is © 2011 Rémi Prévost and may be freely distributed under the <a href='http://litl.info/'>LITL license</a>. See the <code>LICENSE</code> file.</p></div></div>
+    
+    <div id="footer">
+  Generated on Mon Sep 26 08:42:34 2011 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.2 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: Teamocil::CLI
+  
+    &mdash; Teamocil
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '..';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (C)</a> &raquo; 
+    <span class='title'><span class='object_link'><a href="../Teamocil.html" title="Teamocil (module)">Teamocil</a></span></span>
+     &raquo; 
+    <span class="title">CLI</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: Teamocil::CLI
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Teamocil::CLI</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/teamocil/cli.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>This class handles interaction with the <code>tmux</code> utility.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div>
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bail-instance_method" title="#bail (instance method)">- (Object) <strong>bail</strong>(msg) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Print an error message and exit the utility.</p></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (CLI) <strong>initialize</strong>(argv, env) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Initialize a new run of <code>tmux</code>.</p></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#parse_options%21-instance_method" title="#parse_options! (instance method)">- (Object) <strong>parse_options!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Parse the command line options.</p></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Teamocil::CLI (class)">CLI</a></span></tt>) <strong>initialize</strong>(argv, env) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Initialize a new run of <code>tmux</code></p>
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>argv</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the command line parameters hash (usually <code>ARGV</code>).</p></div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>env</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the environment variables hash (usually <code>ENV</code>).</p></div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/teamocil/cli.rb', line 12</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='argv identifier id'>argv</span><span class='comma token'>,</span> <span class='env identifier id'>env</span><span class='rparen token'>)</span> <span class='comment val'># {{{</span>
+  <span class='bail identifier id'>bail</span> <span class='string val'>&quot;You must be in a tmux session to use teamocil&quot;</span> <span class='unless unless_mod kw'>unless</span> <span class='env identifier id'>env</span><span class='lbrack token'>[</span><span class='string val'>&quot;TMUX&quot;</span><span class='rbrack token'>]</span>
+
+  <span class='parse_options! fid id'>parse_options!</span>
+  <span class='if if kw'>if</span> <span class='@options ivar id'>@options</span><span class='dot token'>.</span><span class='include? fid id'>include?</span><span class='lparen token'>(</span><span class='symbol val'>:layout</span><span class='rparen token'>)</span>
+    <span class='file identifier id'>file</span> <span class='assign token'>=</span> <span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:layout</span><span class='rbrack token'>]</span>
+  <span class='else else kw'>else</span>
+    <span class='file identifier id'>file</span> <span class='assign token'>=</span> <span class='colon3 op'>::</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{env[&quot;HOME&quot;]}/.teamocil&quot;</span><span class='comma token'>,</span> <span class='dstring node'>&quot;#{argv[0]}.yml&quot;</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+
+  <span class='if if kw'>if</span> <span class='@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:edit</span><span class='rbrack token'>]</span>
+    <span class='colon3 op'>::</span><span class='FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='touch identifier id'>touch</span> <span class='file identifier id'>file</span> <span class='unless unless_mod kw'>unless</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='rparen token'>)</span>
+    <span class='system identifier id'>system</span><span class='lparen token'>(</span><span class='dstring node'>&quot;$EDITOR \&quot;#{file}\&quot;&quot;</span><span class='rparen token'>)</span>
+  <span class='else else kw'>else</span>
+    <span class='bail identifier id'>bail</span> <span class='dstring node'>&quot;There is no file \&quot;#{file}\&quot;&quot;</span> <span class='unless unless_mod kw'>unless</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='rparen token'>)</span>
+    <span class='layout identifier id'>layout</span> <span class='assign token'>=</span> <span class='Teamocil constant id'>Teamocil</span><span class='colon2 op'>::</span><span class='Layout constant id'>Layout</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='comma token'>,</span> <span class='@options ivar id'>@options</span><span class='rparen token'>)</span>
+    <span class='layout identifier id'>layout</span><span class='dot token'>.</span><span class='to_tmux identifier id'>to_tmux</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="bail-instance_method">
+  
+    - (<tt>Object</tt>) <strong>bail</strong>(msg) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Print an error message and exit the utility</p>
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>msg</span>
+      
+      
+        <span class='type'>(<tt>Mixed</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>something to print before exiting.</p></div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+59
+60
+61
+62</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/teamocil/cli.rb', line 59</span>
+
+<span class='def def kw'>def</span> <span class='bail identifier id'>bail</span><span class='lparen token'>(</span><span class='msg identifier id'>msg</span><span class='rparen token'>)</span> <span class='comment val'># {{{</span>
+  <span class='puts identifier id'>puts</span> <span class='dstring node'>&quot;[teamocil] #{msg}&quot;</span>
+  <span class='exit identifier id'>exit</span> <span class='integer val'>1</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="parse_options!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>parse_options!</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Parse the command line options</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/teamocil/cli.rb', line 33</span>
+
+<span class='def def kw'>def</span> <span class='parse_options! fid id'>parse_options!</span> 
+  <span class='@options ivar id'>@options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='opts identifier id'>opts</span> <span class='assign token'>=</span> <span class='colon3 op'>::</span><span class='OptionParser constant id'>OptionParser</span><span class='dot token'>.</span><span class='new identifier id'>new</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='opts identifier id'>opts</span><span class='bitor op'>|</span>
+    <span class='opts identifier id'>opts</span><span class='dot token'>.</span><span class='banner identifier id'>banner</span> <span class='assign token'>=</span> <span class='string val'>&quot;Usage: teamocil [options] &lt;layout&gt;
+
+  Options:
+    &quot;</span>
+    <span class='opts identifier id'>opts</span><span class='dot token'>.</span><span class='on identifier id'>on</span><span class='lparen token'>(</span><span class='string val'>&quot;--here&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;Set up the first window in the current window&quot;</span><span class='rparen token'>)</span> <span class='do do kw'>do</span>
+      <span class='@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:here</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='true true kw'>true</span>
+    <span class='end end kw'>end</span>
+
+    <span class='opts identifier id'>opts</span><span class='dot token'>.</span><span class='on identifier id'>on</span><span class='lparen token'>(</span><span class='string val'>&quot;--edit&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;Edit the YAML layout file instead of using it&quot;</span><span class='rparen token'>)</span> <span class='do do kw'>do</span>
+      <span class='@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:edit</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='true true kw'>true</span>
+    <span class='end end kw'>end</span>
+
+    <span class='opts identifier id'>opts</span><span class='dot token'>.</span><span class='on identifier id'>on</span><span class='lparen token'>(</span><span class='string val'>&quot;--layout [LAYOUT]&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;Use a specific layout file, instead of ~/.teamocil/&lt;layout&gt;.yml&quot;</span><span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='layout identifier id'>layout</span><span class='bitor op'>|</span>
+      <span class='@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:layout</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='layout identifier id'>layout</span>
+    <span class='end end kw'>end</span>
+
+  <span class='end end kw'>end</span>
+  <span class='opts identifier id'>opts</span><span class='dot token'>.</span><span class='parse! fid id'>parse!</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Sep 26 08:42:35 2011 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.2 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>
