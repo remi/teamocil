@@ -18,6 +18,8 @@ Teamocil is a simple tool used to automatically create sessions, windows and spl
 
 ## Layout file structure
 
+A layout file is a single YAML file located in `~/.teamocil` (eg. `~/.teamocil/my-project.yml`).
+
 ### Session
 
 You can wrap your entire layout file in a `session` and Teamocil will rename the current session (so that you can find it more easily when running `tmux list-sessions`) before creating your windows.
