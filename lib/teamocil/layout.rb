@@ -6,7 +6,7 @@ module Teamocil
     #
     # @param layout [Hash] the parsed layout
     # @param options [Hash] some options
-    def initialize(layout, options) # {{{
+    def initialize(layout, options={}) # {{{
       @layout = layout
       @options = options
     end # }}}
