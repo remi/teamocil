@@ -24,7 +24,8 @@ module Teamocil
         system("$EDITOR \"#{file}\"")
       else
         bail "There is no file \"#{file}\"" unless File.exists?(file)
-        layout = Teamocil::Layout.new(file, @options)
+        parsed_layout = YAML.load_file(file)
+        layout = Teamocil::Layout.new(parsed_layout, @options)
         layout.to_tmux
       end
     end # }}}
