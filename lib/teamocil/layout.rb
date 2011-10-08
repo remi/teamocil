@@ -30,12 +30,21 @@ module Teamocil
 
       windows.each_with_index do |window, window_index|
 
+        # Create a new window unless we used the `--here` option
         if @options.include?(:here) and window_index == 0
           output << "tmux rename-window \"#{window["name"]}\""
         else
           output << "tmux new-window -n \"#{window["name"]}\""
         end
 
+        # Make sure our filters return arrays
+        window["filters"] ||= {}
+        window["filters"]["before"] ||= []
+        window["filters"]["after"] ||= []
+        window["filters"]["before"] = [window["filters"]["before"]] unless window["filters"]["before"].is_a? Array
+        window["filters"]["after"] = [window["filters"]["after"]] unless window["filters"]["after"].is_a? Array
+
+        # Create splits
         window["splits"].each_with_index do |split, index|
           unless index == 0
             if split.include?("width")
@@ -52,11 +61,14 @@ module Teamocil
           # Support single command splits, but treat it as an array nevertheless
           split["cmd"] = [split["cmd"]] unless split["cmd"].is_a? Array
 
+          # Wrap all commands around filters
+          split["cmd"] = window["filters"]["before"] + split["cmd"] + window["filters"]["after"]
+
           # If a `root` key exist, start each split in this directory
           split["cmd"] = ["cd \"#{window["root"]}\""] + split["cmd"] if window.include?("root")
 
           # Execute each split command
-          split["cmd"].each do |command|
+          split["cmd"].compact.each do |command|
             output << "tmux send-keys -t #{index} \"#{command}\""
             output << "tmux send-keys -t #{index} Enter"
           end

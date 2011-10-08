@@ -31,9 +31,9 @@ You can wrap your entire layout file in a `session` and Teamocil will rename the
 #### Example
 
     session:
-	  name: my-awesome-session
-	  windows:
-		[windows list]
+      name: my-awesome-session
+      windows:
+       [windows list]
 
 ### Windows
 
@@ -43,17 +43,24 @@ If you are not using a top-level `session` key, then the first key of your layou
 
 * `name` (the name that will appear in `tmux` statusbar)
 * `root` (the directory in which every split will be created)
+* `filters` (a hash of `before` and `after` commands to run for each split)
 * `splits` (an array of split items)
 
 #### Example
 
-	windows:
+    windows:
       - name: my-first-window
         root: ~/Projects/foo-www
+        filters:
+          before:
+            - "echo 'Let’s use ruby-1.9.2 for each split in this window.'"
+            - "rvm use 1.9.2"
         splits:
           [splits list]
       - name: my-second-window
         root: ~/Projects/foo-api
+        filters:
+          after: "rvm use 1.9.2"
         splits:
           [splits list]
       - name: my-third-window
@@ -74,9 +81,12 @@ Every window must define an array of splits that will be created within it. A ve
 
 #### Example
 
-	windows:
+    windows:
       - name: my-first-window
         root: ~/Projects/foo-www
+        filters:
+          before: "rvm use 1.9.2"
+          after: "echo 'I am done initializing this split.'"
         splits:
           - cmd: "git status"
           - cmd: "bundle exec rails server --port 4000"
