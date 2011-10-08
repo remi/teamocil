@@ -1,0 +1,13 @@
+# Simple two windows layout
+two-windows:
+  windows:
+    - name: "foo"
+      splits:
+        - cmd: "echo 'foo'"
+        - cmd: "echo 'foo again'"
+          width: 50
+    - name: "bar"
+      splits:
+        - cmd: "echo 'bar'"
+        - cmd: "echo 'bar again'"
+          width: 50

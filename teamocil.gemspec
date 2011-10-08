@@ -7,7 +7,10 @@ spec = Gem::Specification.new do |s|
   s.homepage     = "http://github.com/remiprev/teamocil"
   s.summary      = "Easy window and split layouts for tmux"
   s.description  = "Teamocil helps you set up window and splits layouts for tmux using YAML configuration files."
-  s.files        = Dir["lib/**/*.rb", "README.mkd", "LICENSE", "bin/*"]
+  s.files        = Dir["lib/**/*.rb", "README.mkd", "LICENSE", "bin/*", "spec/**/*.rb"]
   s.require_path = "lib"
-  s.executables << 'teamocil'
+  s.executables << "teamocil"
+
+  s.add_development_dependency("rspec")
+
 end
