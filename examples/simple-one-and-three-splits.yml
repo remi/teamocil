@@ -1,0 +1,12 @@
+windows:
+  - name: simple-one-and-three-splits
+    splits:
+      - cmd: "echo 'first split'"
+      - cmd: "echo 'second split'"
+        width: 50
+      - cmd: "echo 'third split'"
+        height: 66
+        target: bottom-right
+      - cmd: "echo 'fourth split'"
+        height: 50
+        target: bottom-right

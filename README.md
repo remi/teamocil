@@ -98,6 +98,8 @@ Every window must define an array of splits that will be created within it. A ve
 
 ## Layout examples
 
+See more example files in the `examples` directory.
+
 ### Simple two splits window
 
 #### Content of `~/.teamocil/sample-1.yml`

@@ -1,6 +1,10 @@
+# -*- encoding: utf-8 -*-
+$:.push File.expand_path("../lib", __FILE__)
+require "teamocil"
+
 spec = Gem::Specification.new do |s|
   s.name         = "teamocil"
-  s.version      = "0.1.10"
+  s.version      = Teamocil::VERSION
   s.platform     = Gem::Platform::RUBY
   s.authors      = "Rémi Prévost"
   s.email        = "remi@exomel.com"
