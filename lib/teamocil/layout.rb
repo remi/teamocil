@@ -39,16 +39,14 @@ module Teamocil
           output << "tmux new-window -n \"#{window["name"]}\""
         end
 
-        # Make sure our filters return arrays
+        # Make sure we have a `filters` key and it contains arrays
         window["filters"] ||= {}
         window["filters"]["before"] ||= []
         window["filters"]["after"] ||= []
-        window["filters"]["before"] = [window["filters"]["before"]] unless window["filters"]["before"].is_a? Array
-        window["filters"]["after"] = [window["filters"]["after"]] unless window["filters"]["after"].is_a? Array
 
         # Create splits
-        window["splits"].each_with_index do |split, index|
-          unless index == 0
+        window["splits"].each_with_index do |split, split_index|
+          unless split_index == 0
             if split.include?("width")
               cmd = "tmux split-window -h -p #{split["width"]}"
             elsif split.include?("height")
@@ -60,24 +58,22 @@ module Teamocil
             output << cmd
           end
 
-          # Support single command splits, but treat it as an array nevertheless
-          split["cmd"] = [split["cmd"]] unless split["cmd"].is_a? Array
-
           # Wrap all commands around filters
-          split["cmd"] = window["filters"]["before"] + split["cmd"] + window["filters"]["after"]
+          split["cmd"] = [window["filters"]["before"]] + [split["cmd"]] + [window["filters"]["after"]]
 
           # If a `root` key exist, start each split in this directory
-          split["cmd"] = ["cd \"#{window["root"]}\""] + split["cmd"] if window.include?("root")
+          split["cmd"].unshift "cd \"#{window["root"]}\"" if window.include?("root")
 
           # Execute each split command
-          split["cmd"].compact.each do |command|
-            output << "tmux send-keys -t #{index} \"#{command}\""
-            output << "tmux send-keys -t #{index} Enter"
+          split["cmd"].flatten.compact.each do |command|
+            output << "tmux send-keys -t #{split_index} \"#{command}\""
+            output << "tmux send-keys -t #{split_index} Enter"
           end
         end
 
       end
 
+      # Set the focus in the first split
       output << "tmux select-pane -t 0"
     end # }}}
 
