@@ -5,9 +5,9 @@ require 'teamocil'
 
 module Helpers
 
-  def examples # {{{
+  def layouts # {{{
     return @@examples if defined?(@@examples)
-    @@examples = YAML.load_file(File.join(File.dirname(__FILE__), "examples/layouts.yml"))
+    @@examples = YAML.load_file(File.join(File.dirname(__FILE__), "fixtures/layouts.yml"))
   end # }}}
 
 end
