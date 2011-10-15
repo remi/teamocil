@@ -1,6 +1,6 @@
 # Teamocil
 
-Teamocil is a simple tool used to automatically create sessions, windows and splits in `tmux` with Ruby and YAML. Like [tmuxinator](https://github.com/aziz/tmuxinator), but with splits, not just windows.
+Teamocil is a simple tool used to automatically create sessions, windows and splits in [tmux](http://tmux.sourceforge.net/) with YAML files.
 
 ## Usage
 
@@ -168,6 +168,12 @@ To get autocompletion when typing `teamocil <Tab>` in a zsh session, add this li
 
     compctl -g '~/.teamocil/*(:t:r)' teamocil
 
+## Todo list
+
+* Support tmux options for windows and splits (eg. `synchronize-panes`)
+* Making sure the layout is valid before executing it
+* Refactor the `Layout` class to make it “test-friendly”
+
 ## Contributors
 
 Feel free to contribute and submit issues/pull requests [on GitHub](https://github.com/remiprev/teamocil/issues), just like these fine folks did:
@@ -177,4 +183,4 @@ Feel free to contribute and submit issues/pull requests [on GitHub](https://gith
 
 ## License
 
-Teamocil is © 2011 Rémi Prévost and may be freely distributed under the [LITL license](http://litl.info/). See the `LICENSE` file.
+Teamocil is © 2011 [Rémi Prévost](http://exomel.com) and may be freely distributed under the [LITL license](http://litl.info/). See the `LICENSE` file.
