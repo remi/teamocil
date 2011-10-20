@@ -45,11 +45,14 @@ If you are not using a top-level `session` key, then the first key of your layou
 * `root` (the directory in which every split will be created)
 * `filters` (a hash of `before` and `after` commands to run for each split)
 * `splits` (an array of split items)
+* `options` (a hash of tmux options, see `man tmux` for a list)
 
 #### Example
 
     windows:
       - name: my-first-window
+        options:
+          synchronize-panes: true
         root: ~/Projects/foo-www
         filters:
           before:

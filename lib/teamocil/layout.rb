@@ -23,6 +23,7 @@ module Teamocil
     def generate_commands # {{{
       output = []
 
+      # Support renaming of current session
       if @layout["session"].nil?
         windows = @layout["windows"]
       else
@@ -39,7 +40,8 @@ module Teamocil
           output << "tmux new-window -n \"#{window["name"]}\""
         end
 
-        # Make sure we have a `filters` key and it contains arrays
+        # Make sure we have all the keys we need
+        window["options"] ||= {}
         window["filters"] ||= {}
         window["filters"]["before"] ||= []
         window["filters"]["after"] ||= []
@@ -69,6 +71,13 @@ module Teamocil
             output << "tmux send-keys -t #{split_index} \"#{command}\""
             output << "tmux send-keys -t #{split_index} Enter"
           end
+        end
+
+        # Set tmux options
+        window["options"].each_pair do |option, value|
+          value = "on"  if value === true
+          value = "off" if value === false
+          output << "tmux set-window-option #{option} #{value}"
         end
 
       end
