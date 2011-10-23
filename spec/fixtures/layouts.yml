@@ -2,36 +2,33 @@
 two-windows:
   windows:
     - name: "foo"
+      root: "/foo"
       splits:
         - cmd: "echo 'foo'"
         - cmd: "echo 'foo again'"
           width: 50
     - name: "bar"
+      root: "/bar"
       splits:
-        - cmd: "echo 'bar'"
+        - cmd:
+          - "echo 'bar'"
+          - "echo 'bar in an array'"
         - cmd: "echo 'bar again'"
           width: 50
 
-# Simple two windows layout in session
-two-windows-in-a-session:
-  session:
-    name: my-new-session
-    windows:
-      - name: "foo"
-        splits:
-          - cmd: "echo 'foo'"
-          - cmd: "echo 'foo again'"
-            width: 50
-      - name: "bar"
-        splits:
-          - cmd: "echo 'bar'"
-          - cmd: "echo 'bar again'"
-            width: 50
-four-splits:
+# Simple two windows layout with filters
+two-windows-with-filters:
   windows:
     - name: "foo"
+      root: "/foo"
+      filters:
+        before:
+          - "echo first before filter"
+          - "echo second before filter"
+        after:
+          - "echo first after filter"
+          - "echo second after filter"
       splits:
-        - cmd: "echo 1"
-        - cmd: "echo 2"
-        - cmd: "echo 3"
-        - cmd: "echo 4"
+        - cmd: "echo 'foo'"
+        - cmd: "echo 'foo again'"
+          width: 50

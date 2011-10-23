@@ -26,7 +26,8 @@ module Teamocil
         bail "There is no file \"#{file}\"" unless File.exists?(file)
         parsed_layout = YAML.load_file(file)
         layout = Teamocil::Layout.new(parsed_layout, @options)
-        layout.to_tmux
+        layout.compile!
+        layout.execute_commands(layout.generate_commands)
       end
     end # }}}
 

@@ -1,6 +1,136 @@
 module Teamocil
-  # This class act as a wrapper around a tmux YAML layout file.
+
+  # This class act as a wrapper around a tmux YAML layout file
   class Layout
+
+    # This class represents a session within tmux
+    class Session
+      attr_reader :options, :windows, :name
+
+      # Initialize a new tmux session
+      #
+      # @param options [Hash] the options, mostly passed by the CLI
+      # @param attrs [Hash] the session data from the layout file
+      def initialize(options, attrs={}) # {{{
+        @name = attrs["name"]
+        @windows = attrs["windows"].each_with_index.map { |window, index| Window.new(self, index, window) }
+        @options = options
+      end # }}}
+
+      # Generate commands to send to tmux
+      #
+      # @return [Array]
+      def generate_commands # {{{
+        commands = []
+        commands << "tmux rename-session \"#{@name}\"" unless @name.nil?
+        commands << @windows.map(&:generate_commands)
+        commands << "tmux select-pane -t 0"
+        commands
+      end # }}}
+
+    end
+
+    # This class represents a window within tmux
+    class Window
+      attr_reader :filters, :root, :splits, :options, :index, :name
+
+      # Initialize a new tmux window
+      #
+      # @param session [Session] the session where the window is initialized
+      # @param index [Fixnnum] the window index
+      # @param attrs [Hash] the window data from the layout file
+      def initialize(session, index, attrs={}) # {{{
+        @name = attrs["name"]
+        @root = attrs["root"]
+        @options = attrs["options"]
+        @filters = attrs["filters"]
+        @splits = attrs["splits"].each_with_index.map { |split, index| Split.new(self, index, split) }
+        @index = index
+        @session = session
+
+        @options ||= {}
+        @filters ||= {}
+        @filters["before"] ||= []
+        @filters["after"] ||= []
+      end # }}}
+
+      # Generate commands to send to tmux
+      #
+      # @return [Array]
+      def generate_commands # {{{
+        commands = []
+
+        if @session.options.include?(:here) and @index == 0
+          commands << "tmux rename-window \"#{@name}\""
+        else
+          commands << "tmux new-window -n \"#{@name}\""
+        end
+
+        commands << @splits.map(&:generate_commands)
+
+        @options.each_pair do |option, value|
+          value = "on"  if value === true
+          value = "off" if value === false
+          commands << "tmux set-window-option #{option} #{value}"
+        end
+
+        commands
+      end # }}}
+
+    end
+
+    # This class represents a split within a tmux window
+    class Split
+      attr_reader :width, :height, :cmd, :index, :target
+
+      # Initialize a new tmux split
+      #
+      # @param session [Session] the window where the split is initialized
+      # @param index [Fixnnum] the split index
+      # @param attrs [Hash] the split data from the layout file
+      def initialize(window, index, attrs={}) # {{{
+        @height = attrs["height"]
+        @width = attrs["width"]
+        @cmd = attrs["cmd"]
+        @target = attrs["target"]
+        @window = window
+        @index = index
+      end # }}}
+
+      # Generate commands to send to tmux
+      #
+      # @return [Array]
+      def generate_commands # {{{
+        commands = []
+
+        # Is it a vertical or horizontal split?
+        unless @index == 0
+          if !@width.nil?
+            commands << "tmux split-window -h -p #{@width}"
+          elsif !@height.nil?
+            commands << "tmux split-window -p #{@height}"
+          else
+            commands << "tmux split-window"
+          end
+          commands << " -t #{@target}" unless @target.nil?
+        end
+
+        # Wrap all commands around filters
+        @cmd = [@window.filters["before"]] + [@cmd] + [@window.filters["after"]]
+
+        # If a `root` key exist, start each split in this directory
+        @cmd.unshift "cd \"#{@window.root}\"" unless @window.root.nil?
+
+        # Execute each split command
+        @cmd.flatten.compact.each do |command|
+          commands << "tmux send-keys -t #{@index} \"#{command}\""
+          commands << "tmux send-keys -t #{@index} Enter"
+        end
+
+        commands
+      end # }}}
+
+    end
 
     # Initialize a new layout from a hash
     #
@@ -11,79 +141,22 @@ module Teamocil
       @options = options
     end # }}}
 
-    # Generate commands and sends them to tmux
-    def to_tmux # {{{
-      commands = generate_commands
-      execute_commands(commands)
-    end # }}}
-
     # Generate tmux commands based on the data found in the layout file
     #
     # @return [Array] an array of shell commands to send
     def generate_commands # {{{
-      output = []
+      @session.generate_commands
+    end # }}}
 
-      # Support renaming of current session
+    # Compile the layout into objects
+    #
+    # @return [Session]
+    def compile! # {{{
       if @layout["session"].nil?
-        windows = @layout["windows"]
+        @session = Session.new @options, "windows" => @layout["windows"]
       else
-        output << "tmux rename-session \"#{@layout["session"]["name"]}\"" if @layout["session"]["name"]
-        windows = @layout["session"]["windows"]
+        @session = Session.new @options, @layout["session"]
       end
-
-      windows.each_with_index do |window, window_index|
-
-        # Create a new window unless we used the `--here` option
-        if @options.include?(:here) and window_index == 0
-          output << "tmux rename-window \"#{window["name"]}\""
-        else
-          output << "tmux new-window -n \"#{window["name"]}\""
-        end
-
-        # Make sure we have all the keys we need
-        window["options"] ||= {}
-        window["filters"] ||= {}
-        window["filters"]["before"] ||= []
-        window["filters"]["after"] ||= []
-
-        # Create splits
-        window["splits"].each_with_index do |split, split_index|
-          unless split_index == 0
-            if split.include?("width")
-              cmd = "tmux split-window -h -p #{split["width"]}"
-            elsif split.include?("height")
-              cmd = "tmux split-window -p #{split["height"]}"
-            else
-              cmd = "tmux split-window"
-            end
-            cmd << " -t #{split["target"]}" if split.include?("target")
-            output << cmd
-          end
-
-          # Wrap all commands around filters
-          split["cmd"] = [window["filters"]["before"]] + [split["cmd"]] + [window["filters"]["after"]]
-
-          # If a `root` key exist, start each split in this directory
-          split["cmd"].unshift "cd \"#{window["root"]}\"" if window.include?("root")
-
-          # Execute each split command
-          split["cmd"].flatten.compact.each do |command|
-            output << "tmux send-keys -t #{split_index} \"#{command}\""
-            output << "tmux send-keys -t #{split_index} Enter"
-          end
-        end
-
-        # Set tmux options
-        window["options"].each_pair do |option, value|
-          value = "on"  if value === true
-          value = "off" if value === false
-          output << "tmux set-window-option #{option} #{value}"
-        end
-
-      end
-
-      # Set the focus in the first split
-      output << "tmux select-pane -t 0"
     end # }}}
 
     # Execute each command in the shell
