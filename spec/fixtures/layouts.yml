@@ -11,3 +11,27 @@ two-windows:
         - cmd: "echo 'bar'"
         - cmd: "echo 'bar again'"
           width: 50
+
+# Simple two windows layout in session
+two-windows-in-a-session:
+  session:
+    name: my-new-session
+    windows:
+      - name: "foo"
+        splits:
+          - cmd: "echo 'foo'"
+          - cmd: "echo 'foo again'"
+            width: 50
+      - name: "bar"
+        splits:
+          - cmd: "echo 'bar'"
+          - cmd: "echo 'bar again'"
+            width: 50
+four-splits:
+  windows:
+    - name: "foo"
+      splits:
+        - cmd: "echo 1"
+        - cmd: "echo 2"
+        - cmd: "echo 3"
+        - cmd: "echo 4"
