@@ -2,13 +2,17 @@ require File.join(File.dirname(__FILE__), "spec_helper.rb")
 
 describe Teamocil::Layout do
 
-  context "initializing" do
-  end
-
   context "compiling" do
 
-    before :each do # {{{
+    before do # {{{
       @layout = Teamocil::Layout.new(layouts["two-windows"], {})
+    end # }}}
+
+    it "creates windows" do # {{{
+      session = @layout.compile!
+      session.windows.each do |window|
+        window.should be_an_instance_of Teamocil::Layout::Window
+      end
     end # }}}
 
     it "creates windows with names" do # {{{
@@ -21,6 +25,13 @@ describe Teamocil::Layout do
       session = @layout.compile!
       session.windows[0].root.should == "/foo"
       session.windows[1].root.should == "/bar"
+    end # }}}
+
+    it "creates splits" do # {{{
+      session = @layout.compile!
+      session.windows.first.splits.each do |split|
+        split.should be_an_instance_of Teamocil::Layout::Split
+      end
     end # }}}
 
     it "creates splits with dimensions" do # {{{
@@ -57,5 +68,24 @@ describe Teamocil::Layout do
       session.windows.first.filters["after"].last.should == "echo second after filter"
     end # }}}
 
+    it "should handle blank filters" do # {{{
+      session = @layout.compile!
+      session.windows.first.filters.should have_key "after"
+      session.windows.first.filters.should have_key "before"
+      session.windows.first.filters["after"].should be_empty
+      session.windows.first.filters["before"].should be_empty
+    end # }}}
+
+    it "should handle splits without a target" do # {{{
+      session = @layout.compile!
+      session.windows.last.splits.last.target.should == nil
+    end # }}}
+
+    it "should handle splits with a target" do # {{{
+      session = @layout.compile!
+      session.windows.last.splits.first.target.should == "bottom-right"
+    end # }}}
+
   end
+
 end

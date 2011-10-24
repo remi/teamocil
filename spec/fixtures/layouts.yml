@@ -13,6 +13,7 @@ two-windows:
         - cmd:
           - "echo 'bar'"
           - "echo 'bar in an array'"
+          target: bottom-right
         - cmd: "echo 'bar again'"
           width: 50
 
