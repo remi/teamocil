@@ -105,15 +105,17 @@ module Teamocil
         commands = []
 
         # Is it a vertical or horizontal split?
+        init_command = ""
         unless @index == 0
           if !@width.nil?
-            commands << "tmux split-window -h -p #{@width}"
+            init_command = "tmux split-window -h -p #{@width}"
           elsif !@height.nil?
-            commands << "tmux split-window -p #{@height}"
+            init_command = "tmux split-window -p #{@height}"
           else
-            commands << "tmux split-window"
+            init_command = "tmux split-window"
           end
-          commands << " -t #{@target}" unless @target.nil?
+          init_command << " -t #{@target}" unless @target.nil?
+          commands << init_command
         end
 
         # Wrap all commands around filters
