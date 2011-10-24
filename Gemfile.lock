@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    teamocil (0.2)
+    teamocil (0.2.1)
 
 GEM
   remote: http://rubygems.org/
