@@ -33,3 +33,11 @@ two-windows-with-filters:
         - cmd: "echo 'foo'"
         - cmd: "echo 'foo again'"
           width: 50
+
+three-windows-within-a-session:
+  session:
+    name: "my awesome session"
+    windows:
+      - name: "first window"
+      - name: "second window"
+      - name: "third window"

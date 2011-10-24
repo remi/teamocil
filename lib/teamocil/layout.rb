@@ -44,7 +44,8 @@ module Teamocil
         @root = attrs["root"]
         @options = attrs["options"]
         @filters = attrs["filters"]
-        @splits = attrs["splits"].each_with_index.map { |split, index| Split.new(self, index, split) }
+        @splits = attrs["splits"] || []
+        @splits = @splits.each_with_index.map { |split, index| Split.new(self, index, split) }
         @index = index
         @session = session
 

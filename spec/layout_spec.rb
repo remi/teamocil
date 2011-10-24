@@ -86,6 +86,13 @@ describe Teamocil::Layout do
       session.windows.last.splits.first.target.should == "bottom-right"
     end # }}}
 
+    it "should handle windows within a session" do # {{{
+      layout = Teamocil::Layout.new(layouts["three-windows-within-a-session"], {})
+      session = layout.compile!
+      session.windows.length.should == 3
+      session.name.should == "my awesome session"
+    end # }}}
+
   end
 
 end
