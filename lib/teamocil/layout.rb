@@ -42,17 +42,17 @@ module Teamocil
       def initialize(session, index, attrs={}) # {{{
         @name = attrs["name"]
         @root = attrs["root"]
-        @options = attrs["options"]
-        @filters = attrs["filters"]
+        @options = attrs["options"] || {}
+
         @splits = attrs["splits"] || []
         @splits = @splits.each_with_index.map { |split, index| Split.new(self, index, split) }
-        @index = index
-        @session = session
 
-        @options ||= {}
-        @filters ||= {}
+        @filters = attrs["filters"] || {}
         @filters["before"] ||= []
         @filters["after"] ||= []
+
+        @index = index
+        @session = session
       end # }}}
 
       # Generate commands to send to tmux
@@ -94,6 +94,7 @@ module Teamocil
         @width = attrs["width"]
         @cmd = attrs["cmd"]
         @target = attrs["target"]
+
         @window = window
         @index = index
       end # }}}
