@@ -13,7 +13,7 @@ module Teamocil
       # @param attrs [Hash] the session data from the layout file
       def initialize(options, attrs={}) # {{{
         @name = attrs["name"]
-        @windows = attrs["windows"].each_with_index.map { |window, index| Window.new(self, index, window) }
+        @windows = attrs["windows"].each_with_index.map { |window, window_index| Window.new(self, window_index, window) }
         @options = options
       end # }}}
 
@@ -45,7 +45,7 @@ module Teamocil
         @options = attrs["options"] || {}
 
         @splits = attrs["splits"] || []
-        @splits = @splits.each_with_index.map { |split, index| Split.new(self, index, split) }
+        @splits = @splits.each_with_index.map { |split, split_index| Split.new(self, split_index, split) }
 
         @filters = attrs["filters"] || {}
         @filters["before"] ||= []
