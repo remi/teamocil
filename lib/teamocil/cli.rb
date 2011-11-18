@@ -14,7 +14,7 @@ module Teamocil
 
       parse_options!
       if @options.include?(:layout)
-        file = options[:layout]
+        file = @options[:layout]
       else
         file = ::File.join("#{env["HOME"]}/.teamocil", "#{argv[0]}.yml")
       end
