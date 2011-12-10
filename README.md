@@ -4,11 +4,13 @@ Teamocil is a simple tool used to automatically create sessions, windows and spl
 
 ## Usage
 
-    $ gem install teamocil
-    $ mkdir ~/.teamocil
-    $ teamocil --edit sample
-    $ tmux
-    $ teamocil sample
+```bash
+$ gem install teamocil
+$ mkdir ~/.teamocil
+$ teamocil --edit sample
+$ tmux
+$ teamocil sample
+```
 
 ## Options
 
@@ -30,10 +32,12 @@ You can wrap your entire layout file in a `session` and Teamocil will rename the
 
 #### Example
 
-    session:
-      name: my-awesome-session
-      windows:
-       [windows list]
+```yaml
+session:
+  name: "my-awesome-session"
+  windows:
+    [windows list]
+```
 
 ### Windows
 
@@ -49,27 +53,27 @@ If you are not using a top-level `session` key, then the first key of your layou
 
 #### Example
 
-    windows:
-      - name: my-first-window
-        options:
-          synchronize-panes: true
-        root: ~/Projects/foo-www
-        filters:
-          before:
-            - "echo 'Let’s use ruby-1.9.2 for each split in this window.'"
-            - "rvm use 1.9.2"
-        splits:
-          [splits list]
-      - name: my-second-window
-        root: ~/Projects/foo-api
-        filters:
-          after: "rvm use 1.9.2"
-        splits:
-          [splits list]
-      - name: my-third-window
-        root: ~/Projects/foo-daemons
-        splits:
-          [splits list]
+```yaml
+windows:
+  - name: "my-first-window"
+    options:
+      synchronize-panes: true
+    root: "~/Projects/foo-www"
+    filters:
+      before:
+        - "echo 'Let’s use ruby-1.9.2 for each split in this window.'"
+        - "rvm use 1.9.2"
+    splits:
+      [splits list]
+  - name: "my-second-window"
+    root: "~/Projects/foo-api"
+    splits:
+      [splits list]
+  - name: "my-third-window"
+    root: "~/Projects/foo-daemons"
+    splits:
+      [splits list]
+```
 
 ### Splits
 
@@ -84,20 +88,22 @@ Every window must define an array of splits that will be created within it. A ve
 
 #### Example
 
-    windows:
-      - name: my-first-window
-        root: ~/Projects/foo-www
-        filters:
-          before: "rvm use 1.9.2"
-          after: "echo 'I am done initializing this split.'"
-        splits:
-          - cmd: "git status"
-          - cmd: "bundle exec rails server --port 4000"
-            width: 50
-          - cmd:
-              - sudo service memcached start
-              - sudo service mongodb start
-            height: 50
+```yaml
+windows:
+  - name: "my-first-window"
+    root: "~/Projects/foo-www"
+    filters:
+      before: "rvm use 1.9.2"
+      after: "echo 'I am done initializing this split.'"
+    splits:
+      - cmd: "git status"
+      - cmd: "bundle exec rails server --port 4000"
+        width: 50
+      - cmd:
+          - "sudo service memcached start"
+          - "sudo service mongodb start"
+        height: 50
+```
 
 ## Layout examples
 
@@ -107,15 +113,16 @@ See more example files in the `examples` directory.
 
 #### Content of `~/.teamocil/sample-1.yml`
 
-    windows:
-      - name: sample-two-splits
-        root: ~/Code/sample/www
-        splits:
-          - cmd:
-            - pwd
-            - ls -la
-          - cmd: rails server --port 3000
-            width: 50
+```yaml
+windows:
+  - name: "sample-two-splits"
+    root: "~/Code/sample/www"
+    splits:
+      - cmd: ["pwd", "ls -la"]
+      - cmd: "rails server --port 3000"
+        width: 50
+```
+        
 
 #### Result of `$ teamocil sample-1`
 
@@ -135,19 +142,21 @@ See more example files in the `examples` directory.
 
 #### Content of `~/.teamocil/sample-2.yml`
 
-    windows:
-      - name: sample-four-splits
-        root: ~/Code/sample/www
-        splits:
-          - cmd: pwd
-          - cmd: pwd
-            width: 50
-          - cmd: pwd
-            height: 50
-            target: bottom-right
-          - cmd: pwd
-            height: 50
-            target: bottom-left
+```yaml
+windows:
+  - name: "sample-four-splits"
+    root: "~/Code/sample/www"
+    splits:
+      - cmd: "pwd"
+      - cmd: "pwd"
+        width: 50
+      - cmd: "pwd"
+        height: 50
+        target: "bottom-right"
+      - cmd: "pwd"
+        height: 50
+        target: "bottom-left"
+```
 
 #### Result of `$ teamocil sample-2`
 
@@ -169,7 +178,9 @@ See more example files in the `examples` directory.
 
 To get autocompletion when typing `teamocil <Tab>` in a zsh session, add this line to your `~/.zshrc` file:
 
-    compctl -g '~/.teamocil/*(:t:r)' teamocil
+```zsh
+compctl -g '~/.teamocil/*(:t:r)' teamocil
+```
 
 ## Todo list
 
