@@ -5,7 +5,7 @@ module Teamocil
   # This class handles interaction with the `tmux` utility.
   class CLI
 
-    attr_accessor :layout
+    attr_accessor :layout, :layouts
 
     # Initialize a new run of `tmux`
     #
@@ -14,11 +14,18 @@ module Teamocil
     def initialize(argv, env) # {{{
       bail "You must be in a tmux session to use teamocil" unless env["TMUX"]
 
-      parse_options!
+      parse_options! argv
+      layout_path = File.join("#{env["HOME"]}", ".teamocil")
+
+      if @options.include?(:list)
+        @layouts = get_layouts(layout_path)
+        return print_layouts
+      end
+
       if @options.include?(:layout)
         file = @options[:layout]
       else
-        file = ::File.join("#{env["HOME"]}/.teamocil", "#{argv[0]}.yml")
+        file = ::File.join(layout_path, "#{argv[0]}.yml")
       end
 
       if @options[:edit]
@@ -34,7 +41,7 @@ module Teamocil
     end # }}}
 
     # Parse the command line options
-    def parse_options! # {{{
+    def parse_options!(args) # {{{
       @options = {}
       opts = ::OptionParser.new do |opts|
         opts.banner = "Usage: teamocil [options] <layout>
@@ -49,12 +56,29 @@ module Teamocil
           @options[:edit] = true
         end
 
-        opts.on("--layout [LAYOUT]", "Use a specific layout file, instead of ~/.teamocil/<layout>.yml") do |layout|
+        opts.on("--layout [LAYOUT]", "Use a specific layout file, instead of `~/.teamocil/<layout>.yml`") do |layout|
           @options[:layout] = layout
         end
 
+        opts.on("--list", "List all available layouts in `~/.teamocil/`") do
+          @options[:list] = true
+        end
+
       end
-      opts.parse!
+      opts.parse! args
+    end # }}}
+
+    # Return an array of available layouts
+    #
+    # @param path [String] the path used to look for layouts
+    def get_layouts(path) # {{{
+      Dir.glob(File.join(path, "*.yml")).map { |file| File.basename(file).gsub(/\..+$/, "") }.sort
+    end # }}}
+
+    # Print each layout on a single line
+    def print_layouts # {{{
+      STDOUT.puts @layouts.join("\n")
+      exit 0
     end # }}}
 
     # Print an error message and exit the utility

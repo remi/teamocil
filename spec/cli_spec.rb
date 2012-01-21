@@ -16,6 +16,11 @@ describe Teamocil::CLI do
       @cli.layout.session.windows.last.name.should == "bar"
     end # }}}
 
+    it "lists available layouts" do # {{{
+      @cli = Teamocil::CLI.new(["--list"], @fake_env)
+      @cli.layouts.should == ["sample", "sample-2"]
+    end # }}}
+
   end
 
 end

@@ -1,12 +1,12 @@
 module Teamocil
   module Mock
-    module Layout
+    module CLI
 
       def self.included(base) # {{{
         base.class_eval do
 
-          # Do not execute anything
-          def execute_commands(commands)
+          # Do not print anything
+          def print_layouts
             # Nothing
           end
 
@@ -17,4 +17,4 @@ module Teamocil
   end
 end
 
-Teamocil::Layout.send :include, Teamocil::Mock::Layout
+Teamocil::CLI.send :include, Teamocil::Mock::CLI
