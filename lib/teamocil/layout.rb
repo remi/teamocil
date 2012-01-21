@@ -2,6 +2,7 @@ module Teamocil
 
   # This class act as a wrapper around a tmux YAML layout file
   class Layout
+    attr_reader :session
 
     # This class represents a session within tmux
     class Session

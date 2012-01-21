@@ -1,0 +1,10 @@
+session:
+  name: sample-2
+  root: ~
+  windows:
+    - name: "foo"
+      splits:
+      - cmd: "pwd"
+    - name: "bar"
+      splits:
+      - cmd: "pwd"

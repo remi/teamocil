@@ -5,6 +5,8 @@ module Teamocil
   # This class handles interaction with the `tmux` utility.
   class CLI
 
+    attr_accessor :layout
+
     # Initialize a new run of `tmux`
     #
     # @param argv [Hash] the command line parameters hash (usually `ARGV`).
@@ -25,9 +27,9 @@ module Teamocil
       else
         bail "There is no file \"#{file}\"" unless File.exists?(file)
         parsed_layout = YAML.load_file(file)
-        layout = Teamocil::Layout.new(parsed_layout, @options)
-        layout.compile!
-        layout.execute_commands(layout.generate_commands)
+        @layout = Teamocil::Layout.new(parsed_layout, @options)
+        @layout.compile!
+        @layout.execute_commands(@layout.generate_commands)
       end
     end # }}}
 
