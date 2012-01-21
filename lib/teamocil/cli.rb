@@ -61,7 +61,7 @@ module Teamocil
     #
     # @param msg [Mixed] something to print before exiting.
     def bail(msg) # {{{
-      puts "[teamocil] #{msg}"
+      STDERR.puts "[teamocil] #{msg}"
       exit 1
     end # }}}
 
