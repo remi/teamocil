@@ -19,6 +19,7 @@ $ teamocil sample
 * `--here` opens the session in the current window, it doesn’t create an empty first window.
 * `--layout` takes a custom file path to a YAML layout file.
 * `--edit` opens the layout file (whether or not `--layout` is used) with `$EDITOR`.
+* `--list` lists all available layouts.
 
 ## Layout file structure
 
