@@ -188,6 +188,7 @@ compctl -g '~/.teamocil/*(:t:r)' teamocil
 ## Todo list
 
 * Making sure the layout is valid before executing it (ie. throw exceptions).
+* Add more specs.
 
 ## Contributors
 
