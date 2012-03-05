@@ -46,6 +46,9 @@ module Teamocil
         # If a `root` key exist, start each split in this directory
         @cmd.unshift "cd \"#{@window.root}\"" unless @window.root.nil?
 
+        # Set the TEAMOCIL environment variable
+        @cmd.unshift "export TEAMOCIL=1"
+
         # Execute each split command
         @cmd.flatten.compact.each do |command|
           commands << "tmux send-keys -t #{@index} \"#{command}\""
