@@ -12,8 +12,6 @@ module Teamocil
     # @param argv [Hash] the command line parameters hash (usually `ARGV`).
     # @param env [Hash] the environment variables hash (usually `ENV`).
     def initialize(argv, env) # {{{
-      bail "You must be in a tmux session to use teamocil" unless env["TMUX"]
-
       parse_options! argv
       layout_path = File.join("#{env["HOME"]}", ".teamocil")
 
@@ -30,9 +28,12 @@ module Teamocil
 
       if @options[:edit]
         ::FileUtils.touch file unless File.exists?(file)
-        system("$EDITOR \"#{file}\"")
+
+        Kernel.system("$EDITOR \"#{file}\"")
       else
         bail "There is no file \"#{file}\"" unless File.exists?(file)
+        bail "You must be in a tmux session to use teamocil" unless env["TMUX"]
+
         parsed_layout = YAML.load_file(file)
         @layout = Teamocil::Layout.new(parsed_layout, @options)
         @layout.compile!
