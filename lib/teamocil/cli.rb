@@ -20,22 +20,16 @@ module Teamocil
         return print_layouts
       end
 
-      if @options.include?(:layout)
-        file = @options[:layout]
-      else
-        file = ::File.join(layout_path, "#{argv[0]}.yml")
-      end
+      file = @options[:layout] || ::File.join(layout_path, "#{argv[0]}.yml")
 
       if @options[:edit]
         ::FileUtils.touch file unless File.exists?(file)
-
         Kernel.system("$EDITOR \"#{file}\"")
       else
         bail "There is no file \"#{file}\"" unless File.exists?(file)
         bail "You must be in a tmux session to use teamocil" unless env["TMUX"]
 
-        parsed_layout = YAML.load_file(file)
-        @layout = Teamocil::Layout.new(parsed_layout, @options)
+        @layout = Teamocil::Layout.new(YAML.load_file(file), @options)
         @layout.compile!
         @layout.execute_commands(@layout.generate_commands)
       end
