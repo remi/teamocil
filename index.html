@@ -1,0 +1,271 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Teamocil by remiprev</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Teamocil</h1>
+        <p>There's no I in Teamocil. At least not where you think. Teamocil helps you set up windows and splits layouts for tmux using YAML configuration files.</p>
+        <p class="view"><a href="https://github.com/remiprev/teamocil">View the Project on GitHub <small>remiprev/teamocil</small></a></p>
+        <ul>
+          <li><a href="https://github.com/remiprev/teamocil/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/remiprev/teamocil/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/remiprev/teamocil">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Teamocil</h1>
+
+<p>Teamocil is a simple tool used to automatically create sessions, windows and splits in <a href="http://tmux.sourceforge.net/">tmux</a> with YAML files.</p>
+
+<p><a href="http://travis-ci.org/remiprev/teamocil"><img src="https://secure.travis-ci.org/remiprev/teamocil.png" alt="Build Status"></a></p>
+
+<h2>Usage</h2>
+
+<div class="highlight">
+<pre><span class="nv">$ </span>gem install teamocil
+<span class="nv">$ </span>mkdir ~/.teamocil
+<span class="nv">$ </span>teamocil --edit sample
+<span class="nv">$ </span>tmux
+<span class="nv">$ </span>teamocil sample
+</pre>
+</div>
+
+
+<h2>Options</h2>
+
+<ul>
+<li>
+<code>--here</code> opens the session in the current window, it doesn’t create an empty first window.</li>
+<li>
+<code>--layout</code> takes a custom file path to a YAML layout file.</li>
+<li>
+<code>--edit</code> opens the layout file (whether or not <code>--layout</code> is used) with <code>$EDITOR</code>.</li>
+<li>
+<code>--list</code> lists all available layouts.</li>
+</ul><h2>Layout file structure</h2>
+
+<p>A layout file is a single YAML file located in <code>~/.teamocil</code> (eg. <code>~/.teamocil/my-project.yml</code>).</p>
+
+<h3>Session</h3>
+
+<p>You can wrap your entire layout file in a <code>session</code> and Teamocil will rename the current session (so that you can find it more easily when running <code>tmux list-sessions</code>) before creating your windows.</p>
+
+<h4>Keys</h4>
+
+<ul>
+<li>
+<code>name</code> (the name of the session)</li>
+</ul><h4>Example</h4>
+
+<div class="highlight">
+<pre><span class="l-Scalar-Plain">session</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="s">"my-awesome-session"</span>
+  <span class="l-Scalar-Plain">windows</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">[</span><span class="nv">windows list</span><span class="p-Indicator">]</span>
+</pre>
+</div>
+
+
+<h3>Windows</h3>
+
+<p>If you are not using a top-level <code>session</code> key, then the first key of your layout file will be <code>windows</code>, an array of window items.</p>
+
+<h4>Item keys</h4>
+
+<ul>
+<li>
+<code>name</code> (the name that will appear in <code>tmux</code> statusbar)</li>
+<li>
+<code>root</code> (the directory in which every split will be created)</li>
+<li>
+<code>filters</code> (a hash of <code>before</code> and <code>after</code> commands to run for each split)</li>
+<li>
+<code>splits</code> (an array of split items)</li>
+<li>
+<code>options</code> (a hash of tmux options, see <code>man tmux</code> for a list)</li>
+</ul><h4>Example</h4>
+
+<div class="highlight">
+<pre><span class="l-Scalar-Plain">windows</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="s">"my-first-window"</span>
+    <span class="l-Scalar-Plain">options</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">synchronize-panes</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+    <span class="l-Scalar-Plain">root</span><span class="p-Indicator">:</span> <span class="s">"~/Projects/foo-www"</span>
+    <span class="l-Scalar-Plain">filters</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">before</span><span class="p-Indicator">:</span>
+        <span class="p-Indicator">-</span> <span class="s">"echo</span><span class="nv"> </span><span class="s">'Let’s</span><span class="nv"> </span><span class="s">use</span><span class="nv"> </span><span class="s">ruby-1.9.2</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">each</span><span class="nv"> </span><span class="s">split</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">window.'"</span>
+        <span class="p-Indicator">-</span> <span class="s">"rvm</span><span class="nv"> </span><span class="s">use</span><span class="nv"> </span><span class="s">1.9.2"</span>
+    <span class="l-Scalar-Plain">splits</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">[</span><span class="nv">splits list</span><span class="p-Indicator">]</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="s">"my-second-window"</span>
+    <span class="l-Scalar-Plain">root</span><span class="p-Indicator">:</span> <span class="s">"~/Projects/foo-api"</span>
+    <span class="l-Scalar-Plain">splits</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">[</span><span class="nv">splits list</span><span class="p-Indicator">]</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="s">"my-third-window"</span>
+    <span class="l-Scalar-Plain">root</span><span class="p-Indicator">:</span> <span class="s">"~/Projects/foo-daemons"</span>
+    <span class="l-Scalar-Plain">splits</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">[</span><span class="nv">splits list</span><span class="p-Indicator">]</span>
+</pre>
+</div>
+
+
+<h3>Splits</h3>
+
+<p>Every window must define an array of splits that will be created within it. A vertical or horizontal split will be created, depending on whether the <code>width</code> or <code>height</code> parameter is used.</p>
+
+<h4>Item keys</h4>
+
+<ul>
+<li>
+<code>cmd</code> (the commands to initially execute in the split)</li>
+<li>
+<code>width</code> (the split width, in percentage)</li>
+<li>
+<code>height</code> (the split width, in percentage)</li>
+<li>
+<code>target</code> (the split to set focus on, before creating the current one)</li>
+</ul><h4>Example</h4>
+
+<div class="highlight">
+<pre><span class="l-Scalar-Plain">windows</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="s">"my-first-window"</span>
+    <span class="l-Scalar-Plain">root</span><span class="p-Indicator">:</span> <span class="s">"~/Projects/foo-www"</span>
+    <span class="l-Scalar-Plain">filters</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">before</span><span class="p-Indicator">:</span> <span class="s">"rvm</span><span class="nv"> </span><span class="s">use</span><span class="nv"> </span><span class="s">1.9.2"</span>
+      <span class="l-Scalar-Plain">after</span><span class="p-Indicator">:</span> <span class="s">"echo</span><span class="nv"> </span><span class="s">'I</span><span class="nv"> </span><span class="s">am</span><span class="nv"> </span><span class="s">done</span><span class="nv"> </span><span class="s">initializing</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">split.'"</span>
+    <span class="l-Scalar-Plain">splits</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cmd</span><span class="p-Indicator">:</span> <span class="s">"git</span><span class="nv"> </span><span class="s">status"</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cmd</span><span class="p-Indicator">:</span> <span class="s">"bundle</span><span class="nv"> </span><span class="s">exec</span><span class="nv"> </span><span class="s">rails</span><span class="nv"> </span><span class="s">server</span><span class="nv"> </span><span class="s">--port</span><span class="nv"> </span><span class="s">4000"</span>
+        <span class="l-Scalar-Plain">width</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">50</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cmd</span><span class="p-Indicator">:</span>
+          <span class="p-Indicator">-</span> <span class="s">"sudo</span><span class="nv"> </span><span class="s">service</span><span class="nv"> </span><span class="s">memcached</span><span class="nv"> </span><span class="s">start"</span>
+          <span class="p-Indicator">-</span> <span class="s">"sudo</span><span class="nv"> </span><span class="s">service</span><span class="nv"> </span><span class="s">mongodb</span><span class="nv"> </span><span class="s">start"</span>
+        <span class="l-Scalar-Plain">height</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">50</span>
+</pre>
+</div>
+
+
+<h2>Layout examples</h2>
+
+<p>See more example files in the <code>examples</code> directory.</p>
+
+<h3>Simple two splits window</h3>
+
+<h4>Content of <code>~/.teamocil/sample-1.yml</code>
+</h4>
+
+<div class="highlight">
+<pre><span class="l-Scalar-Plain">windows</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="s">"sample-two-splits"</span>
+    <span class="l-Scalar-Plain">root</span><span class="p-Indicator">:</span> <span class="s">"~/Code/sample/www"</span>
+    <span class="l-Scalar-Plain">splits</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cmd</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">"pwd"</span><span class="p-Indicator">,</span> <span class="s">"ls</span><span class="nv"> </span><span class="s">-la"</span><span class="p-Indicator">]</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cmd</span><span class="p-Indicator">:</span> <span class="s">"rails</span><span class="nv"> </span><span class="s">server</span><span class="nv"> </span><span class="s">--port</span><span class="nv"> </span><span class="s">3000"</span>
+        <span class="l-Scalar-Plain">width</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">50</span>
+</pre>
+</div>
+
+
+<h4>Result of <code>$ teamocil sample-1</code>
+</h4>
+
+<pre><code>.------------------.------------------.
+| (0)              | (1)              |
+|                  |                  |
+|                  |                  |
+|                  |                  |
+|                  |                  |
+|                  |                  |
+|                  |                  |
+|                  |                  |
+|                  |                  |
+'------------------'------------------'
+</code></pre>
+
+<h3>Four tiled splits window</h3>
+
+<h4>Content of <code>~/.teamocil/sample-2.yml</code>
+</h4>
+
+<div class="highlight">
+<pre><span class="l-Scalar-Plain">windows</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="s">"sample-four-splits"</span>
+    <span class="l-Scalar-Plain">root</span><span class="p-Indicator">:</span> <span class="s">"~/Code/sample/www"</span>
+    <span class="l-Scalar-Plain">splits</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cmd</span><span class="p-Indicator">:</span> <span class="s">"pwd"</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cmd</span><span class="p-Indicator">:</span> <span class="s">"pwd"</span>
+        <span class="l-Scalar-Plain">width</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">50</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cmd</span><span class="p-Indicator">:</span> <span class="s">"pwd"</span>
+        <span class="l-Scalar-Plain">height</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">50</span>
+        <span class="l-Scalar-Plain">target</span><span class="p-Indicator">:</span> <span class="s">"bottom-right"</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cmd</span><span class="p-Indicator">:</span> <span class="s">"pwd"</span>
+        <span class="l-Scalar-Plain">height</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">50</span>
+        <span class="l-Scalar-Plain">target</span><span class="p-Indicator">:</span> <span class="s">"bottom-left"</span>
+</pre>
+</div>
+
+
+<h4>Result of <code>$ teamocil sample-2</code>
+</h4>
+
+<pre><code>.------------------.------------------.
+| (0)              | (1)              |
+|                  |                  |
+|                  |                  |
+|                  |                  |
+|------------------|------------------|
+| (3)              | (2)              |
+|                  |                  |
+|                  |                  |
+|                  |                  |
+'------------------'------------------'
+</code></pre>
+
+<h2>Extras</h2>
+
+<h3>Zsh autocompletion</h3>
+
+<p>To get autocompletion when typing <code>teamocil &lt;Tab&gt;</code> in a zsh session, add this line to your <code>~/.zshrc</code> file:</p>
+
+<pre lang="zsh"><code>compctl -g '~/.teamocil/*(:t:r)' teamocil
+</code></pre>
+
+<h2>Todo list</h2>
+
+<ul>
+<li>Making sure the layout is valid before executing it (ie. throw exceptions).</li>
+<li>Add more specs.</li>
+</ul><h2>Contributors</h2>
+
+<p>Feel free to contribute and submit issues/pull requests <a href="https://github.com/remiprev/teamocil/issues">on GitHub</a>, just like these fine folks did:</p>
+
+<ul>
+<li>Samuel Garneau (<a href="https://github.com/garno">garno</a>)</li>
+<li>Jimmy Bourassa (<a href="https://github.com/jbourassa">jbourassa</a>)</li>
+</ul><p>Take a look at the <code>spec</code> folder before you do, and make sure <code>bundle exec rake spec</code> passes after your modifications :)</p>
+
+<h2>License</h2>
+
+<p>Teamocil is © 2011-2012 <a href="http://exomel.com">Rémi Prévost</a> and may be freely distributed under the <a href="http://litl.info/">LITL license</a>. See the <code>LICENSE</code> file.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/remiprev">remiprev</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
