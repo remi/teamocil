@@ -4,3 +4,4 @@
 .yardoc
 doc
 pkg
+Gemfile.lock
