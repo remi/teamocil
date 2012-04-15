@@ -4,13 +4,11 @@ require File.join(File.dirname(__FILE__), "spec_helper.rb")
 describe Teamocil::Layout do
 
   context "compiling" do
-
     before do # {{{
       @layout = Teamocil::Layout.new(layouts["two-windows"], {})
     end # }}}
 
-    describe "windows" do
-
+    describe "windows" do # {{{
       it "creates windows" do # {{{
         session = @layout.compile!
         session.windows.each do |window|
@@ -29,11 +27,9 @@ describe Teamocil::Layout do
         session.windows[0].root.should == "/foo"
         session.windows[1].root.should == "/bar"
       end # }}}
+    end # }}}
 
-    end
-
-    describe "splits" do
-
+    describe "splits" do # {{{
       it "creates splits" do # {{{
         session = @layout.compile!
         session.windows.first.splits.each do |split|
@@ -58,11 +54,9 @@ describe Teamocil::Layout do
         session.windows.last.splits[0].cmd.first.should == "echo 'bar'"
         session.windows.last.splits[0].cmd.last.should == "echo 'bar in an array'"
       end # }}}
+    end # }}}
 
-    end
-
-    describe "filters" do
-
+    describe "filters" do # {{{
       it "creates windows with before filters" do # {{{
         layout = Teamocil::Layout.new(layouts["two-windows-with-filters"], {})
         session = layout.compile!
@@ -86,11 +80,9 @@ describe Teamocil::Layout do
         session.windows.first.filters["after"].should be_empty
         session.windows.first.filters["before"].should be_empty
       end # }}}
+    end # }}}
 
-    end
-
-    describe "targets" do
-
+    describe "targets" do # {{{
       it "should handle splits without a target" do # {{{
         session = @layout.compile!
         session.windows.last.splits.last.target.should == nil
@@ -100,20 +92,30 @@ describe Teamocil::Layout do
         session = @layout.compile!
         session.windows.last.splits.first.target.should == "bottom-right"
       end # }}}
+    end # }}}
 
-    end
-
-    describe "sessions" do
-
+    describe "sessions" do # {{{
       it "should handle windows within a session" do # {{{
         layout = Teamocil::Layout.new(layouts["three-windows-within-a-session"], {})
         session = layout.compile!
         session.windows.length.should == 3
         session.name.should == "my awesome session"
       end # }}}
+    end # }}}
+  end
 
-    end
+  context "generating commands" do
+    before do # {{{
+      @layout = Teamocil::Layout.new(layouts["two-windows"], {})
+    end # }}}
 
+    it "should generate commands" do #{{{
+      session = @layout.compile!
+      commands = session.windows.last.splits[0].generate_commands
+      commands.length.should == 2
+      commands.first.should == "tmux send-keys -t 0 \"export TEAMOCIL=1 && cd \"/bar\" && echo 'bar' && echo 'bar in an array'\""
+      commands.last.should == "tmux send-keys -t 0 Enter"
+    end # }}}
   end
 
 end
