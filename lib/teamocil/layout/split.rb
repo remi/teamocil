@@ -50,10 +50,8 @@ module Teamocil
         @cmd.unshift "export TEAMOCIL=1"
 
         # Execute each split command
-        @cmd.flatten.compact.each do |command|
-          commands << "tmux send-keys -t #{@index} \"#{command}\""
-          commands << "tmux send-keys -t #{@index} Enter"
-        end
+        commands << "tmux send-keys -t #{@index} \"#{@cmd.flatten.compact.join(" && ")}\""
+        commands << "tmux send-keys -t #{@index} Enter"
 
         commands
       end # }}}
