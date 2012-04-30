@@ -1,0 +1,15 @@
+#content pre, #content code, #content tt {
+  font-family: Monaco, Inconsolata, Consolas, monospace;
+}
+
+#content h1 {
+  font-family: "Open Sans", Helvetica, sans-serif;
+  font-size: 2.3em;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.6em;
+  font-weight: 700;
+}
+
+#content p a[href*=travis-ci] img {
+  margin: 5px 0 0;
+}
