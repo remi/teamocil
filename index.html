@@ -12,13 +12,20 @@
         twitter: ["remi"],
         afterRender: function(data) {
           var head = document.getElementsByTagName("head")[0];
+
           var stylesheet = document.createElement("link");
           stylesheet.rel = "stylesheet"; stylesheet.type = "text/css"; stylesheet.href = "http://fonts.googleapis.com/css?family=Open+Sans:700";
           head.appendChild(stylesheet);
 
           var stylesheet = document.createElement("link");
+          stylesheet.rel = "stylesheet"; stylesheet.type = "text/css"; stylesheet.href = "theme.css";
+          head.appendChild(stylesheet);
+
+          var stylesheet = document.createElement("link");
           stylesheet.rel = "stylesheet"; stylesheet.type = "text/css"; stylesheet.href = "custom.css";
           head.appendChild(stylesheet);
+
+          head.removeChild(document.querySelector("link"));
         }
       });
     </script>
