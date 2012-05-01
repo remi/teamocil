@@ -4,10 +4,37 @@
 
 #content h1 {
   font-family: "Open Sans", Helvetica, sans-serif;
-  font-size: 2.3em;
+  font-size: 2.8em;
   letter-spacing: -0.02em;
   margin-bottom: 0.6em;
   font-weight: 700;
+}
+
+#content h2, #content h3, #content h4, #content h5, #content h6 {
+  font-family: "Open Sans", Helvetica, sans-serif;
+  font-weight: 500;
+}
+
+#content h2 {
+  font-size: 1.4em;
+  margin: .855em 0;
+  font-weight: 700;
+}
+
+#content h3 {
+  font-size: 1.2em;
+  margin: .956em 0
+}
+
+#content h4 {
+  font-size: 1em;
+  margin: 1.161em 0
+}
+
+#content h5,#content h6 {
+  font-size: 0.85em;
+  font-weight: bold;
+  margin: 1.238em 0
 }
 
 #content p a[href*=travis-ci] img {
