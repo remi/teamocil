@@ -25,6 +25,9 @@ module Teamocil
       if @options[:edit]
         ::FileUtils.touch file unless File.exists?(file)
         Kernel.system("$EDITOR \"#{file}\"")
+      elsif @options[:show]
+        ::FileUtils.touch file unless File.exists?(file)
+        Kernel.system("cat \"#{file}\"")
       else
         bail "There is no file \"#{file}\"" unless File.exists?(file)
         bail "You must be in a tmux session to use teamocil" unless env["TMUX"]
@@ -57,6 +60,10 @@ module Teamocil
 
         opts.on("--list", "List all available layouts in `~/.teamocil/`") do
           @options[:list] = true
+        end
+
+        opts.on("--show", "Show the content of the layout file instead of executing it") do
+          @options[:show] = true
         end
 
       end

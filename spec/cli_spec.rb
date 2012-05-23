@@ -13,9 +13,8 @@ describe Teamocil::CLI do
 
       it "should allow editing" do # {{{
         FileUtils.stub(:touch)
-        Kernel.should_receive(:system).with(any_args())
-
-        @cli = Teamocil::CLI.new(["--edit", "my-layout"], @fake_env)
+        Kernel.should_receive(:system).with("$EDITOR #{File.join(@fake_env["HOME"], ".teamocil", "my-layout.yml").inspect}")
+        Teamocil::CLI.new(["--edit", "my-layout"], @fake_env)
       end # }}}
 
     end
@@ -55,6 +54,12 @@ describe Teamocil::CLI do
       it "lists available layouts" do # {{{
         @cli = Teamocil::CLI.new(["--list"], @fake_env)
         @cli.layouts.should == ["sample", "sample-2"]
+      end # }}}
+
+      it "should show the content" do # {{{
+        FileUtils.stub(:touch)
+        Kernel.should_receive(:system).with("cat #{File.join(@fake_env["HOME"], ".teamocil", "sample.yml").inspect}")
+        Teamocil::CLI.new(["--show", "sample"], @fake_env)
       end # }}}
 
     end
