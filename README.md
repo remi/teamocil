@@ -1,8 +1,7 @@
-# Teamocil
+# Teamocil [![Build Status](https://secure.travis-ci.org/remiprev/teamocil.png)](http://travis-ci.org/remiprev/teamocil)
 
 Teamocil is a simple tool used to automatically create sessions, windows and splits in [tmux](http://tmux.sourceforge.net/) with YAML files.
 
-[![Build Status](https://secure.travis-ci.org/remiprev/teamocil.png)](http://travis-ci.org/remiprev/teamocil)
 
 ## Usage
 
@@ -16,10 +15,11 @@ $ teamocil sample
 
 ## Options
 
-* `--here` opens the session in the current window, it doesn’t create an empty first window.
+* `--here` opens the session in the current window, do not create an empty first window.
 * `--layout` takes a custom file path to a YAML layout file.
 * `--edit` opens the layout file (whether or not `--layout` is used) with `$EDITOR`.
-* `--list` lists all available layouts.
+* `--list` lists all available layouts in `./.teamocil`.
+* `--show` show the layout content instead of executing it.
 
 ## Layout file structure
 
