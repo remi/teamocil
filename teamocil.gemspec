@@ -10,7 +10,8 @@ spec = Gem::Specification.new do |s|
   s.platform     = Gem::Platform::RUBY
   s.authors      = "Rémi Prévost"
   s.email        = "remi@exomel.com"
-  s.homepage     = "http://github.com/remiprev/teamocil"
+  s.homepage     = "http://remiprev.github.com/teamocil"
+  s.license      = "MIT"
   s.summary      = "Easy window and split layouts for tmux"
   s.description  = "Teamocil helps you set up window and splits layouts for tmux using YAML configuration files."
 
