@@ -62,6 +62,16 @@ describe Teamocil::CLI do
         Teamocil::CLI.new(["--show", "sample"], @fake_env)
       end # }}}
 
+      it "looks only in the $TEAMOCIL_PATH environment variable for layouts" do # {{{
+        @fake_env = { "TMUX" => 1, "HOME" => File.join(File.dirname(__FILE__), "fixtures"), "TEAMOCIL_PATH" => File.join(File.dirname(__FILE__), "fixtures/.my-fancy-layouts-directory") }
+
+        @cli = Teamocil::CLI.new(["sample-3"], @fake_env)
+        @cli.layout.session.name.should == "sample-3"
+
+        lambda { @cli = Teamocil::CLI.new(["sample"], @fake_env) }.should raise_error SystemExit
+        Teamocil::CLI.messages.should include("There is no file \"#{@fake_env["TEAMOCIL_PATH"]}/sample.yml\"")
+      end # }}}
+
     end
 
   end

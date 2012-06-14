@@ -13,7 +13,7 @@ module Teamocil
     # @param env [Hash] the environment variables hash (usually `ENV`).
     def initialize(argv, env) # {{{
       parse_options! argv
-      layout_path = File.join("#{env["HOME"]}", ".teamocil")
+      layout_path = env["TEAMOCIL_PATH"] || File.join("#{env["HOME"]}", ".teamocil")
 
       if @options.include?(:list)
         @layouts = get_layouts(layout_path)

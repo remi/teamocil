@@ -18,12 +18,12 @@ $ teamocil sample
 * `--here` opens the session in the current window, do not create an empty first window.
 * `--layout` takes a custom file path to a YAML layout file.
 * `--edit` opens the layout file (whether or not `--layout` is used) with `$EDITOR`.
-* `--list` lists all available layouts in `./.teamocil`.
+* `--list` lists all available layouts in `./.teamocil` or `$TEAMOCIL_PATH`.
 * `--show` show the layout content instead of executing it.
 
 ## Layout file structure
 
-A layout file is a single YAML file located in `~/.teamocil` (eg. `~/.teamocil/my-project.yml`).
+A layout file is a single YAML file located in `~/.teamocil` or `$TEAMOCIL_PATH` (eg. `~/.teamocil/my-project.yml`).
 
 ### Session
 
