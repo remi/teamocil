@@ -1,5 +1,6 @@
 require 'optparse'
 require 'fileutils'
+require 'erb'
 
 module Teamocil
   # This class handles interaction with the `tmux` utility.
@@ -32,7 +33,9 @@ module Teamocil
         bail "There is no file \"#{file}\"" unless File.exists?(file)
         bail "You must be in a tmux session to use teamocil" unless env["TMUX"]
 
-        @layout = Teamocil::Layout.new(YAML.load_file(file), @options)
+        yaml = ERB.new(File.read(file)).result
+
+        @layout = Teamocil::Layout.new(YAML.load(yaml), @options)
         @layout.compile!
         @layout.execute_commands(@layout.generate_commands)
       end

@@ -2,7 +2,7 @@ session:
   name: sample
   root: ~
   windows:
-    - name: "foo"
+    - name: <%= "foo" %>
       splits:
       - cmd: "pwd"
     - name: "bar"
