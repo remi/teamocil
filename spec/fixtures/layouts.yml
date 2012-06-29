@@ -39,5 +39,11 @@ three-windows-within-a-session:
     name: "my awesome session"
     windows:
       - name: "first window"
+        splits:
+        - cmd: "echo 'foo'"
       - name: "second window"
+        splits:
+        - cmd: "echo 'foo'"
       - name: "third window"
+        splits:
+        - cmd: "echo 'foo'"

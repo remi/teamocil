@@ -11,11 +11,12 @@ module Teamocil
       # @param index [Fixnnum] the window index
       # @param attrs [Hash] the window data from the layout file
       def initialize(session, index, attrs={}) # {{{
-        @name = attrs["name"]
-        @root = attrs["root"]
+        @name = attrs["name"] || "teamocil-window-#{index+1}"
+        @root = attrs["root"] || "."
         @options = attrs["options"] || {}
 
         @splits = attrs["splits"] || []
+        raise Teamocil::Error::LayoutError.new("You must specify a `splits` key for every window.") if @splits.empty?
         @splits = @splits.each_with_index.map { |split, split_index| Split.new(self, split_index, split) }
 
         @filters = attrs["filters"] || {}

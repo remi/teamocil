@@ -36,7 +36,12 @@ module Teamocil
         yaml = ERB.new(File.read(file)).result
 
         @layout = Teamocil::Layout.new(YAML.load(yaml), @options)
-        @layout.compile!
+
+        begin
+          @layout.compile!
+        rescue Teamocil::Error::LayoutError => e
+          bail e.message
+        end
         @layout.execute_commands(@layout.generate_commands)
       end
     end # }}}

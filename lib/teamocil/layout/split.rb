@@ -11,6 +11,7 @@ module Teamocil
       # @param index [Fixnnum] the split index
       # @param attrs [Hash] the split data from the layout file
       def initialize(window, index, attrs={}) # {{{
+        raise Teamocil::Error::LayoutError.new("You cannot have empty splits") if attrs.nil?
         @height = attrs["height"]
         @width = attrs["width"]
         @cmd = attrs["cmd"]

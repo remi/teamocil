@@ -8,6 +8,23 @@ describe Teamocil::Layout do
       @layout = Teamocil::Layout.new(layouts["two-windows"], {})
     end # }}}
 
+    describe "handles bad layouts" do # {{{
+      it "does not compile without windows" do # {{{
+        @layout = Teamocil::Layout.new({ "name" => "foo" }, {})
+        lambda { @layout.compile! }.should raise_error Teamocil::Error::LayoutError
+      end # }}}
+
+      it "does not compile without splits" do # {{{
+        @layout = Teamocil::Layout.new({ "windows" => [{ "name" => "foo" }] }, {})
+        lambda { @layout.compile! }.should raise_error Teamocil::Error::LayoutError
+      end # }}}
+
+      it "does not compile with empty splits" do # {{{
+        @layout = Teamocil::Layout.new({ "windows" => [{ "name" => "foo", "splits" => [nil, nil] }] }, {})
+        lambda { @layout.compile! }.should raise_error Teamocil::Error::LayoutError
+      end # }}}
+    end # }}}
+
     describe "windows" do # {{{
       it "creates windows" do # {{{
         session = @layout.compile!
