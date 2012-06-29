@@ -208,6 +208,7 @@ Feel free to contribute and submit issues/pull requests [on GitHub](https://gith
 
 * Samuel Garneau ([garno](https://github.com/garno))
 * Jimmy Bourassa ([jbourassa](https://github.com/jbourassa))
+* Brandon Dimcheff ([bdimcheff](https://github.com/bdimcheff))
 
 Take a look at the `spec` folder before you do, and make sure `bundle exec rake spec` passes after your modifications :)
 
