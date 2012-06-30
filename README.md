@@ -87,7 +87,8 @@ Every window must define an array of splits that will be created within it. A ve
 * `cmd` (the commands to initially execute in the split)
 * `width` (the split width, in percentage)
 * `height` (the split width, in percentage)
-* `target` (the split to set focus on, before creating the current one)
+* `target` (the split to set focus on before creating the current one)
+* `focus` (the split to set focus on after initializing all the splits for a window)
 
 #### Example
 
@@ -101,6 +102,7 @@ windows:
     splits:
       - cmd: "git status"
       - cmd: "bundle exec rails server --port 4000"
+        focus: true
         width: 50
       - cmd:
           - "sudo service memcached start"

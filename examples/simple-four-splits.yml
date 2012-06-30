@@ -4,6 +4,7 @@ windows:
       - cmd: "echo 'first split'"
       - cmd: "echo 'second split'"
         width: 50
+        focus: true
       - cmd: "echo 'fourth split'"
         height: 50
         target: bottom-right

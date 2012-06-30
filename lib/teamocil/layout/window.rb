@@ -47,6 +47,8 @@ module Teamocil
           commands << "tmux set-window-option #{option} #{value}"
         end
 
+        commands << "tmux select-pane -t #{@splits.map(&:focus).index(true) || 0}"
+
         commands
       end # }}}
 

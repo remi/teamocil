@@ -23,8 +23,6 @@ module Teamocil
         commands = []
         commands << "tmux rename-session \"#{@name}\"" unless @name.nil?
         commands << @windows.map(&:generate_commands)
-        commands << "tmux select-pane -t 0"
-        commands
       end # }}}
 
     end

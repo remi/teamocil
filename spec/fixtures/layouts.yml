@@ -15,6 +15,7 @@ two-windows:
           - "echo 'bar in an array'"
           target: bottom-right
         - cmd: "echo 'bar again'"
+          focus: true
           width: 50
 
 # Simple two windows layout with filters

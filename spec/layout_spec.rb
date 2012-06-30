@@ -71,6 +71,12 @@ describe Teamocil::Layout do
         session.windows.last.splits[0].cmd.first.should == "echo 'bar'"
         session.windows.last.splits[0].cmd.last.should == "echo 'bar in an array'"
       end # }}}
+
+      it "handles focused splits" do # {{{
+        session = @layout.compile!
+        session.windows.last.splits[1].focus.should be_true
+        session.windows.last.splits[0].focus.should be_false
+      end # }}}
     end # }}}
 
     describe "filters" do # {{{
@@ -126,12 +132,19 @@ describe Teamocil::Layout do
       @layout = Teamocil::Layout.new(layouts["two-windows"], {})
     end # }}}
 
-    it "should generate commands" do #{{{
+    it "should generate split commands" do #{{{
       session = @layout.compile!
       commands = session.windows.last.splits[0].generate_commands
       commands.length.should == 2
       commands.first.should == "tmux send-keys -t 0 \"export TEAMOCIL=1 && cd \"/bar\" && echo 'bar' && echo 'bar in an array'\""
       commands.last.should == "tmux send-keys -t 0 Enter"
+    end # }}}
+
+    it "should generate window commands" do #{{{
+      session = @layout.compile!
+      commands = session.windows.last.generate_commands
+      commands.first.should == "tmux new-window -n \"bar\""
+      commands.last.should == "tmux select-pane -t 1"
     end # }}}
   end
 

@@ -3,7 +3,7 @@ module Teamocil
 
     # This class represents a split within a tmux window
     class Split
-      attr_reader :width, :height, :cmd, :index, :target
+      attr_reader :width, :height, :cmd, :index, :target, :focus
 
       # Initialize a new tmux split
       #
@@ -16,6 +16,7 @@ module Teamocil
         @width = attrs["width"]
         @cmd = attrs["cmd"]
         @target = attrs["target"]
+        @focus = attrs["focus"] || false
 
         @window = window
         @index = index
