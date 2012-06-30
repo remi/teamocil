@@ -187,9 +187,9 @@ To get autocompletion when typing `teamocil <Tab>` in a zsh session, add this li
 compctl -g '~/.teamocil/*(:t:r)' teamocil
 ```
 
-### ERB Support
+### ERB support
 
-You can use ERB in your config files.  For example, you can use an environment variable in your config like so:
+You can use ERB in your layouts. For example, you can use an environment variable in a layout like so:
 
 ```yaml
 windows:
