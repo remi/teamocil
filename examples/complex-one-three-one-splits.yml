@@ -1,0 +1,15 @@
+windows:
+  - name: complex-one-three-one-splits
+    splits:
+      - cmd: "echo 'first split'"
+      - cmd: "echo 'second split'"
+        height: 66
+      - cmd: "echo 'fifth split'"
+        height: 50
+      - cmd: "echo 'fourth split'"
+        width: 33
+        target: 1
+      - cmd: "echo 'third split'"
+        width: 50
+        target: 1
+
