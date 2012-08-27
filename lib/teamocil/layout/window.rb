@@ -3,7 +3,7 @@ module Teamocil
 
     # This class represents a window within tmux
     class Window
-      attr_reader :filters, :root, :splits, :options, :index, :name
+      attr_reader :filters, :root, :splits, :options, :index, :name, :clear
 
       # Initialize a new tmux window
       #
@@ -13,6 +13,7 @@ module Teamocil
       def initialize(session, index, attrs={}) # {{{
         @name = attrs["name"] || "teamocil-window-#{index+1}"
         @root = attrs["root"] || "."
+        @clear = attrs["clear"] == true ? "clear" : nil
         @options = attrs["options"] || {}
 
         @splits = attrs["splits"] || []

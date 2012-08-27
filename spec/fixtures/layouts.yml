@@ -2,6 +2,7 @@
 two-windows:
   windows:
     - name: "foo"
+      clear: true
       root: "/foo"
       splits:
         - cmd: "echo 'foo'"

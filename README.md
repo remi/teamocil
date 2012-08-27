@@ -51,6 +51,7 @@ If you are not using a top-level `session` key, then the first key of your layou
 * `name` (the name that will appear in `tmux` statusbar)
 * `root` (the directory in which every split will be created)
 * `filters` (a hash of `before` and `after` commands to run for each split)
+* `clear` (whether or not to prepend a `clear` command before the `before` filters list)
 * `splits` (an array of split items)
 * `options` (a hash of tmux options, see `man tmux` for a list)
 
@@ -59,6 +60,7 @@ If you are not using a top-level `session` key, then the first key of your layou
 ```yaml
 windows:
   - name: "my-first-window"
+    clear: true
     options:
       synchronize-panes: true
     root: "~/Projects/foo-www"

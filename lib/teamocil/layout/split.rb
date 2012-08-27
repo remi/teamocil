@@ -43,7 +43,7 @@ module Teamocil
         end
 
         # Wrap all commands around filters
-        @cmd = [@window.filters["before"]] + [@cmd] + [@window.filters["after"]]
+        @cmd = [@window.filters["before"]] + [@window.clear] + [@cmd] + [@window.filters["after"]]
 
         # If a `root` key exist, start each split in this directory
         @cmd.unshift "cd \"#{@window.root}\"" unless @window.root.nil?

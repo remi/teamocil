@@ -44,6 +44,12 @@ describe Teamocil::Layout do
         session.windows[0].root.should == "/foo"
         session.windows[1].root.should == "/bar"
       end # }}}
+
+      it "creates windows with clear option" do # {{{
+        session = @layout.compile!
+        session.windows[0].clear.should == "clear"
+        session.windows[1].clear.should be_nil
+      end # }}}
     end # }}}
 
     describe "splits" do # {{{
@@ -137,6 +143,12 @@ describe Teamocil::Layout do
       commands = session.windows.last.splits[0].generate_commands
       commands.length.should == 2
       commands.first.should == "tmux send-keys -t 0 \"export TEAMOCIL=1 && cd \"/bar\" && echo 'bar' && echo 'bar in an array'\""
+      commands.last.should == "tmux send-keys -t 0 Enter"
+
+      session = @layout.compile!
+      commands = session.windows.first.splits[0].generate_commands
+      commands.length.should == 2
+      commands.first.should == "tmux send-keys -t 0 \"export TEAMOCIL=1 && cd \"/foo\" && clear && echo 'foo'\""
       commands.last.should == "tmux send-keys -t 0 Enter"
     end # }}}
 
