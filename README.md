@@ -189,6 +189,14 @@ To get autocompletion when typing `teamocil <Tab>` in a zsh session, add this li
 compctl -g '~/.teamocil/*(:t:r)' teamocil
 ```
 
+### Bash autocompletion
+
+To get autocompletion when typing `teamocil <Tab>` in a bash session, add this line to your `~/.bashrc` file:
+
+```zsh
+complete -W "$(teamocil --list)" teamocil
+```
+
 ### ERB support
 
 You can use ERB in your layouts. For example, you can use an environment variable in a layout like so:
