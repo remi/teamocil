@@ -1,7 +1,6 @@
-# Teamocil [![Build Status](https://secure.travis-ci.org/remiprev/teamocil.png)](http://travis-ci.org/remiprev/teamocil)
+# Teamocil [![Build Status](https://secure.travis-ci.org/remiprev/teamocil.png?branch=master)](http://travis-ci.org/remiprev/teamocil)
 
 Teamocil is a simple tool used to automatically create sessions, windows and splits in [tmux](http://tmux.sourceforge.net/) with YAML files.
-
 
 ## Usage
 
