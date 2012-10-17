@@ -50,6 +50,12 @@ describe Teamocil::Layout do
         session.windows[0].clear.should == "clear"
         session.windows[1].clear.should be_nil
       end # }}}
+
+      it "creates windows with layout option" do # {{{
+        session = @layout.compile!
+        session.windows[0].layout.should == "tiled"
+        session.windows[1].layout.should be_nil
+      end # }}}
     end # }}}
 
     describe "splits" do # {{{

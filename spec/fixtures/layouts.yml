@@ -4,6 +4,7 @@ two-windows:
     - name: "foo"
       clear: true
       root: "/foo"
+      layout: "tiled"
       splits:
         - cmd: "echo 'foo'"
         - cmd: "echo 'foo again'"

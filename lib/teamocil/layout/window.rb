@@ -3,7 +3,7 @@ module Teamocil
 
     # This class represents a window within tmux
     class Window
-      attr_reader :filters, :root, :splits, :options, :index, :name, :clear
+      attr_reader :filters, :root, :splits, :options, :index, :name, :clear, :layout
 
       # Initialize a new tmux window
       #
@@ -15,6 +15,7 @@ module Teamocil
         @root = attrs["root"] || "."
         @clear = attrs["clear"] == true ? "clear" : nil
         @options = attrs["options"] || {}
+        @layout = attrs["layout"]
 
         @splits = attrs["splits"] || []
         raise Teamocil::Error::LayoutError.new("You must specify a `splits` key for every window.") if @splits.empty?
@@ -48,6 +49,7 @@ module Teamocil
           commands << "tmux set-window-option #{option} #{value}"
         end
 
+        commands << "tmux select-layout \"#{@layout}\"" if @layout
         commands << "tmux select-pane -t #{@splits.map(&:focus).index(true) || 0}"
 
         commands
