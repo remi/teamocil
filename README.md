@@ -51,9 +51,9 @@ If you are not using a top-level `session` key, then the first key of your layou
 * `root` (the directory in which every split will be created)
 * `filters` (a hash of `before` and `after` commands to run for each split)
 * `clear` (whether or not to prepend a `clear` command before the `before` filters list)
-* `layout` (a layout name or serialized string supported by `tmux`’s `select-layout` command)
+* `layout` (a layout name or serialized string supported by the `tmux select-layout` command)
 * `splits` (an array of split items)
-* `options` (a hash of tmux options, see `man tmux` for a list)
+* `options` (a hash of `tmux` options, see `man tmux` for a list)
 
 #### Example
 
@@ -71,10 +71,12 @@ windows:
     splits:
       [splits list]
   - name: "my-second-window"
+    layout: tiled
     root: "~/Projects/foo-api"
     splits:
       [splits list]
   - name: "my-third-window"
+    layout: main-vertical
     root: "~/Projects/foo-daemons"
     splits:
       [splits list]
