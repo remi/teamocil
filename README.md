@@ -55,6 +55,22 @@ If you are not using a top-level `session` key, then the first key of your layou
 * `splits` (an array of split items)
 * `options` (a hash of `tmux` options, see `man tmux` for a list)
 
+#### Notes
+
+If you want to use a custom value for the `layout` key, running this command will give you the layout of the current window:
+
+```bash
+$ tmux list-windows -F "#{window_active} #{window_layout}" | grep "^1" | cut -d " " -f 2
+```
+
+You can then use the value as a string, like so:
+
+```yaml
+  - name: "a-window-with-weird-layout"
+    layout: "4d71,204x51,0,0{101x51,0,0,114,102x51,102,0[102x10,102,0,118,102x40,102,11,115]}"
+    splits: …
+```
+
 #### Example
 
 ```yaml
