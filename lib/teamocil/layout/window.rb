@@ -10,7 +10,7 @@ module Teamocil
       # @param session [Session] the session where the window is initialized
       # @param index [Fixnnum] the window index
       # @param attrs [Hash] the window data from the layout file
-      def initialize(session, index, attrs={}) # {{{
+      def initialize(session, index, attrs={})
         @name = attrs["name"] || "teamocil-window-#{index+1}"
         @root = attrs["root"] || "."
         @clear = attrs["clear"] == true ? "clear" : nil
@@ -27,12 +27,12 @@ module Teamocil
 
         @index = index
         @session = session
-      end # }}}
+      end
 
       # Generate commands to send to tmux
       #
       # @return [Array]
-      def generate_commands # {{{
+      def generate_commands
         commands = []
 
         if @session.options.include?(:here) and @index == 0
@@ -53,7 +53,7 @@ module Teamocil
         commands << "tmux select-pane -t #{@splits.map(&:focus).index(true) || 0}"
 
         commands
-      end # }}}
+      end
 
     end
 

@@ -12,7 +12,7 @@ module Teamocil
     #
     # @param argv [Hash] the command line parameters hash (usually `ARGV`).
     # @param env [Hash] the environment variables hash (usually `ENV`).
-    def initialize(argv, env) # {{{
+    def initialize(argv, env)
       parse_options! argv
       layout_path = env["TEAMOCIL_PATH"] || File.join("#{env["HOME"]}", ".teamocil")
 
@@ -44,10 +44,10 @@ module Teamocil
         end
         @layout.execute_commands(@layout.generate_commands)
       end
-    end # }}}
+    end
 
     # Parse the command line options
-    def parse_options!(args) # {{{
+    def parse_options!(args)
       @options = {}
       opts = ::OptionParser.new do |opts|
         opts.banner = "Usage: teamocil [options] <layout>
@@ -76,28 +76,28 @@ module Teamocil
 
       end
       opts.parse! args
-    end # }}}
+    end
 
     # Return an array of available layouts
     #
     # @param path [String] the path used to look for layouts
-    def get_layouts(path) # {{{
+    def get_layouts(path)
       Dir.glob(File.join(path, "*.yml")).map { |file| File.basename(file).gsub(/\..+$/, "") }.sort
-    end # }}}
+    end
 
     # Print each layout on a single line
-    def print_layouts # {{{
+    def print_layouts
       STDOUT.puts @layouts.join("\n")
       exit 0
-    end # }}}
+    end
 
     # Print an error message and exit the utility
     #
     # @param msg [Mixed] something to print before exiting.
-    def bail(msg) # {{{
+    def bail(msg)
       STDERR.puts "[teamocil] #{msg}"
       exit 1
-    end # }}}
+    end
 
   end
 end

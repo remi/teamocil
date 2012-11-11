@@ -10,7 +10,7 @@ module Teamocil
       # @param session [Session] the window where the split is initialized
       # @param index [Fixnnum] the split index
       # @param attrs [Hash] the split data from the layout file
-      def initialize(window, index, attrs={}) # {{{
+      def initialize(window, index, attrs={})
         raise Teamocil::Error::LayoutError.new("You cannot have empty splits") if attrs.nil?
         @height = attrs["height"]
         @width = attrs["width"]
@@ -20,12 +20,12 @@ module Teamocil
 
         @window = window
         @index = index
-      end # }}}
+      end
 
       # Generate commands to send to tmux
       #
       # @return [Array]
-      def generate_commands # {{{
+      def generate_commands
         commands = []
 
         # Is it a vertical or horizontal split?
@@ -56,7 +56,7 @@ module Teamocil
         commands << "tmux send-keys -t #{@index} Enter"
 
         commands
-      end # }}}
+      end
 
     end
 

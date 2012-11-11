@@ -1,36 +1,33 @@
 module Teamocil
   module Mock
     module CLI
-
-      def self.included(base) # {{{
+      def self.included(base)
         base.class_eval do
 
           # Return all messages
-          def self.messages # {{{
+          def self.messages
             @@messages
-          end # }}}
+          end
 
           # Change messages
-          def self.messages=(messages) # {{{
+          def self.messages=(messages)
             @@messages = messages
-          end # }}}
+          end
 
           # Do not print anything
-          def print_layouts # {{{
+          def print_layouts
             # Nothing
-          end # }}}
+          end
 
           # Print an error message and exit the utility
           #
           # @param msg [Mixed] something to print before exiting.
-          def bail(msg) # {{{
+          def bail(msg)
             Teamocil::CLI.messages << msg
             exit 1
-          end # }}}
-
+          end
         end
-      end # }}}
-
+      end
     end
   end
 end
