@@ -31,7 +31,6 @@ module Teamocil
         Kernel.system("cat \"#{file}\"")
       else
         bail "There is no file \"#{file}\"" unless File.exists?(file)
-        bail "You must be in a tmux session to use teamocil" unless env["TMUX"]
 
         yaml = ERB.new(File.read(file)).result
 
@@ -42,7 +41,9 @@ module Teamocil
         rescue Teamocil::Error::LayoutError => e
           bail e.message
         end
-        @layout.execute_commands(@layout.generate_commands)
+        commands = @layout.generate_commands 
+        commands << @layout.attach_to_tmux unless env["TMUX"]
+        @layout.execute_commands(commands)
       end
     end
 

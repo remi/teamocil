@@ -41,5 +41,10 @@ module Teamocil
     def execute_commands(commands)
       `#{commands.join("; ")}`
     end
+
+    # Attach to session
+    def attach_to_tmux
+        "tmux -2 attach-session -t \"#{@session.name}\""
+    end
   end
 end
