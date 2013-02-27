@@ -1,6 +1,0 @@
-windows:
-  - name: simple-two-vertical-splits
-    splits:
-      - cmd: "echo 'first split'"
-      - cmd: "echo 'second split'"
-        width: 50

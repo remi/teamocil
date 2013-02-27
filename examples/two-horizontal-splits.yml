@@ -1,0 +1,6 @@
+windows:
+  - name: simple-two-vertical-splits
+    layout: even-horizontal
+    splits:
+      - cmd: echo 'first split'
+      - cmd: echo 'second split'

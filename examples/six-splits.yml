@@ -1,0 +1,10 @@
+windows:
+  - name: simple-six-splits
+    layout: tiled
+    splits:
+      - cmd: echo 'first split'
+      - cmd: echo 'second split'
+      - cmd: echo 'fourth split'
+      - cmd: echo 'third split'
+      - cmd: echo 'sixth split'
+      - cmd: echo 'fifth split'

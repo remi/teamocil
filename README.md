@@ -82,8 +82,8 @@ windows:
     root: "~/Projects/foo-www"
     filters:
       before:
-        - "echo 'Let’s use ruby-1.9.2 for each split in this window.'"
-        - "rvm use 1.9.2"
+        - "echo 'Let’s use ruby-1.9.3 for each split in this window.'"
+        - "rbenv local 1.9.3-p374"
     splits:
       [splits list]
   - name: "my-second-window"
@@ -100,7 +100,7 @@ windows:
 
 ### Splits
 
-Every window must define an array of splits that will be created within it. A vertical or horizontal split will be created, depending on whether the `width` or `height` parameter is used.
+Every window must define an array of splits that will be created within it. A vertical or horizontal split will be created, depending on whether the `width` or `height` parameter is used. If a `layout` option is used for the window, the `width` and `height` attributes won’t have any effect.
 
 #### Item keys
 
@@ -116,18 +116,17 @@ Every window must define an array of splits that will be created within it. A ve
 windows:
   - name: "my-first-window"
     root: "~/Projects/foo-www"
+    layout: even-vertical
     filters:
-      before: "rvm use 1.9.2"
+      before: "rbenv local 2.0.0-p0"
       after: "echo 'I am done initializing this split.'"
     splits:
       - cmd: "git status"
       - cmd: "bundle exec rails server --port 4000"
         focus: true
-        width: 50
       - cmd:
           - "sudo service memcached start"
           - "sudo service mongodb start"
-        height: 50
 ```
 
 ## Layout examples
@@ -142,10 +141,10 @@ See more example files in the `examples` directory.
 windows:
   - name: "sample-two-splits"
     root: "~/Code/sample/www"
+    layout: even-horizontal
     splits:
       - cmd: ["pwd", "ls -la"]
       - cmd: "rails server --port 3000"
-        width: 50
 ```
         
 
@@ -171,16 +170,12 @@ windows:
 windows:
   - name: "sample-four-splits"
     root: "~/Code/sample/www"
+    layout: tiled
     splits:
       - cmd: "pwd"
       - cmd: "pwd"
-        width: 50
       - cmd: "pwd"
-        height: 50
-        target: "bottom-right"
       - cmd: "pwd"
-        height: 50
-        target: "bottom-left"
 ```
 
 #### Result of `$ teamocil sample-2`
@@ -244,4 +239,4 @@ Take a look at the `spec` folder before you do, and make sure `bundle exec rake 
 
 ## License
 
-Teamocil is © 2011-2012 [Rémi Prévost](http://exomel.com) and may be freely distributed under the [MIT license](https://github.com/remiprev/teamocil/blob/master/LICENSE). See the `LICENSE` file.
+Teamocil is © 2011-2013 [Rémi Prévost](http://exomel.com) and may be freely distributed under the [MIT license](https://github.com/remiprev/teamocil/blob/master/LICENSE). See the `LICENSE` file.

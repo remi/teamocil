@@ -1,6 +1,0 @@
-windows:
-  - name: simple-two-horizontal-splits
-    splits:
-      - cmd: "echo 'first split'"
-      - cmd: "echo 'second split'"
-        height: 50

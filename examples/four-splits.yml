@@ -1,0 +1,8 @@
+windows:
+  - name: simple-four-splits
+    layout: tiled
+    splits:
+      - cmd: echo 'first split'
+      - cmd: echo 'second split'
+      - cmd: echo 'fourth split'
+      - cmd: echo 'third split'
