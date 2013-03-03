@@ -141,8 +141,11 @@ describe Teamocil::Layout do
 
   context "generating commands" do
     before do
+      Teamocil::Layout::Window.any_instance.stub(:pane_base_index).and_return(pane_base_index)
       @layout = Teamocil::Layout.new(layouts["two-windows"], {})
     end
+
+    let(:pane_base_index) { 0 }
 
     it "should generate split commands" do
       session = @layout.compile!
@@ -163,6 +166,18 @@ describe Teamocil::Layout do
       commands = session.windows.last.generate_commands
       commands.first.should == "tmux new-window -n \"bar\""
       commands.last.should == "tmux select-pane -t 1"
+    end
+
+    context "with custom pane-base-index option" do
+      let(:pane_base_index) { 2 }
+
+      it "should generate split commands" do
+        session = @layout.compile!
+        commands = session.windows.last.splits[0].generate_commands
+        commands.length.should == 2
+        commands.first.should == "tmux send-keys -t 2 \"export TEAMOCIL=1 && cd \"/bar\" && echo 'bar' && echo 'bar in an array'\""
+        commands.last.should == "tmux send-keys -t 2 Enter"
+      end
     end
   end
 

@@ -30,7 +30,7 @@ module Teamocil
 
         # Is it a vertical or horizontal split?
         init_command = ""
-        unless @index == 0
+        unless @index == @window.pane_base_index
           if !@width.nil?
             init_command = "tmux split-window -h -p #{@width}"
           elsif !@height.nil?

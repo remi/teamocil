@@ -19,7 +19,7 @@ module Teamocil
 
         @splits = attrs["splits"] || []
         raise Teamocil::Error::LayoutError.new("You must specify a `splits` key for every window.") if @splits.empty?
-        @splits = @splits.each_with_index.map { |split, split_index| Split.new(self, split_index, split) }
+        @splits = @splits.each_with_index.map { |split, split_index| Split.new(self, split_index + pane_base_index, split) }
 
         @filters = attrs["filters"] || {}
         @filters["before"] ||= []
@@ -53,6 +53,14 @@ module Teamocil
         commands << "tmux select-pane -t #{@splits.map(&:focus).index(true) || 0}"
 
         commands
+      end
+
+      def pane_base_index
+        @pane_base_index ||= begin
+          global_setting = `tmux show-window-option -g pane-base-index`.split(/\s/).last
+          local_setting = `tmux show-window-option pane-base-index`.split(/\s/).last
+          (local_setting || global_setting || "0").to_i
+        end
       end
 
     end
