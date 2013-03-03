@@ -2,6 +2,9 @@
 require File.join(File.dirname(__FILE__), "spec_helper.rb")
 
 describe Teamocil::CLI do
+  let(:window_pane_base_index) { 0 }
+  before { Teamocil::Layout::Window.any_instance.stub(:pane_base_index).and_return(window_pane_base_index) }
+
   context "executing" do
     before do
       @fake_env = { "TMUX" => 1, "HOME" => File.join(File.dirname(__FILE__), "fixtures") }
