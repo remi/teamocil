@@ -23,7 +23,7 @@ spec = Gem::Specification.new do |s|
 
   # Dependencies
   s.add_development_dependency "rake"
-  s.add_development_dependency "rspec"
+  s.add_development_dependency "rspec", '~> 2.13'
   s.add_development_dependency "yard"
   s.add_development_dependency "maruku"
 end

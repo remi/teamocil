@@ -29,7 +29,7 @@ describe Teamocil::CLI do
       end
 
       it "fails to create a layout from a layout that doesn’t exist" do
-        lambda { @cli = Teamocil::CLI.new(["i-do-not-exist"], @fake_env) }.should raise_error SystemExit
+        expect { @cli = Teamocil::CLI.new(["i-do-not-exist"], @fake_env) }.to raise_error SystemExit
         Teamocil::CLI.messages.should include("There is no file \"#{File.join(File.dirname(__FILE__), "fixtures", ".teamocil", "i-do-not-exist.yml")}\"")
       end
 
@@ -42,7 +42,7 @@ describe Teamocil::CLI do
       end
 
       it "fails to create a layout from a file that doesn’t exist" do
-        lambda { @cli = Teamocil::CLI.new(["--layout", "./spec/fixtures/.teamocil/i-do-not-exist.yml"], @fake_env) }.should raise_error SystemExit
+        expect { @cli = Teamocil::CLI.new(["--layout", "./spec/fixtures/.teamocil/i-do-not-exist.yml"], @fake_env) }.to raise_error SystemExit
         Teamocil::CLI.messages.should include("There is no file \"./spec/fixtures/.teamocil/i-do-not-exist.yml\"")
       end
 
@@ -63,7 +63,7 @@ describe Teamocil::CLI do
         @cli = Teamocil::CLI.new(["sample-3"], @fake_env)
         @cli.layout.session.name.should == "sample-3"
 
-        lambda { @cli = Teamocil::CLI.new(["sample"], @fake_env) }.should raise_error SystemExit
+        expect { @cli = Teamocil::CLI.new(["sample"], @fake_env) }.to raise_error SystemExit
         Teamocil::CLI.messages.should include("There is no file \"#{@fake_env["TEAMOCIL_PATH"]}/sample.yml\"")
       end
     end
