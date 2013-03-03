@@ -2,6 +2,9 @@
 require File.join(File.dirname(__FILE__), "spec_helper.rb")
 
 describe Teamocil::Layout do
+  let(:window_pane_base_index) { 0 }
+  before { Teamocil::Layout::Window.any_instance.stub(:pane_base_index).and_return(window_pane_base_index) }
+
   context "compiling" do
     before do
       @layout = Teamocil::Layout.new(layouts["two-windows"], {})
@@ -139,12 +142,7 @@ describe Teamocil::Layout do
   end
 
   context "generating commands" do
-    before do
-      Teamocil::Layout::Window.any_instance.stub(:pane_base_index).and_return(pane_base_index)
-      @layout = Teamocil::Layout.new(layouts["two-windows"], {})
-    end
-
-    let(:pane_base_index) { 0 }
+    before { @layout = Teamocil::Layout.new(layouts["two-windows"], {}) }
 
     it "should generate split commands" do
       session = @layout.compile!
@@ -168,7 +166,7 @@ describe Teamocil::Layout do
     end
 
     context "with custom pane-base-index option" do
-      let(:pane_base_index) { 2 }
+      let(:window_pane_base_index) { 2 }
 
       it "should generate split commands" do
         session = @layout.compile!
