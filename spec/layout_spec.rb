@@ -2,7 +2,6 @@
 require File.join(File.dirname(__FILE__), "spec_helper.rb")
 
 describe Teamocil::Layout do
-
   context "compiling" do
     before do
       @layout = Teamocil::Layout.new(layouts["two-windows"], {})
@@ -180,5 +179,4 @@ describe Teamocil::Layout do
       end
     end
   end
-
 end

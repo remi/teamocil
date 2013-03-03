@@ -2,25 +2,20 @@
 require File.join(File.dirname(__FILE__), "spec_helper.rb")
 
 describe Teamocil::CLI do
-
   context "executing" do
-
-      before do
-        @fake_env = { "TMUX" => 1, "HOME" => File.join(File.dirname(__FILE__), "fixtures") }
-      end
+    before do
+      @fake_env = { "TMUX" => 1, "HOME" => File.join(File.dirname(__FILE__), "fixtures") }
+    end
 
     context "not in tmux" do
-
       it "should allow editing" do
         FileUtils.stub(:touch)
         Kernel.should_receive(:system).with("$EDITOR #{File.join(@fake_env["HOME"], ".teamocil", "my-layout.yml").inspect}")
         Teamocil::CLI.new(["--edit", "my-layout"], @fake_env)
       end
-
     end
 
     context "in tmux" do
-
       before :each do
         Teamocil::CLI.messages = []
       end
@@ -71,8 +66,6 @@ describe Teamocil::CLI do
         lambda { @cli = Teamocil::CLI.new(["sample"], @fake_env) }.should raise_error SystemExit
         Teamocil::CLI.messages.should include("There is no file \"#{@fake_env["TEAMOCIL_PATH"]}/sample.yml\"")
       end
-
     end
-
   end
 end

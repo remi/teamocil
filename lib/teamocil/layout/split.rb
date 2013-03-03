@@ -1,6 +1,5 @@
 module Teamocil
   class Layout
-
     # This class represents a split within a tmux window
     class Split
       attr_reader :width, :height, :cmd, :index, :target, :focus
@@ -57,8 +56,6 @@ module Teamocil
 
         commands
       end
-
     end
-
   end
 end

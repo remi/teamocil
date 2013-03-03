@@ -5,7 +5,6 @@ require 'erb'
 module Teamocil
   # This class handles interaction with the `tmux` utility.
   class CLI
-
     attr_accessor :layout, :layouts
 
     # Initialize a new run of `tmux`
@@ -98,6 +97,5 @@ module Teamocil
       STDERR.puts "[teamocil] #{msg}"
       exit 1
     end
-
   end
 end

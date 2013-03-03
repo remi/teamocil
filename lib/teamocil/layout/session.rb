@@ -1,6 +1,5 @@
 module Teamocil
   class Layout
-
     # This class represents a session within tmux
     class Session
       attr_reader :options, :windows, :name
@@ -24,7 +23,6 @@ module Teamocil
         commands << "tmux rename-session \"#{@name}\"" unless @name.nil?
         commands << @windows.map(&:generate_commands)
       end
-
     end
   end
 end

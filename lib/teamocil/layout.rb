@@ -1,11 +1,10 @@
-module Teamocil
+require "teamocil/layout/session"
+require "teamocil/layout/window"
+require "teamocil/layout/split"
 
+module Teamocil
   # This class act as a wrapper around a tmux YAML layout file
   class Layout
-    autoload :Session, "teamocil/layout/session"
-    autoload :Window,  "teamocil/layout/window"
-    autoload :Split,   "teamocil/layout/split"
-
     attr_reader :session
 
     # Initialize a new layout from a hash

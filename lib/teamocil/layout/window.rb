@@ -1,6 +1,5 @@
 module Teamocil
   class Layout
-
     # This class represents a window within tmux
     class Window
       attr_reader :filters, :root, :splits, :options, :index, :name, :clear, :layout
@@ -55,6 +54,9 @@ module Teamocil
         commands
       end
 
+      # Return the `pane-base-index` option for the current window
+      #
+      # @return [Fixnum]
       def pane_base_index
         @pane_base_index ||= begin
           global_setting = `tmux show-window-option -g pane-base-index`.split(/\s/).last
@@ -62,8 +64,6 @@ module Teamocil
           (local_setting || global_setting || "0").to_i
         end
       end
-
     end
-
   end
 end
