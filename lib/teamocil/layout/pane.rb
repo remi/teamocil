@@ -48,10 +48,11 @@ module Teamocil
         @cmd.unshift "cd \"#{@window.root}\"" unless @window.root.nil?
 
         # Set the TEAMOCIL environment variable
+        @cmd.unshift "set -gx TEAMOCIL 1"
         @cmd.unshift "export TEAMOCIL=1"
 
         # Execute each pane command
-        commands << "tmux send-keys -t #{@index} \"#{@cmd.flatten.compact.join(" && ")}\""
+        commands << "tmux send-keys -t #{@index} \"#{@cmd.flatten.compact.join("; ")}\""
         commands << "tmux send-keys -t #{@index} Enter"
 
         commands
