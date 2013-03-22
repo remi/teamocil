@@ -148,13 +148,13 @@ describe Teamocil::Layout do
       session = @layout.compile!
       commands = session.windows.last.splits[0].generate_commands
       commands.length.should == 2
-      commands.first.should == "tmux send-keys -t 0 \"export TEAMOCIL=1 && cd \"/bar\" && echo 'bar' && echo 'bar in an array'\""
+      commands.first.should == "tmux send-keys -t 0 \"export TEAMOCIL=1; set -gx TEAMOCIL 1; cd \"/bar\"; echo 'bar'; echo 'bar in an array'\""
       commands.last.should == "tmux send-keys -t 0 Enter"
 
       session = @layout.compile!
       commands = session.windows.first.splits[0].generate_commands
       commands.length.should == 2
-      commands.first.should == "tmux send-keys -t 0 \"export TEAMOCIL=1 && cd \"/foo\" && clear && echo 'foo'\""
+      commands.first.should == "tmux send-keys -t 0 \"export TEAMOCIL=1; set -gx TEAMOCIL 1; cd \"/foo\"; clear; echo 'foo'\""
       commands.last.should == "tmux send-keys -t 0 Enter"
     end
 
@@ -172,7 +172,7 @@ describe Teamocil::Layout do
         session = @layout.compile!
         commands = session.windows.last.splits[0].generate_commands
         commands.length.should == 2
-        commands.first.should == "tmux send-keys -t 2 \"export TEAMOCIL=1 && cd \"/bar\" && echo 'bar' && echo 'bar in an array'\""
+        commands.first.should == "tmux send-keys -t 2 \"export TEAMOCIL=1; set -gx TEAMOCIL 1; cd \"/bar\"; echo 'bar'; echo 'bar in an array'\""
         commands.last.should == "tmux send-keys -t 2 Enter"
       end
     end
