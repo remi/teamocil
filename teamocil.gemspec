@@ -12,8 +12,8 @@ spec = Gem::Specification.new do |s|
   s.email        = "remi@exomel.com"
   s.homepage     = "http://remiprev.github.com/teamocil"
   s.license      = "MIT"
-  s.summary      = "Easy window and split layouts for tmux"
-  s.description  = "Teamocil helps you set up window and splits layouts for tmux using YAML configuration files."
+  s.summary      = "Easy session, window and pane layouts for tmux"
+  s.description  = "Teamocil helps you set up window and pane layouts for tmux using YAML configuration files."
 
   # Manifest
   s.files         = `git ls-files`.split("\n")

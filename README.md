@@ -1,6 +1,6 @@
 # Teamocil [![Build Status](https://secure.travis-ci.org/remiprev/teamocil.png?branch=master)](http://travis-ci.org/remiprev/teamocil)
 
-Teamocil is a simple tool used to automatically create sessions, windows and splits in [tmux](http://tmux.sourceforge.net/) with YAML files.
+Teamocil is a simple tool used to automatically create sessions, windows and panes in [tmux](http://tmux.sourceforge.net/) with YAML files.
 
 ## Usage
 
@@ -48,11 +48,11 @@ If you are not using a top-level `session` key, then the first key of your layou
 #### Item keys
 
 * `name` (the name that will appear in `tmux` statusbar)
-* `root` (the directory in which every split will be created)
-* `filters` (a hash of `before` and `after` commands to run for each split)
+* `root` (the directory in which every pane will be created)
+* `filters` (a hash of `before` and `after` commands to run for each pane)
 * `clear` (whether or not to prepend a `clear` command before the `before` filters list)
 * `layout` (a layout name or serialized string supported by the `tmux select-layout` command)
-* `splits` (an array of split items)
+* `panes` (an array of pane items)
 * `options` (a hash of `tmux` options, see `man tmux` for a list)
 
 #### Notes
@@ -68,7 +68,7 @@ You can then use the value as a string, like so:
 ```yaml
   - name: "a-window-with-weird-layout"
     layout: "4d71,204x51,0,0{101x51,0,0,114,102x51,102,0[102x10,102,0,118,102x40,102,11,115]}"
-    splits: …
+    panes: …
 ```
 
 #### Example
@@ -82,33 +82,33 @@ windows:
     root: "~/Projects/foo-www"
     filters:
       before:
-        - "echo 'Let’s use ruby-1.9.3 for each split in this window.'"
+        - "echo 'Let’s use ruby-1.9.3 for each pane in this window.'"
         - "rbenv local 1.9.3-p374"
-    splits:
-      [splits list]
+    panes:
+      [panes list]
   - name: "my-second-window"
     layout: tiled
     root: "~/Projects/foo-api"
-    splits:
-      [splits list]
+    panes:
+      [panes list]
   - name: "my-third-window"
     layout: main-vertical
     root: "~/Projects/foo-daemons"
-    splits:
-      [splits list]
+    panes:
+      [panes list]
 ```
 
-### Splits
+### Panes
 
-Every window must define an array of splits that will be created within it. A vertical or horizontal split will be created, depending on whether the `width` or `height` parameter is used. If a `layout` option is used for the window, the `width` and `height` attributes won’t have any effect.
+Every window must define an array of panes that will be created within it. A vertical or horizontal pane will be created, depending on whether the `width` or `height` parameter is used. If a `layout` option is used for the window, the `width` and `height` attributes won’t have any effect.
 
 #### Item keys
 
-* `cmd` (the commands to initially execute in the split)
-* `width` (the split width, in percentage)
-* `height` (the split width, in percentage)
-* `target` (the split to set focus on before creating the current one)
-* `focus` (the split to set focus on after initializing all the splits for a window)
+* `cmd` (the commands to initially execute in the pane)
+* `width` (the pane width, in percentage)
+* `height` (the pane width, in percentage)
+* `target` (the pane to set focus on before creating the current one)
+* `focus` (the pane to set focus on after initializing all the panes for a window)
 
 #### Example
 
@@ -119,8 +119,8 @@ windows:
     layout: even-vertical
     filters:
       before: "rbenv local 2.0.0-p0"
-      after: "echo 'I am done initializing this split.'"
-    splits:
+      after: "echo 'I am done initializing this pane.'"
+    panes:
       - cmd: "git status"
       - cmd: "bundle exec rails server --port 4000"
         focus: true
@@ -133,16 +133,16 @@ windows:
 
 See more example files in the `examples` directory.
 
-### Simple two splits window
+### Simple two panes window
 
 #### Content of `~/.teamocil/sample-1.yml`
 
 ```yaml
 windows:
-  - name: "sample-two-splits"
+  - name: "sample-two-panes"
     root: "~/Code/sample/www"
     layout: even-horizontal
-    splits:
+    panes:
       - cmd: ["pwd", "ls -la"]
       - cmd: "rails server --port 3000"
 ```
@@ -162,16 +162,16 @@ windows:
     |                  |                  |
     '------------------'------------------'
 
-### Four tiled splits window
+### Four tiled panes window
 
 #### Content of `~/.teamocil/sample-2.yml`
 
 ```yaml
 windows:
-  - name: "sample-four-splits"
+  - name: "sample-four-panes"
     root: "~/Code/sample/www"
     layout: tiled
-    splits:
+    panes:
       - cmd: "pwd"
       - cmd: "pwd"
       - cmd: "pwd"
@@ -218,7 +218,7 @@ You can use ERB in your layouts. For example, you can use an environment variabl
 windows:
   - name: "erb-example"
     root: <%= ENV['MY_PROJECT_ROOT'] %>
-    splits:
+    panes:
       - cmd: "pwd"
 ```
 

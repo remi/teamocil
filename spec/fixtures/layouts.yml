@@ -5,7 +5,7 @@ two-windows:
       clear: true
       root: "/foo"
       layout: "tiled"
-      splits:
+      panes:
         - cmd: "echo 'foo'"
         - cmd: "echo 'foo again'"
           width: 50
@@ -32,7 +32,7 @@ two-windows-with-filters:
         after:
           - "echo first after filter"
           - "echo second after filter"
-      splits:
+      panes:
         - cmd: "echo 'foo'"
         - cmd: "echo 'foo again'"
           width: 50
@@ -42,11 +42,11 @@ three-windows-within-a-session:
     name: "my awesome session"
     windows:
       - name: "first window"
-        splits:
+        panes:
         - cmd: "echo 'foo'"
       - name: "second window"
-        splits:
+        panes:
         - cmd: "echo 'foo'"
       - name: "third window"
-        splits:
+        panes:
         - cmd: "echo 'foo'"

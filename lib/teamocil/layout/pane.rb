@@ -1,16 +1,16 @@
 module Teamocil
   class Layout
-    # This class represents a split within a tmux window
-    class Split
+    # This class represents a pane within a tmux window
+    class Pane
       attr_reader :width, :height, :cmd, :index, :target, :focus
 
-      # Initialize a new tmux split
+      # Initialize a new tmux pane
       #
-      # @param session [Session] the window where the split is initialized
-      # @param index [Fixnnum] the split index
-      # @param attrs [Hash] the split data from the layout file
+      # @param session [Session] the window where the pane is initialized
+      # @param index [Fixnnum] the pane index
+      # @param attrs [Hash] the pane data from the layout file
       def initialize(window, index, attrs={})
-        raise Teamocil::Error::LayoutError.new("You cannot have empty splits") if attrs.nil?
+        raise Teamocil::Error::LayoutError.new("You cannot have empty panes") if attrs.nil?
         @height = attrs["height"]
         @width = attrs["width"]
         @cmd = attrs["cmd"]
@@ -27,7 +27,7 @@ module Teamocil
       def generate_commands
         commands = []
 
-        # Is it a vertical or horizontal split?
+        # Is it a vertical or horizontal pane
         init_command = ""
         unless @index == @window.pane_base_index
           if !@width.nil?
@@ -44,13 +44,13 @@ module Teamocil
         # Wrap all commands around filters
         @cmd = [@window.filters["before"]] + [@window.clear] + [@cmd] + [@window.filters["after"]]
 
-        # If a `root` key exist, start each split in this directory
+        # If a `root` key exist, start each pane in this directory
         @cmd.unshift "cd \"#{@window.root}\"" unless @window.root.nil?
 
         # Set the TEAMOCIL environment variable
         @cmd.unshift "export TEAMOCIL=1"
 
-        # Execute each split command
+        # Execute each pane command
         commands << "tmux send-keys -t #{@index} \"#{@cmd.flatten.compact.join(" && ")}\""
         commands << "tmux send-keys -t #{@index} Enter"
 

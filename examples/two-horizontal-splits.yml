@@ -1,6 +1,6 @@
 windows:
-  - name: simple-two-vertical-splits
+  - name: simple-two-vertical-panes
     layout: even-horizontal
-    splits:
-      - cmd: echo 'first split'
-      - cmd: echo 'second split'
+    panes:
+      - cmd: echo 'first pane'
+      - cmd: echo 'second pane'

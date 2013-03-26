@@ -3,8 +3,8 @@ session:
   root: ~
   windows:
     - name: <%= "foo" %>
-      splits:
+      panes:
       - cmd: "pwd"
     - name: "bar"
-      splits:
+      panes:
       - cmd: "pwd"

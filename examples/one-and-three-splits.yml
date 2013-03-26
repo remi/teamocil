@@ -1,8 +1,8 @@
 windows:
-  - name: simple-one-and-three-splits
+  - name: simple-one-and-three-panes
     layout: main-vertical
-    splits:
-      - cmd: echo 'first split'
-      - cmd: echo 'second split'
-      - cmd: echo 'third split'
-      - cmd: echo 'fourth split'
+    panes:
+      - cmd: echo 'first pane'
+      - cmd: echo 'second pane'
+      - cmd: echo 'third pane'
+      - cmd: echo 'fourth pane'

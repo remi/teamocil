@@ -2,7 +2,7 @@ module Teamocil
   class Layout
     # This class represents a window within tmux
     class Window
-      attr_reader :filters, :root, :splits, :options, :index, :name, :clear, :layout
+      attr_reader :filters, :root, :panes, :options, :index, :name, :clear, :layout
 
       # Initialize a new tmux window
       #
@@ -16,9 +16,9 @@ module Teamocil
         @options = attrs["options"] || {}
         @layout = attrs["layout"]
 
-        @splits = attrs["splits"] || []
-        raise Teamocil::Error::LayoutError.new("You must specify a `splits` key for every window.") if @splits.empty?
-        @splits = @splits.each_with_index.map { |split, split_index| Split.new(self, split_index + pane_base_index, split) }
+        @panes = attrs["panes"] || attrs["splits"] || []
+        raise Teamocil::Error::LayoutError.new("You must specify a `panes` (or legacy `splits`) key for every window.") if @panes.empty?
+        @panes = @panes.each_with_index.map { |pane, pane_index| Pane.new(self, pane_index + pane_base_index, pane) }
 
         @filters = attrs["filters"] || {}
         @filters["before"] ||= []
@@ -40,7 +40,7 @@ module Teamocil
           commands << "tmux new-window -n \"#{@name}\""
         end
 
-        commands << @splits.map(&:generate_commands)
+        commands << @panes.map(&:generate_commands)
 
         @options.each_pair do |option, value|
           value = "on"  if value === true
@@ -49,7 +49,7 @@ module Teamocil
         end
 
         commands << "tmux select-layout \"#{@layout}\"" if @layout
-        commands << "tmux select-pane -t #{@splits.map(&:focus).index(true) || 0}"
+        commands << "tmux select-pane -t #{@panes.map(&:focus).index(true) || 0}"
 
         commands
       end

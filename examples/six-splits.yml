@@ -1,10 +1,10 @@
 windows:
-  - name: simple-six-splits
+  - name: simple-six-panes
     layout: tiled
-    splits:
-      - cmd: echo 'first split'
-      - cmd: echo 'second split'
-      - cmd: echo 'fourth split'
-      - cmd: echo 'third split'
-      - cmd: echo 'sixth split'
-      - cmd: echo 'fifth split'
+    panes:
+      - cmd: echo 'first pane'
+      - cmd: echo 'second pane'
+      - cmd: echo 'fourth pane'
+      - cmd: echo 'third pane'
+      - cmd: echo 'sixth pane'
+      - cmd: echo 'fifth pane'

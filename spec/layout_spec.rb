@@ -16,13 +16,13 @@ describe Teamocil::Layout do
         expect { @layout.compile! }.to raise_error Teamocil::Error::LayoutError
       end
 
-      it "does not compile without splits" do
+      it "does not compile without panes" do
         @layout = Teamocil::Layout.new({ "windows" => [{ "name" => "foo" }] }, {})
         expect { @layout.compile! }.to raise_error Teamocil::Error::LayoutError
       end
 
-      it "does not compile with empty splits" do
-        @layout = Teamocil::Layout.new({ "windows" => [{ "name" => "foo", "splits" => [nil, nil] }] }, {})
+      it "does not compile with empty panes" do
+        @layout = Teamocil::Layout.new({ "windows" => [{ "name" => "foo", "panes" => [nil, nil] }] }, {})
         expect { @layout.compile! }.to raise_error Teamocil::Error::LayoutError
       end
     end
@@ -60,36 +60,43 @@ describe Teamocil::Layout do
       end
     end
 
-    describe "splits" do
-      it "creates splits" do
+    describe "panes" do
+      it "creates panes" do
         session = @layout.compile!
-        session.windows.first.splits.each do |split|
-          split.should be_an_instance_of Teamocil::Layout::Split
+        session.windows.first.panes.each do |pane|
+          pane.should be_an_instance_of Teamocil::Layout::Pane
         end
       end
 
-      it "creates splits with dimensions" do
+      it "creates panes with legacy `splits` key" do
         session = @layout.compile!
-        session.windows.first.splits[0].width.should == nil
-        session.windows.first.splits[1].width.should == 50
+        session.windows.last.panes.each do |pane|
+          pane.should be_an_instance_of Teamocil::Layout::Pane
+        end
       end
 
-      it "creates splits with commands specified in strings" do
+      it "creates panes with dimensions" do
         session = @layout.compile!
-        session.windows.first.splits[0].cmd.should == "echo 'foo'"
+        session.windows.first.panes[0].width.should == nil
+        session.windows.first.panes[1].width.should == 50
       end
 
-      it "creates splits with commands specified in an array" do
+      it "creates panes with commands specified in strings" do
         session = @layout.compile!
-        session.windows.last.splits[0].cmd.length.should == 2
-        session.windows.last.splits[0].cmd.first.should == "echo 'bar'"
-        session.windows.last.splits[0].cmd.last.should == "echo 'bar in an array'"
+        session.windows.first.panes[0].cmd.should == "echo 'foo'"
       end
 
-      it "handles focused splits" do
+      it "creates panes with commands specified in an array" do
         session = @layout.compile!
-        session.windows.last.splits[1].focus.should be_true
-        session.windows.last.splits[0].focus.should be_false
+        session.windows.last.panes[0].cmd.length.should == 2
+        session.windows.last.panes[0].cmd.first.should == "echo 'bar'"
+        session.windows.last.panes[0].cmd.last.should == "echo 'bar in an array'"
+      end
+
+      it "handles focused panes" do
+        session = @layout.compile!
+        session.windows.last.panes[1].focus.should be_true
+        session.windows.last.panes[0].focus.should be_false
       end
     end
 
@@ -120,14 +127,14 @@ describe Teamocil::Layout do
     end
 
     describe "targets" do
-      it "should handle splits without a target" do
+      it "should handle panes without a target" do
         session = @layout.compile!
-        session.windows.last.splits.last.target.should == nil
+        session.windows.last.panes.last.target.should == nil
       end
 
-      it "should handle splits with a target" do
+      it "should handle panes with a target" do
         session = @layout.compile!
-        session.windows.last.splits.first.target.should == "bottom-right"
+        session.windows.last.panes.first.target.should == "bottom-right"
       end
     end
 
@@ -144,15 +151,15 @@ describe Teamocil::Layout do
   context "generating commands" do
     before { @layout = Teamocil::Layout.new(layouts["two-windows"], {}) }
 
-    it "should generate split commands" do
+    it "should generate pane commands" do
       session = @layout.compile!
-      commands = session.windows.last.splits[0].generate_commands
+      commands = session.windows.last.panes[0].generate_commands
       commands.length.should == 2
       commands.first.should == "tmux send-keys -t 0 \"export TEAMOCIL=1 && cd \"/bar\" && echo 'bar' && echo 'bar in an array'\""
       commands.last.should == "tmux send-keys -t 0 Enter"
 
       session = @layout.compile!
-      commands = session.windows.first.splits[0].generate_commands
+      commands = session.windows.first.panes[0].generate_commands
       commands.length.should == 2
       commands.first.should == "tmux send-keys -t 0 \"export TEAMOCIL=1 && cd \"/foo\" && clear && echo 'foo'\""
       commands.last.should == "tmux send-keys -t 0 Enter"
@@ -168,9 +175,9 @@ describe Teamocil::Layout do
     context "with custom pane-base-index option" do
       let(:window_pane_base_index) { 2 }
 
-      it "should generate split commands" do
+      it "should generate pane commands" do
         session = @layout.compile!
-        commands = session.windows.last.splits[0].generate_commands
+        commands = session.windows.last.panes[0].generate_commands
         commands.length.should == 2
         commands.first.should == "tmux send-keys -t 2 \"export TEAMOCIL=1 && cd \"/bar\" && echo 'bar' && echo 'bar in an array'\""
         commands.last.should == "tmux send-keys -t 2 Enter"

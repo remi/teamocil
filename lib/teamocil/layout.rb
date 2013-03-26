@@ -1,6 +1,6 @@
 require "teamocil/layout/session"
 require "teamocil/layout/window"
-require "teamocil/layout/split"
+require "teamocil/layout/pane"
 
 module Teamocil
   # This class act as a wrapper around a tmux YAML layout file

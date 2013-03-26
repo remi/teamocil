@@ -1,8 +1,8 @@
 windows:
-  - name: simple-four-splits
+  - name: simple-four-panes
     layout: tiled
-    splits:
-      - cmd: echo 'first split'
-      - cmd: echo 'second split'
-      - cmd: echo 'fourth split'
-      - cmd: echo 'third split'
+    panes:
+      - cmd: echo 'first pane'
+      - cmd: echo 'second pane'
+      - cmd: echo 'fourth pane'
+      - cmd: echo 'third pane'
