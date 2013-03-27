@@ -3,7 +3,10 @@ require File.join(File.dirname(__FILE__), "spec_helper.rb")
 
 describe Teamocil::Layout do
   let(:window_pane_base_index) { 0 }
-  before { Teamocil::Layout::Window.any_instance.stub(:pane_base_index).and_return(window_pane_base_index) }
+  before do
+    Teamocil::Layout::Window.any_instance.stub(:pane_base_index).and_return(window_pane_base_index)
+    ENV.stub(:[]).with("SHELL").and_return("/usr/bin/bash")
+  end
 
   context "compiling" do
     before do
@@ -148,13 +151,13 @@ describe Teamocil::Layout do
       session = @layout.compile!
       commands = session.windows.last.splits[0].generate_commands
       commands.length.should == 2
-      commands.first.should == "tmux send-keys -t 0 \"export TEAMOCIL=1; set -gx TEAMOCIL 1; cd \"/bar\"; echo 'bar'; echo 'bar in an array'\""
+      commands.first.should == "tmux send-keys -t 0 \"export TEAMOCIL=1; cd \"/bar\"; echo 'bar'; echo 'bar in an array'\""
       commands.last.should == "tmux send-keys -t 0 Enter"
 
       session = @layout.compile!
       commands = session.windows.first.splits[0].generate_commands
       commands.length.should == 2
-      commands.first.should == "tmux send-keys -t 0 \"export TEAMOCIL=1; set -gx TEAMOCIL 1; cd \"/foo\"; clear; echo 'foo'\""
+      commands.first.should == "tmux send-keys -t 0 \"export TEAMOCIL=1; cd \"/foo\"; clear; echo 'foo'\""
       commands.last.should == "tmux send-keys -t 0 Enter"
     end
 
@@ -165,6 +168,15 @@ describe Teamocil::Layout do
       commands.last.should == "tmux select-pane -t 1"
     end
 
+    it "should use fish syntax when fish shell is default shell" do
+      ENV.stub(:[]).with("SHELL").and_return("/usr/local/bin/fish")
+      session = @layout.compile!
+      commands = session.windows.last.splits[0].generate_commands
+      commands.length.should == 2
+      commands.first.should == "tmux send-keys -t 0 \"set -gx TEAMOCIL 1; cd \"/bar\"; echo 'bar'; echo 'bar in an array'\""
+      commands.last.should == "tmux send-keys -t 0 Enter"
+    end
+
     context "with custom pane-base-index option" do
       let(:window_pane_base_index) { 2 }
 
@@ -172,7 +184,7 @@ describe Teamocil::Layout do
         session = @layout.compile!
         commands = session.windows.last.splits[0].generate_commands
         commands.length.should == 2
-        commands.first.should == "tmux send-keys -t 2 \"export TEAMOCIL=1; set -gx TEAMOCIL 1; cd \"/bar\"; echo 'bar'; echo 'bar in an array'\""
+        commands.first.should == "tmux send-keys -t 2 \"export TEAMOCIL=1; cd \"/bar\"; echo 'bar'; echo 'bar in an array'\""
         commands.last.should == "tmux send-keys -t 2 Enter"
       end
     end
