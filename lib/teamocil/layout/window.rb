@@ -40,7 +40,12 @@ module Teamocil
           commands << "tmux new-window -n \"#{@name}\""
         end
 
-        commands << @panes.map(&:generate_commands)
+        pane_commands = @panes.map do |pane|
+          c = pane.generate_commands
+          c << "tmux select-layout \"#{@layout}\"" if @layout
+          c
+        end
+        commands << pane_commands
 
         @options.each_pair do |option, value|
           value = "on"  if value === true
