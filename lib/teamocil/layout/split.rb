@@ -48,8 +48,12 @@ module Teamocil
         @cmd.unshift "cd \"#{@window.root}\"" unless @window.root.nil?
 
         # Set the TEAMOCIL environment variable
-        @cmd.unshift "set -gx TEAMOCIL 1"
-        @cmd.unshift "export TEAMOCIL=1"
+        # depending on the shell set in ENV
+        if ENV['SHELL'].scan(/fish/).empty?
+          @cmd.unshift "export TEAMOCIL=1"
+        else
+          @cmd.unshift "set -gx TEAMOCIL 1"
+        end
 
         # Execute each split command
         commands << "tmux send-keys -t #{@index} \"#{@cmd.flatten.compact.join("; ")}\""
