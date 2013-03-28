@@ -231,9 +231,10 @@ windows:
 
 Feel free to contribute and submit issues/pull requests [on GitHub](https://github.com/remiprev/teamocil/issues), just like these fine folks did:
 
-* Samuel Garneau ([garno](https://github.com/garno))
-* Jimmy Bourassa ([jbourassa](https://github.com/jbourassa))
-* Brandon Dimcheff ([bdimcheff](https://github.com/bdimcheff))
+* [@garno](https://github.com/garno)
+* [@jbourassa](https://github.com/jbourassa)
+* [@bdimcheff](https://github.com/bdimcheff)
+* [@jscheel](https://github.com/jscheel)
 
 Take a look at the `spec` folder before you do, and make sure `bundle exec rake spec` passes after your modifications :)
 
