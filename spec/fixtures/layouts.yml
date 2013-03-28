@@ -8,7 +8,6 @@ two-windows:
       panes:
         - cmd: "echo 'foo'"
         - cmd: "echo 'foo again'"
-          width: 50
     - name: "bar"
       root: "/bar"
       splits:

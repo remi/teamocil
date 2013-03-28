@@ -77,8 +77,8 @@ describe Teamocil::Layout do
 
       it "creates panes with dimensions" do
         session = @layout.compile!
-        session.windows.first.panes[0].width.should == nil
-        session.windows.first.panes[1].width.should == 50
+        session.windows.last.panes[0].width.should == nil
+        session.windows.last.panes[1].width.should == 50
       end
 
       it "creates panes with commands specified in strings" do
@@ -170,6 +170,13 @@ describe Teamocil::Layout do
       commands = session.windows.last.generate_commands
       commands.first.should == "tmux new-window -n \"bar\""
       commands.last.should == "tmux select-pane -t 1"
+    end
+
+    it "should apply the layout after each pane is created" do
+      session = @layout.compile!
+      commands = session.windows.first.generate_commands
+      commands[1][0].should == ["tmux send-keys -t 0 \"export TEAMOCIL=1 && cd \"/foo\" && clear && echo 'foo'\"", "tmux send-keys -t 0 Enter", "tmux select-layout \"tiled\""]
+      commands[1][1].should == ["tmux split-window", "tmux send-keys -t 1 \"export TEAMOCIL=1 && cd \"/foo\" && clear && echo 'foo again'\"", "tmux send-keys -t 1 Enter", "tmux select-layout \"tiled\""]
     end
 
     context "with custom pane-base-index option" do
