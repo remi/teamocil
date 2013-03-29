@@ -235,6 +235,7 @@ Feel free to contribute and submit issues/pull requests [on GitHub](https://gith
 * [@jbourassa](https://github.com/jbourassa)
 * [@bdimcheff](https://github.com/bdimcheff)
 * [@jscheel](https://github.com/jscheel)
+* [@mklappstuhl](https://github.com/mklappstuhl)
 
 Take a look at the `spec` folder before you do, and make sure `bundle exec rake spec` passes after your modifications :)
 
