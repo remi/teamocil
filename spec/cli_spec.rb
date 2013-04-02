@@ -13,7 +13,7 @@ describe Teamocil::CLI do
     context "not in tmux" do
       it "should allow editing" do
         FileUtils.stub(:touch)
-        Kernel.should_receive(:system).with("$EDITOR #{File.join(@fake_env["HOME"], ".teamocil", "my-layout.yml").inspect}")
+        Kernel.should_receive(:system).with("${EDITOR:-vim} #{File.join(@fake_env["HOME"], ".teamocil", "my-layout.yml").inspect}")
         Teamocil::CLI.new(["--edit", "my-layout"], @fake_env)
       end
     end
