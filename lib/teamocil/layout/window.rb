@@ -64,8 +64,8 @@ module Teamocil
       # @return [Fixnum]
       def pane_base_index
         @pane_base_index ||= begin
-          global_setting = `tmux show-window-option -g pane-base-index`.split(/\s/).last
-          local_setting = `tmux show-window-option pane-base-index`.split(/\s/).last
+          global_setting = `tmux show-window-options -g | grep pane-base-index`.split(/\s/).last
+          local_setting = `tmux show-window-options | grep pane-base-index`.split(/\s/).last
           (local_setting || global_setting || "0").to_i
         end
       end
