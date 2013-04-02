@@ -24,7 +24,7 @@ module Teamocil
 
       if @options[:edit]
         ::FileUtils.touch file unless File.exists?(file)
-        Kernel.system("$EDITOR \"#{file}\"")
+        Kernel.system("${EDITOR:-vim} \"#{file}\"")
       elsif @options[:show]
         ::FileUtils.touch file unless File.exists?(file)
         Kernel.system("cat \"#{file}\"")
