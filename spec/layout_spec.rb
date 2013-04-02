@@ -148,6 +148,12 @@ describe Teamocil::Layout do
         session.windows.length.should == 3
         session.name.should == "my awesome session"
       end
+
+      it "should assign a random name if none is provided" do
+        layout = Teamocil::Layout.new(layouts["two-windows"], {})
+        session = layout.compile!
+        session.name.should match /teamocil-session-\d+/
+      end
     end
   end
 
