@@ -20,7 +20,15 @@ module Teamocil
       # @return [Array]
       def generate_commands
         commands = []
-        commands << "tmux rename-session \"#{@name}\"" unless @name.nil?
+        unless ENV["TMUX"]
+            unless @name.nil?
+                commands << "tmux new-session -d -s #{@name}"
+            else
+                commands << "tmux new-session"
+            end
+        else
+            commands << "tmux rename-session \"#{@name}\"" unless @name.nil?
+        end
         commands << @windows.map(&:generate_commands)
       end
     end
