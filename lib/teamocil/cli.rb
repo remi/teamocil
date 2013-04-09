@@ -37,7 +37,7 @@ module Teamocil
         bail "You must be in a tmux session to use teamocil." unless env["TMUX"]
 
         conf = YAML.load(ERB.new(File.read(file)).result)
-        conf["session"]["name"] = argv[0] unless conf["session"]["name"]
+        conf["session"]["name"] ||= argv[0]
 
         @layout = Teamocil::Layout.new(conf, @options)
 
