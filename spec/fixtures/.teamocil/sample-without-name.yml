@@ -1,0 +1,6 @@
+session:
+  root: ~
+  windows:
+    - name: <%= "foo" %>
+      panes:
+      - cmd: "pwd"
