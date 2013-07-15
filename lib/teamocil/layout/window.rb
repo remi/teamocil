@@ -2,7 +2,7 @@ module Teamocil
   class Layout
     # This class represents a window within tmux
     class Window
-      attr_reader :filters, :root, :panes, :options, :index, :name, :clear, :layout
+      attr_reader :filters, :root, :panes, :options, :index, :name, :clear, :layout, :with_env_var, :cmd_separator
 
       # Initialize a new tmux window
       #
@@ -12,6 +12,8 @@ module Teamocil
       def initialize(session, index, attrs={})
         @name = attrs["name"] || "teamocil-window-#{index+1}"
         @root = attrs["root"] || "."
+        @with_env_var = attrs["with_env_var"] || (true if attrs["with_env_var"].nil?)
+        @cmd_separator = attrs["cmd_separator"] || "; "
         @clear = attrs["clear"] == true ? "clear" : nil
         @options = attrs["options"] || {}
         @layout = attrs["layout"]

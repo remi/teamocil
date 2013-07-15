@@ -208,5 +208,17 @@ describe Teamocil::Layout do
         commands.last.should == "tmux send-keys -t 2 Enter"
       end
     end
+
+    it "should not export TEAMOCIL = 1 env variable if disabled" do
+      @layout = Teamocil::Layout.new(layouts["two-windows-with-custom-command-options"], {})
+
+      session = @layout.compile!
+      commands = session.windows.first.generate_commands
+      commands[1][0].should == ["tmux send-keys -t 0 \"cd \"/foo\"\nclear\necho 'foo'\"", "tmux send-keys -t 0 Enter", "tmux select-layout \"tiled\""]
+      commands[1][1].should == ["tmux split-window", "tmux send-keys -t 1 \"cd \"/foo\"\nclear\necho 'foo again'\"", "tmux send-keys -t 1 Enter", "tmux select-layout \"tiled\""]
+
+      commands = session.windows[1].generate_commands
+      commands[1][0].should == ["tmux send-keys -t 0 \"export TEAMOCIL=1 && cd \"/bar\" && echo 'bar' && echo 'bar in an array'\"", "tmux send-keys -t 0 Enter"]
+    end
   end
 end

@@ -50,13 +50,13 @@ module Teamocil
         # Set the TEAMOCIL environment variable
         # depending on the shell set in ENV
         if ENV['SHELL'].scan(/fish/).empty?
-          @cmd.unshift "export TEAMOCIL=1"
+          @cmd.unshift "export TEAMOCIL=1" if @window.with_env_var
         else
           @cmd.unshift "set -gx TEAMOCIL 1"
         end
 
         # Execute each pane command
-        commands << "tmux send-keys -t #{@index} \"#{@cmd.flatten.compact.join("; ")}\""
+        commands << "tmux send-keys -t #{@index} \"#{@cmd.flatten.compact.join(@window.cmd_separator)}\""
         commands << "tmux send-keys -t #{@index} Enter"
 
         commands
