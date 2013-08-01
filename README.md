@@ -204,7 +204,7 @@ compctl -g '~/.teamocil/*(:t:r)' teamocil
 
 ### Bash autocompletion
 
-To get autocompletion when typing `teamocil <Tab>` in a bash session, add this line to your `~/.bashrc` file:
+To get autocompletion when typing `teamocil <Tab>` in a bash session, add these lines to your `~/.bashrc` file:
 
 ```bash
 complete -F _teamocil_list teamocil
