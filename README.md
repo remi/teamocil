@@ -211,8 +211,8 @@ complete -F _teamocil_list teamocil
 
 _teamocil_list () {
 	cur="${COMP_WORDS[COMP_CWORD]}"
-        list=$(teamocil --list)
-        COMPREPLY=( $(compgen -W "${list}" -- ${cur}) )
+	list=$(teamocil --list)
+	COMPREPLY=( $(compgen -W "${list}" -- ${cur}) )
 	return 0
 }
 
