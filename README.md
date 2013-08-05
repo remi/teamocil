@@ -210,7 +210,9 @@ To get autocompletion when typing `teamocil <Tab>` in a bash session, add these 
 complete -F _teamocil_list teamocil
 
 _teamocil_list () {
-  COMPREPLY=( $(teamocil --list) )
+	cur="${COMP_WORDS[COMP_CWORD]}"
+        list=$(teamocil --list)
+        COMPREPLY=( $(compgen -W "${list}" -- ${cur}) )
 	return 0
 }
 
