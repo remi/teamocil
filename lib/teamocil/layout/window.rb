@@ -2,7 +2,7 @@ module Teamocil
   class Layout
     # This class represents a window within tmux
     class Window
-      attr_reader :filters, :root, :panes, :options, :index, :name, :clear, :layout, :with_env_var, :cmd_separator
+      attr_reader :filters, :focus, :root, :panes, :options, :index, :name, :clear, :layout, :with_env_var, :cmd_separator
 
       # Initialize a new tmux window
       #
@@ -17,6 +17,7 @@ module Teamocil
         @clear = attrs["clear"] == true ? "clear" : nil
         @options = attrs["options"] || {}
         @layout = attrs["layout"]
+        @focus = attrs["focus"]
 
         @panes = attrs["panes"] || attrs["splits"] || []
         raise Teamocil::Error::LayoutError.new("You must specify a `panes` (or legacy `splits`) key for every window.") if @panes.empty?
