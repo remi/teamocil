@@ -61,6 +61,11 @@ describe Teamocil::Layout do
         session.windows[0].layout.should == "tiled"
         session.windows[1].layout.should be_nil
       end
+
+      it "handles focused windows" do
+        session = @layout.compile!
+        session.windows.first.focus.should be_true
+      end
     end
 
     describe "panes" do
