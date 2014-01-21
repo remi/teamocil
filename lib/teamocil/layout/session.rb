@@ -22,6 +22,8 @@ module Teamocil
         commands = []
         commands << "tmux rename-session \"#{@name}\"" unless @name.nil?
         commands << @windows.map(&:generate_commands)
+        @windows.each { |w| commands << "tmux select-window -t:#{w.name}" && break if w.focus }
+        commands
       end
     end
   end

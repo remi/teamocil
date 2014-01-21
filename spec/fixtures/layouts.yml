@@ -4,6 +4,7 @@ two-windows:
     - name: "foo"
       clear: true
       root: "/foo"
+      focus: true
       layout: "tiled"
       panes:
         - cmd: "echo 'foo'"
