@@ -1,3 +1,4 @@
+require 'shellwords'
 module Teamocil
   class Layout
     # This class represents a pane within a tmux window
@@ -45,7 +46,7 @@ module Teamocil
         @cmd = [@window.filters["before"]] + [@window.clear] + [@cmd] + [@window.filters["after"]]
 
         # If a `root` key exist, start each pane in this directory
-        @cmd.unshift "cd \"#{@window.root}\"" unless @window.root.nil?
+        @cmd.unshift "cd \"#{@window.root.shellescape}\"" unless @window.root.nil?
 
         # Set the TEAMOCIL environment variable
         # depending on the shell set in ENV
