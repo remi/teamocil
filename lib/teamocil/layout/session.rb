@@ -10,7 +10,11 @@ module Teamocil
       # @param attrs [Hash] the session data from the layout file
       def initialize(options, attrs={})
         raise Teamocil::Error::LayoutError.new("You must specify a `windows` or `session` key for your layout.") unless attrs["windows"]
-        @name = attrs["name"] || "teamocil-session-#{rand(10000) + 1}"
+        @name = if attrs.has_key? "name"
+                  attrs["name"]
+                else
+                  "teamocil-session-#{rand(10000) + 1}"
+                end
         @windows = attrs["windows"].each_with_index.map { |window, window_index| Window.new(self, window_index, window) }
         @options = options
       end

@@ -74,3 +74,11 @@ three-windows-within-a-session:
       - name: "third window"
         panes:
         - cmd: "echo 'foo'"
+
+unnamed-session:
+  session:
+    name: ~
+    windows:
+      - name: "first window"
+        panes:
+        - cmd: "echo 'foo'"
