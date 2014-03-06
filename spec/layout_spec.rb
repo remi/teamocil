@@ -225,5 +225,16 @@ describe Teamocil::Layout do
       commands = session.windows[1].generate_commands
       commands[1][0].should == ["tmux send-keys -t 0 \"export TEAMOCIL=1 && cd \"/bar\" && echo 'bar' && echo 'bar in an array'\"", "tmux send-keys -t 0 Enter"]
     end
+
+    it "should use a prefix with a space if it is enabled" do
+      @layout = Teamocil::Layout.new(layouts["two-windows-with-prefix-space-option"], {})
+
+      session = @layout.compile!
+      commands = session.windows[0].generate_commands
+      commands[1][0][0].should =~ / export TEAMOCIL=1; cd "."; foo/
+
+      commands = session.windows[1].generate_commands
+      commands[1][0][0].should =~ /export TEAMOCIL=1; cd "."; bar/
+    end
   end
 end
