@@ -36,9 +36,10 @@ module Teamocil
         bail "There is no file \"#{file}\"." unless File.exists?(file)
         bail "You must be in a tmux session to use teamocil." unless env["TMUX"]
 
-        yaml = ERB.new(File.read(file)).result
+        conf = YAML.load(ERB.new(File.read(file)).result)
+        conf["session"]["name"] ||= argv[0]
 
-        @layout = Teamocil::Layout.new(YAML.load(yaml), @options)
+        @layout = Teamocil::Layout.new(conf, @options)
 
         begin
           @layout.compile!

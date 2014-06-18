@@ -31,6 +31,11 @@ describe Teamocil::CLI do
         @cli.layout.session.windows.last.name.should == "bar"
       end
 
+      it "should assign the filename as name if none is provided" do
+        @cli = Teamocil::CLI.new(["sample-without-name"], @fake_env)
+        @cli.layout.session.name.should == "sample-without-name"
+      end
+
       it "fails to launch if no layout is provided" do
         expect { @cli = Teamocil::CLI.new([], @fake_env) }.to raise_error SystemExit
         Teamocil::CLI.messages.should include("You must supply a layout for teamocil to use. See `teamocil --help` for more options.")
@@ -56,7 +61,7 @@ describe Teamocil::CLI do
 
       it "lists available layouts" do
         @cli = Teamocil::CLI.new(["--list"], @fake_env)
-        @cli.layouts.should == ["sample", "sample-2"]
+        @cli.layouts.should == ["sample", "sample-2", "sample-without-name"]
       end
 
       it "should show the content" do
