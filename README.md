@@ -244,4 +244,4 @@ Take a look at the `spec` folder before you do, and make sure `bundle exec rake 
 
 ## License
 
-Teamocil is © 2011-2013 [Rémi Prévost](http://exomel.com) and may be freely distributed under the [MIT license](https://github.com/remiprev/teamocil/blob/master/LICENSE). See the `LICENSE` file.
+Teamocil is © 2011-2014 [Rémi Prévost](http://exomel.com) and may be freely distributed under the [MIT license](https://github.com/remiprev/teamocil/blob/master/LICENSE). See the `LICENSE` file.
