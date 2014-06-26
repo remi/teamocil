@@ -55,6 +55,8 @@ module Teamocil
           @cmd.unshift "set -gx TEAMOCIL 1"
         end
 
+        @cmd[0] = " " + @cmd[0] if @window.prefix_with_space
+
         # Execute each pane command
         commands << "tmux send-keys -t #{@index} \"#{@cmd.flatten.compact.join(@window.cmd_separator)}\""
         commands << "tmux send-keys -t #{@index} Enter"

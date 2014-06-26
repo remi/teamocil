@@ -61,6 +61,17 @@ two-windows-with-custom-command-options:
           focus: true
           width: 50
 
+two-windows-with-prefix-space-option:
+  windows:
+    - name: "foo"
+      prefix_with_space: true
+      panes:
+        - cmd: "foo"
+    - name: "bar"
+      prefix_with_space: false
+      panes:
+        - cmd: "bar"
+
 three-windows-within-a-session:
   session:
     name: "my awesome session"
