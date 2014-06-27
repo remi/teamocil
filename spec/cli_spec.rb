@@ -31,11 +31,6 @@ describe Teamocil::CLI do
         @cli.layout.session.windows.last.name.should == "bar"
       end
 
-      it "fails to launch if no layout is provided" do
-        expect { @cli = Teamocil::CLI.new([], @fake_env) }.to raise_error SystemExit
-        Teamocil::CLI.messages.should include("You must supply a layout for teamocil to use. See `teamocil --help` for more options.")
-      end
-
       it "fails to create a layout from a layout that doesn’t exist" do
         expect { @cli = Teamocil::CLI.new(["i-do-not-exist"], @fake_env) }.to raise_error SystemExit
         Teamocil::CLI.messages.should include("There is no file \"#{File.join(File.dirname(__FILE__), "fixtures", ".teamocil", "i-do-not-exist.yml")}\".")
