@@ -1,0 +1,10 @@
+session:
+  name: ~
+  root: ~
+  windows:
+    - name: <%= "foo" %>
+      panes:
+      - cmd: "pwd"
+    - name: "bar"
+      panes:
+      - cmd: "pwd"

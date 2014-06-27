@@ -74,6 +74,12 @@ describe Teamocil::CLI do
         expect { @cli = Teamocil::CLI.new(["sample"], @fake_env) }.to raise_error SystemExit
         Teamocil::CLI.messages.should include("There is no file \"#{@fake_env["TEAMOCIL_PATH"]}/sample.yml\".")
       end
+
+      it "creates a layout from a specific file without renaming it" do
+        @cli = Teamocil::CLI.new(["--layout", "./spec/fixtures/.my-fancy-layouts-directory/sample_nil_name.yml"], @fake_env)
+        @cli.layout.session.name.should be_nil
+      end
+
     end
   end
 end

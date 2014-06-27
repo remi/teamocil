@@ -159,6 +159,12 @@ describe Teamocil::Layout do
         session = layout.compile!
         session.name.should match /teamocil-session-\d+/
       end
+
+      it "should not assign a random name if nil is provided" do
+        layout = Teamocil::Layout.new(layouts["unnamed-session"], {})
+        session = layout.compile!
+        session.name.should be_nil
+      end
     end
   end
 
