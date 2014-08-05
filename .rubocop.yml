@@ -1,0 +1,48 @@
+AllCops:
+  Include:
+    - Rakefile
+    - teamocil.gemspec
+
+Documentation:
+  Enabled: false
+
+Encoding:
+  Enabled: false
+
+LineLength:
+  Max: 200
+
+AccessModifierIndentation:
+  EnforcedStyle: outdent
+
+IfUnlessModifier:
+  Enabled: false
+
+CaseIndentation:
+  IndentWhenRelativeTo: case
+  IndentOneStep: true
+
+MethodLength:
+  CountComments: false
+  Max: 20
+
+SignalException:
+  Enabled: false
+
+ColonMethodCall:
+  Enabled: false
+
+AsciiComments:
+  Enabled: false
+
+Lambda:
+  Enabled: false
+
+RegexpLiteral:
+  Enabled: false
+
+RedundantBegin:
+  Enabled: false
+
+AssignmentInCondition:
+  Enabled: false

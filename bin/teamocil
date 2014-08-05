@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), *%w(.. lib))
+
+require 'yaml'
+require 'teamocil'
+
+runner = Teamocil::CLI.new(arguments: ARGV, environment: ENV)
+runner.run!
