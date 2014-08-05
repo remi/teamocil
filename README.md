@@ -46,10 +46,10 @@ $ teamocil [options] [layout-name]
 
 | Option      | Description
 |-------------|----------------------------
-| `--layout`  | Takes a custom file path to a YAML layout file instead of the `[layout-name]`
-| `--here`    | Opens the session in the current window, do not create an empty first window
-| `--edit`    | Opens the layout file (whether or not `--layout` is used) with `$EDITOR`
-| `--show`    | Show the layout content instead of executing it
+| `--layout`  | Takes a custom file path to a YAML layout file instead of `[layout-name]`
+| `--here`    | Uses the current window as the layout’s first window
+| `--edit`    | Opens the layout file with `$EDITOR` instead of executing it
+| `--show`    | Shows the layout content instead of executing it
 
 ## Upgrading
 
