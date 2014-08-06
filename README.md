@@ -53,7 +53,7 @@ $ teamocil [options] [layout-name]
 
 ## Upgrading
 
-Teamocil 1.0 is a complete rewrite (from scratch!) of teamocil. The code is now
+Teamocil 1.0 is a complete rewrite (from scratch!) of Teamocil. The code is now
 very much simpler, cleaner and easier to maintain.
 
 The downside of that is that several features were dropped during the rewrite
@@ -71,13 +71,13 @@ many features as you want :smile:.
 |----------|----------------------------
 | `name`   | The tmux window name
 | `root`   | The path where all panes in the window will be started
-| `layout` | The layout that will be set after all panes are created by teamocil
+| `layout` | The layout that will be set after all panes are created by Teamocil
 | `panes`  | An `Array` of panes
 | `focus`  | If set to `true`, the window will be selected after the layout has been executed
 
 ### Panes
 
-A pane can either be a `String` or a `Hash`. If it’s a `String`, teamocil will
+A pane can either be a `String` or a `Hash`. If it’s a `String`, Teamocil will
 treat it as a single-command pane.
 
 | Key        | Description
