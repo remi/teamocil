@@ -19,7 +19,7 @@ module Teamocil
         parser.separator 'Specific options:'
 
         # Global options
-        parser.on('--list', 'List all available layouts in `~/.teamocil/` or `$TEAMOCIL_PATH`') do
+        parser.on('--list', 'List all available layouts in `~/.teamocil/`') do
           @parsed_options[:list] = true
         end
 

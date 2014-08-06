@@ -24,7 +24,7 @@ module Teamocil
   private
 
     def root
-      environment['TEAMOCIL_PATH'] || DIRECTORY.sub('$HOME', environment['HOME'])
+      DIRECTORY.sub('$HOME', environment['HOME'])
     end
 
     def layout_file_path

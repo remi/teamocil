@@ -40,7 +40,7 @@ $ teamocil [options] [layout-name]
 
 | Option      | Description
 |-------------|----------------------------
-| `--list`    | Lists all available layouts in `~/.teamocil` or `$TEAMOCIL_PATH`
+| `--list`    | Lists all available layouts in `~/.teamocil`
 
 ### Layout options
 
