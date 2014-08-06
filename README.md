@@ -168,6 +168,24 @@ windows:
 '------------------'------------------'
 ```
 
+## Extras
+
+### Zsh autocompletion
+
+To get autocompletion when typing `teamocil <Tab>` in a zsh session, add this line to your `~/.zshrc` file:
+
+```zsh
+compctl -g '~/.teamocil/*(:t:r)' teamocil
+```
+
+### Bash autocompletion
+
+To get autocompletion when typing `teamocil <Tab>` in a bash session, add this line to your `~/.bashrc` file:
+
+```bash
+complete -W "$(teamocil --list)" teamocil
+```
+
 ## Contributors
 
 Feel free to contribute and submit issues/pull requests
