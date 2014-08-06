@@ -327,7 +327,7 @@ a {
 }
 
 #content p img {
-    float: left;
+    float: none;
     margin: .5em .8125em .8125em 0;
     padding: 0
 }
