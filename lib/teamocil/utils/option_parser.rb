@@ -1,6 +1,6 @@
 module Teamocil
   class OptionParser
-    def initialize(arguments:)
+    def initialize(arguments: nil)
       @arguments = arguments
       @parsed_options = {}
     end

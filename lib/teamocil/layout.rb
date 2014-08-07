@@ -16,7 +16,7 @@ module Teamocil
       Teamocil.system("$EDITOR #{path}")
     end
 
-    def self.print_available_layouts(directory:)
+    def self.print_available_layouts(directory: nil)
       files = Dir.glob(File.join(directory, '*.yml'))
 
       files.map! do |file|

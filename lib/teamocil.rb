@@ -47,7 +47,7 @@ module Teamocil
     Kernel.system(*args)
   end
 
-  def self.parse_options!(arguments:)
+  def self.parse_options!(arguments: nil)
     parser = OptionParser.new(arguments: arguments)
     @options = parser.parsed_options
   end
