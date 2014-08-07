@@ -60,8 +60,11 @@ The downside of that is that several features were dropped during the rewrite
 process, mostly because I didn’t actually use/need them and I got tired of
 maintaining features I don’t think are useful.
 
-But hey, that’s just my opinion. Feel free to fork the repository and add as
-many features as you want :smile:.
+You *might* have to clean up your layout files after upgrading to 1.0. I’m
+sorry about that. The documentation in `README.md` should help you find which
+keys are now supported.
+
+Feel free to fork the repository and add back as many features as you want :)
 
 ## Configuration
 
