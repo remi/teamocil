@@ -125,8 +125,10 @@ windows:
     layout: main-vertical
     panes:
       - vim
+      - commands:
+        - git pull
+        - git status
       - rails server
-      - git status
 ```
 
 ```
