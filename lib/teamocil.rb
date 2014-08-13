@@ -27,6 +27,7 @@ require 'teamocil/command/split_window'
 require 'teamocil/tmux/session'
 require 'teamocil/tmux/window'
 require 'teamocil/tmux/pane'
+require 'teamocil/tmux/options'
 
 module Teamocil
   class << self
@@ -45,6 +46,10 @@ module Teamocil
 
   def self.system(*args)
     Kernel.system(*args)
+  end
+
+  def self.query_system(command)
+    `#{command}`
   end
 
   def self.parse_options!(arguments: nil)

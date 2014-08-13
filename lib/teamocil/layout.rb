@@ -46,7 +46,7 @@ module Teamocil
       end
 
       if valid?
-        Session.new(yaml_content)
+        Teamocil::Tmux::Session.new(yaml_content)
       else
         Teamocil.bail("The layout at `#{path}` is not valid.")
       end

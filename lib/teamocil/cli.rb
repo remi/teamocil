@@ -6,10 +6,10 @@ module Teamocil
       Teamocil.parse_options!(arguments: arguments)
 
       # List available layouts
-      return Layout.print_available_layouts(directory: root) if Teamocil.options[:list]
+      return Teamocil::Layout.print_available_layouts(directory: root) if Teamocil.options[:list]
 
       # Fetch the Layout object
-      layout = Layout.new(path: layout_file_path)
+      layout = Teamocil::Layout.new(path: layout_file_path)
 
       # Open layout file in $EDITOR
       return layout.edit! if Teamocil.options[:edit]
