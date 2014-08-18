@@ -5,7 +5,7 @@ module Teamocil
         super
 
         # Make sure paths like `~/foo/bar` work
-        self.root = File.expand_path(root)
+        self.root = File.expand_path(root) if root
 
         self.panes ||= splits
         self.panes = panes.each_with_index.map do |pane, index|
