@@ -4,6 +4,10 @@ module Teamocil
       def initialize(object)
         super
 
+        # Expand homedir
+        expanded_root = File.expand_path(root.to_s)
+        self.root = expanded_root.to_s
+
         self.panes ||= splits
         self.panes = panes.each_with_index.map do |pane, index|
           # Support single command instead of `commands` key in Hash
@@ -14,7 +18,7 @@ module Teamocil
           pane.merge! first: index.zero?
 
           # Panes need know the window root directory
-          pane.merge! root: root
+          pane.merge! root: self.root
 
           Teamocil::Tmux::Pane.new(pane)
         end
