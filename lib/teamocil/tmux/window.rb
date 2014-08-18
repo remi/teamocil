@@ -4,6 +4,9 @@ module Teamocil
       def initialize(object)
         super
 
+        # Make sure paths like `~/foo/bar` work
+        self.root = File.expand_path(root)
+
         self.panes ||= splits
         self.panes = panes.each_with_index.map do |pane, index|
           # Support single command instead of `commands` key in Hash
