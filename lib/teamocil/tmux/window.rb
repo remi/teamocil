@@ -36,7 +36,7 @@ module Teamocil
           tmux << panes.map(&:as_tmux)
 
           # Select the window layout
-          tmux << Teamocil::Command::SelectLayout.new(layout: layout)
+          tmux << Teamocil::Command::SelectLayout.new(layout: layout) if layout
 
           # Set the focus on the right pane or the first one
           focused_pane = panes.find(&:focus)
