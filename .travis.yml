@@ -1,2 +1,7 @@
-rvm: 2.1.2
-script: bundle exec phare
+rvm:
+  - 2.0.0
+  - 2.1.2
+
+script:
+  - 'echo "Checking code style" && bundle exec phare'
+  - 'echo "Running specs" && bundle exec rspec'
