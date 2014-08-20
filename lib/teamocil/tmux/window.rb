@@ -46,7 +46,7 @@ module Teamocil
       end
 
       def pane_base_index
-        @pane_base_index ||= Teamocil::Tmux::Options.fetch_window_option('pane-base-index', default: 0)
+        @pane_base_index ||= Teamocil::Tmux.window_option('pane-base-index', default: 0)
       end
     end
   end

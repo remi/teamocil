@@ -13,6 +13,8 @@ require 'teamocil/layout'
 require 'teamocil/cli'
 
 # Command classes
+require 'teamocil/command/list_panes'
+require 'teamocil/command/list_windows'
 require 'teamocil/command/new_window'
 require 'teamocil/command/rename_session'
 require 'teamocil/command/rename_window'
@@ -21,13 +23,15 @@ require 'teamocil/command/select_pane'
 require 'teamocil/command/select_window'
 require 'teamocil/command/send_keys'
 require 'teamocil/command/send_keys_to_pane'
+require 'teamocil/command/show_options'
+require 'teamocil/command/show_window_options'
 require 'teamocil/command/split_window'
 
 # Tmux classes
+require 'teamocil/tmux'
 require 'teamocil/tmux/session'
 require 'teamocil/tmux/window'
 require 'teamocil/tmux/pane'
-require 'teamocil/tmux/options'
 
 module Teamocil
   class << self
@@ -49,7 +53,7 @@ module Teamocil
   end
 
   def self.query_system(command)
-    `#{command}`
+    `tmux #{command.to_s}`
   end
 
   def self.parse_options!(arguments: nil)
