@@ -12,6 +12,10 @@ require 'teamocil/utils/option_parser'
 require 'teamocil/layout'
 require 'teamocil/cli'
 
+# Errors
+require 'teamocil/error/layout_not_found'
+require 'teamocil/error/invalid_yaml_layout'
+
 # Command classes
 require 'teamocil/command/list_panes'
 require 'teamocil/command/list_windows'

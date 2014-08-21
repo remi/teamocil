@@ -1,7 +1,8 @@
 $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
 
-# We need `Dir.tmpdir`
+# Ruby stdlib dependencies
 require 'tmpdir'
+require 'fileutils'
 
 # RSpec testing framework
 require 'rspec'

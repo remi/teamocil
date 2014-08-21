@@ -1,5 +1,5 @@
 module Teamocil
-  class Layout < ClosedStruct.new(:path, :options)
+  class Layout < ClosedStruct.new(:path)
     def execute!
       if Teamocil.options[:debug]
         Teamocil.puts(shell_commands.join("\n"))
@@ -34,33 +34,23 @@ module Teamocil
   private
 
     def shell_commands
-      commands = parsed_layout.as_tmux
-      commands.flatten.map { |command| "tmux #{command}" }
+      session.as_tmux.flatten.map { |command| "tmux #{command}" }
     end
 
-    def parsed_layout
-      begin
-        yaml_content = YAML.load(raw_content)
-      rescue
-        Teamocil.bail("There was a YAML error when parsing `#{path}`")
-      end
-
-      if valid?
-        Teamocil::Tmux::Session.new(yaml_content)
-      else
-        Teamocil.bail("The layout at `#{path}` is not valid.")
-      end
+    def session
+      Teamocil::Tmux::Session.new(parsed_content)
     end
 
-    def valid?
-      # TODO: Actually validate if the layout is valid
-      true
+    def parsed_content
+      YAML.load(raw_content)
+    rescue Psych::SyntaxError
+      raise Teamocil::Error::InvalidYAMLLayout, path
     end
 
     def raw_content
       File.read(path)
-    rescue
-      Teamocil.bail("Cannot find a layout at `#{path}`")
+    rescue Errno::ENOENT
+      raise Teamocil::Error::LayoutNotFound, path
     end
   end
 end
