@@ -1,6 +1,6 @@
 module Teamocil
   module Tmux
-    class Window < ClosedStruct.new(:index, :root, :focus, :layout, :name, :panes, :first)
+    class Window < ClosedStruct.new(:index, :root, :focus, :layout, :name, :panes)
       def initialize(object)
         super
 
@@ -13,8 +13,7 @@ module Teamocil
           pane = { commands: [pane] } if pane.is_a?(String)
 
           # Panes need to know their position
-          pane.merge! index: index + pane_base_index
-          pane.merge! first: index.zero?
+          pane.merge! index: index
 
           # Panes need know the window root directory
           pane.merge! root: root
@@ -26,7 +25,7 @@ module Teamocil
       def as_tmux
         [].tap do |tmux|
           # Rename the current window or create a new one
-          if Teamocil.options[:here] && first
+          if Teamocil.options[:here] && first?
             tmux << Teamocil::Command::RenameWindow.new(name: name)
           else
             tmux << Teamocil::Command::NewWindow.new(name: name, root: root)
@@ -40,13 +39,31 @@ module Teamocil
 
           # Set the focus on the right pane or the first one
           focused_pane = panes.find(&:focus)
-          focused_index = focused_pane ? focused_pane.index : pane_base_index
+          focused_index = focused_pane ? focused_pane.internal_index : Teamocil::Tmux::Pane.pane_base_index
           tmux << Teamocil::Command::SelectPane.new(index: focused_index)
         end
       end
 
-      def pane_base_index
-        @pane_base_index ||= Teamocil::Tmux.window_option('pane-base-index', default: 0)
+      def internal_index
+        index + self.class.window_base_index
+      end
+
+      def window_base_index
+        @window_base_index ||= begin
+          base_index = Teamocil::Tmux.option('base-index', default: 0)
+          current_window_count = Teamocil::Tmux.window_count
+
+          # If `--here` is specified, treat the current window as a new one
+          current_window_count -= 1 if Teamocil.options[:here]
+
+          base_index + current_window_count
+        end
+      end
+
+    protected
+
+      def first?
+        index.zero?
       end
     end
   end
