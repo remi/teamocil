@@ -34,7 +34,7 @@ module Teamocil
   private
 
     def shell_commands
-      session.as_tmux.flatten.map { |command| "tmux #{command}" }
+      session.as_tmux.map { |command| "tmux #{command}" }
     end
 
     def session

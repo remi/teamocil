@@ -23,7 +23,7 @@ module Teamocil
           # Set the focus on the right window or do nothing
           focused_window = windows.find(&:focus)
           tmux << Teamocil::Command::SelectWindow.new(index: focused_window.internal_index) if focused_window
-        end
+        end.flatten
       end
     end
   end

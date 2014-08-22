@@ -32,7 +32,7 @@ module Teamocil
           end
 
           # Execute all panes commands
-          tmux << panes.map(&:as_tmux)
+          tmux << panes.map(&:as_tmux).flatten
 
           # Select the window layout
           tmux << Teamocil::Command::SelectLayout.new(layout: layout) if layout
@@ -41,7 +41,7 @@ module Teamocil
           focused_pane = panes.find(&:focus)
           focused_index = focused_pane ? focused_pane.internal_index : Teamocil::Tmux::Pane.pane_base_index
           tmux << Teamocil::Command::SelectPane.new(index: focused_index)
-        end
+        end.flatten
       end
 
       def internal_index

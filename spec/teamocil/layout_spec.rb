@@ -13,7 +13,7 @@ RSpec.describe Teamocil::Layout do
       let(:raw_content) { double('Raw content') }
       let(:parsed_content) { double('Parsed content') }
       let(:session) { instance_double(Teamocil::Tmux::Session) }
-      let(:commands) { ['foo', %w(bar omg)] }
+      let(:commands) { %w(foo bar omg) }
 
       before do
         allow(Teamocil::Tmux::Session).to receive(:new).and_return(session)
