@@ -48,7 +48,7 @@ module Teamocil
         index + self.class.window_base_index
       end
 
-      def window_base_index
+      def self.window_base_index
         @window_base_index ||= begin
           base_index = Teamocil::Tmux.option('base-index', default: 0)
           current_window_count = Teamocil::Tmux.window_count
