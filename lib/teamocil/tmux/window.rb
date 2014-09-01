@@ -7,7 +7,7 @@ module Teamocil
         # Make sure paths like `~/foo/bar` work
         self.root = File.expand_path(root) if root
 
-        self.panes ||= splits
+        self.panes ||= []
         self.panes = panes.each_with_index.map do |pane, index|
           # Support single command instead of `commands` key in Hash
           pane = { commands: [pane] } if pane.is_a?(String)
