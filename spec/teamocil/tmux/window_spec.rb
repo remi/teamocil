@@ -55,6 +55,17 @@ RSpec.describe Teamocil::Tmux::Window do
     end
   end
 
+  context 'without panes' do
+    let(:panes) { nil }
+
+    it do
+      expect(as_tmux).to eql [
+        Teamocil::Command::NewWindow.new(name: name, root: root),
+        Teamocil::Command::SelectPane.new(index: pane_base_index)
+      ]
+    end
+  end
+
   context 'with layout attribute' do
     let(:layout) { 'tiled' }
 
