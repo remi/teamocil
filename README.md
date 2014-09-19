@@ -68,6 +68,13 @@ Feel free to fork the repository and add back as many features as you want :)
 
 ## Configuration
 
+### Session
+
+| Key       | Description
+|-----------|----------------------------
+| `name`    | The tmux session name
+| `windows` | An `Array` of windows
+
 ### Windows
 
 | Key      | Description
