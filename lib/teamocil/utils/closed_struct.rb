@@ -5,7 +5,7 @@ module Teamocil
 
       args.first.each_pair do |key, value|
         # Make sure we only set values to defined arguments
-        if members.map { |x| x.intern }.include?(key.to_sym)
+        if members.map(&:intern).include?(key.to_sym)
           send "#{key}=", value
         else
           raise ArgumentError, "#{self.class.name} doesn’t support the `#{key}` keyword, only #{members.join(', ')}"
