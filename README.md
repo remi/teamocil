@@ -190,6 +190,9 @@ To get autocompletion when typing `teamocil <Tab>` in a zsh session, add this li
 compctl -g '~/.teamocil/*(:t:r)' teamocil
 ```
 
+[zsh-completions](https://github.com/zsh-users/zsh-completions) also provides
+additional completion definitions for Teamocil.
+
 ### Bash autocompletion
 
 To get autocompletion when typing `teamocil <Tab>` in a bash session, add this line to your `~/.bashrc` file:
