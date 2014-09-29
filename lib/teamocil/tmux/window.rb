@@ -26,6 +26,12 @@ module Teamocil
         [].tap do |tmux|
           # Rename the current window or create a new one
           if Teamocil.options[:here] && first?
+            if root
+              first_pane_index = panes.first.internal_index
+              tmux << Teamocil::Command::SendKeysToPane.new(index: first_pane_index, keys: %Q{cd "#{root}"})
+              tmux << Teamocil::Command::SendKeysToPane.new(index: first_pane_index, keys: 'Enter')
+            end
+
             tmux << Teamocil::Command::RenameWindow.new(name: name)
           else
             tmux << Teamocil::Command::NewWindow.new(name: name, root: root)
