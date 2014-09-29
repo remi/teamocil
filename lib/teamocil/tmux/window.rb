@@ -28,7 +28,7 @@ module Teamocil
           if Teamocil.options[:here] && first?
             if root
               first_pane_index = panes.first.internal_index
-              tmux << Teamocil::Command::SendKeysToPane.new(index: first_pane_index, keys: %Q{cd "#{root}"})
+              tmux << Teamocil::Command::SendKeysToPane.new(index: first_pane_index, keys: %Q(cd "#{root}"))
               tmux << Teamocil::Command::SendKeysToPane.new(index: first_pane_index, keys: 'Enter')
             end
 
