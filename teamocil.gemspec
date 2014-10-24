@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   # Dependencies
+  s.required_ruby_version = '>= 2.0'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'phare', '~> 0.6'
   s.add_development_dependency 'rubocop', '0.26.1'
