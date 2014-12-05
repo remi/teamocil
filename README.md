@@ -64,7 +64,7 @@ You *might* have to clean up your layout files after upgrading to 1.0. I’m
 sorry about that. The documentation in `README.md` should help you find which
 keys are now supported.
 
-Feel free to fork the repository and add back as many features as you want :)
+The [`0.4-stable` branch](https://github.com/remiprev/teamocil/tree/0.4-stable) is still available with the old code. Feel free to fork the repository and add back as many features as you want :)
 
 ## Configuration
 
