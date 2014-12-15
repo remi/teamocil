@@ -3,7 +3,7 @@
     <img src="http://i.imgur.com/NX2eV2X.png" alt="Teamocil" />
   </a>
   <br />
-  Teamocil is a simple tool used to automatically create sessions,<br /> windows and panes in <a href="http://tmux.sourceforge.net">tmux</a> with YAML files.
+  Teamocil is a simple tool used to automatically create<br /> windows and panes in <a href="http://tmux.sourceforge.net">tmux</a> with YAML files.
   <br /><br />
   <a href="https://rubygems.org/gems/teamocil"><img src="http://img.shields.io/gem/v/teamocil.svg" /></a>
   <a href="https://travis-ci.org/remiprev/teamocil"><img src="http://img.shields.io/travis/remiprev/teamocil.svg" /></a>
