@@ -10,10 +10,10 @@ Gem::Specification.new do |s|
   s.platform     = Gem::Platform::RUBY
   s.authors      = 'Rémi Prévost'
   s.email        = 'remi@exomel.com'
-  s.homepage     = 'http://remiprev.github.com/teamocil'
+  s.homepage     = 'http://www.teamocil.com'
   s.license      = 'MIT'
-  s.summary      = 'Easy session, window and pane layouts for tmux'
-  s.description  = 'Teamocil helps you set up window and pane layouts for tmux using YAML configuration files.'
+  s.description  = 'Teamocil is a simple tool used to automatically create windows and panes in tmux with YAML files.'
+  s.summary      = s.description
 
   # Manifest
   s.files         = `git ls-files`.split("\n")
