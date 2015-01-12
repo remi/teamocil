@@ -180,6 +180,34 @@ windows:
 '------------------'------------------'
 ```
 
+### Two pane window with focus in second pane
+
+```yaml
+windows:
+  - name: sample-two-panes
+    root: ~/Code/sample/www
+    layout: even-horizontal
+    panes:
+      - rails server
+      - commands:
+          - rails console
+        focus: true
+```
+
+```
+.------------------.------------------.
+| (0)              | (1) <focus here> |
+|                  |                  |
+|                  |                  |
+|                  |                  |
+|                  |                  |
+|                  |                  |
+|                  |                  |
+|                  |                  |
+|                  |                  |
+'------------------'------------------'
+```
+
 ## Extras
 
 ### Zsh autocompletion
