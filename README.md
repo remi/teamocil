@@ -156,7 +156,7 @@ windows:
 
 ```yaml
 windows:
-  - name: sample-two-panes
+  - name: sample-four-panes
     root: ~/Code/sample/www
     layout: tiled
     panes:
