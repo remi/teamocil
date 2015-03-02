@@ -74,6 +74,7 @@ RSpec.describe Teamocil::Tmux::Window do
         Teamocil::Command::NewWindow.new(name: name),
         Teamocil::Command::SendKeysToPane.new(index: pane_base_index, keys: 'foo; omg'),
         Teamocil::Command::SendKeysToPane.new(index: pane_base_index, keys: 'Enter'),
+        Teamocil::Command::SelectLayout.new(layout: layout),
         Teamocil::Command::SplitWindow.new,
         Teamocil::Command::SendKeysToPane.new(index: pane_base_index + 1, keys: 'bar'),
         Teamocil::Command::SendKeysToPane.new(index: pane_base_index + 1, keys: 'Enter'),
