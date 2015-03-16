@@ -18,6 +18,9 @@ module Teamocil
           # Panes need know the window root directory
           pane.merge! root: root
 
+          # Panes need know the window layout
+          pane.merge! layout: layout
+
           Teamocil::Tmux::Pane.new(pane)
         end
       end
@@ -39,9 +42,6 @@ module Teamocil
 
           # Execute all panes commands
           tmux << panes.map(&:as_tmux).flatten
-
-          # Select the window layout
-          tmux << Teamocil::Command::SelectLayout.new(layout: layout) if layout
 
           # Set the focus on the right pane or the first one
           focused_pane = panes.find(&:focus)

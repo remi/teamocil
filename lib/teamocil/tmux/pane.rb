@@ -1,11 +1,12 @@
 module Teamocil
   module Tmux
-    class Pane < ClosedStruct.new(:index, :root, :commands, :focus)
+    class Pane < ClosedStruct.new(:index, :root, :commands, :focus, :layout)
       def as_tmux
         [].tap do |tmux|
           tmux << Teamocil::Command::SplitWindow.new(root: root) unless first?
           tmux << Teamocil::Command::SendKeysToPane.new(index: internal_index, keys: commands.join('; ')) if commands
           tmux << Teamocil::Command::SendKeysToPane.new(index: internal_index, keys: 'Enter')
+          tmux << Teamocil::Command::SelectLayout.new(layout: layout) if layout
         end
       end
 
