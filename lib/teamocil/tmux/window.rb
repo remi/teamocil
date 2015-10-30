@@ -15,10 +15,10 @@ module Teamocil
           # Panes need to know their position
           pane.merge! index: index
 
-          # Panes need know the window root directory
+          # Panes need to know the window root directory
           pane.merge! root: root
 
-          # Panes need know the window layout
+          # Panes need to know the window layout
           pane.merge! layout: layout
 
           Teamocil::Tmux::Pane.new(pane)
