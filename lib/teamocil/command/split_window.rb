@@ -1,8 +1,8 @@
 module Teamocil
   module Command
-    class SplitWindow < ClosedStruct.new(:root)
+    class SplitWindow < ClosedStruct.new(:root, :name)
       def to_s
-        "split-window #{options.join(' ')}"
+        "split-window -t '#{name}' #{options.join(' ')}"
       end
 
       def options

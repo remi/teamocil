@@ -1,8 +1,8 @@
 module Teamocil
   module Command
-    class SelectLayout < ClosedStruct.new(:layout)
+    class SelectLayout < ClosedStruct.new(:layout, :name)
       def to_s
-        "select-layout '#{layout}'"
+        "select-layout -t '#{name}' '#{layout}'"
       end
     end
   end

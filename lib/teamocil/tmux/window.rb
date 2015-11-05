@@ -21,6 +21,9 @@ module Teamocil
           # Panes need to know the window layout
           pane.merge! layout: layout
 
+          # Panes need to know the window name
+          pane.merge! name: name
+
           Teamocil::Tmux::Pane.new(pane)
         end
       end
@@ -46,6 +49,7 @@ module Teamocil
           # Set the focus on the right pane or the first one
           focused_pane = panes.find(&:focus)
           focused_index = focused_pane ? focused_pane.internal_index : Teamocil::Tmux::Pane.pane_base_index
+          focused_index = "#{name}.#{focused_index}"
           tmux << Teamocil::Command::SelectPane.new(index: focused_index)
         end.flatten
       end
