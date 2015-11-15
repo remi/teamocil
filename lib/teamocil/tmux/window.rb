@@ -1,6 +1,6 @@
 module Teamocil
   module Tmux
-    class Window < ClosedStruct.new(:index, :root, :focus, :layout, :name, :panes)
+    class Window < ClosedStruct.new(:index, :root, :focus, :layout, :name, :panes, :options)
       def initialize(object)
         super
 
@@ -41,6 +41,13 @@ module Teamocil
             tmux << Teamocil::Command::RenameWindow.new(name: name)
           else
             tmux << Teamocil::Command::NewWindow.new(name: name, root: root)
+          end
+
+          # Set window options
+          if options
+            tmux << options.map do |(option, value)|
+              Teamocil::Command::SetWindowOption.new(name: name, option: option, value: value)
+            end
           end
 
           # Execute all panes commands

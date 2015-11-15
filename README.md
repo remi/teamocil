@@ -77,13 +77,14 @@ The [`0.4-stable` branch](https://github.com/remiprev/teamocil/tree/0.4-stable) 
 
 ### Windows
 
-| Key      | Description
-|----------|----------------------------
-| `name`   | The tmux window name
-| `root`   | The path where all panes in the window will be started
-| `layout` | The layout that will be set after all panes are created by Teamocil
-| `panes`  | An `Array` of panes
-| `focus`  | If set to `true`, the window will be selected after the layout has been executed
+| Key       | Description
+|-----------|----------------------------
+| `name`    | The tmux window name
+| `root`    | The path where all panes in the window will be started
+| `layout`  | The layout that will be set after all panes are created by Teamocil
+| `panes`   | An `Array` of panes
+| `focus`   | If set to `true`, the window will be selected after the layout has been executed
+| `options` | A `Hash` of options that will be set with the `set-window-option` command
 
 ### Panes
 

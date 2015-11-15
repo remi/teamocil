@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Teamocil::Tmux::Window do
-  let(:window) { Teamocil::Tmux::Window.new(index: index, root: root, layout: layout, name: name, panes: panes) }
+  let(:window) { Teamocil::Tmux::Window.new(index: index, root: root, layout: layout, name: name, panes: panes, options: window_options) }
   let(:as_tmux) { window.as_tmux }
 
   before do
@@ -13,9 +13,10 @@ RSpec.describe Teamocil::Tmux::Window do
   # Tmux options
   let(:pane_base_index) { Random.rand(0..100) }
   let(:window_base_index) { Random.rand(0..100) }
+  let(:options) { {} }
 
   # Window attributes
-  let(:options) { {} }
+  let(:window_options) { {} }
   let(:index) { 0 }
   let(:name) { 'foo' }
   let(:layout) { nil }
@@ -72,6 +73,28 @@ RSpec.describe Teamocil::Tmux::Window do
     it do
       expect(as_tmux).to eql [
         Teamocil::Command::NewWindow.new(name: name),
+        Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'foo; omg'),
+        Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'Enter'),
+        Teamocil::Command::SelectLayout.new(layout: layout, name: name),
+        Teamocil::Command::SplitWindow.new(name: name),
+        Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index + 1}", keys: 'bar'),
+        Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index + 1}", keys: 'Enter'),
+        Teamocil::Command::SelectLayout.new(layout: layout, name: name),
+        Teamocil::Command::SelectPane.new(index: "#{name}.#{pane_base_index + 1}")
+      ]
+    end
+  end
+
+  context 'with options attribute' do
+    let(:layout) { 'main-vertical' }
+    let(:window_options) do
+      { 'main-pane-width' => '100' }
+    end
+
+    it do
+      expect(as_tmux).to eql [
+        Teamocil::Command::NewWindow.new(name: name),
+        Teamocil::Command::SetWindowOption.new(name: name, option: 'main-pane-width', value: '100'),
         Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'foo; omg'),
         Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'Enter'),
         Teamocil::Command::SelectLayout.new(layout: layout, name: name),
