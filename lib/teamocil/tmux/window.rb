@@ -28,6 +28,7 @@ module Teamocil
         end
       end
 
+      # rubocop:disable MethodLength
       def as_tmux
         [].tap do |tmux|
           # Rename the current window or create a new one
@@ -59,6 +60,7 @@ module Teamocil
           tmux << Teamocil::Command::SelectPane.new(index: focused_index)
         end.flatten
       end
+      # rubocop:enable MethodLength
 
       def internal_index
         index + self.class.window_base_index
