@@ -7,6 +7,7 @@ module Teamocil
         # Make sure paths like `~/foo/bar` work
         self.root = File.expand_path(root) if root
 
+        self.options ||= {}
         self.panes ||= []
         self.panes = panes.each_with_index.map do |pane, index|
           # Support single command instead of `commands` key in Hash
@@ -28,39 +29,22 @@ module Teamocil
         end
       end
 
-      # rubocop:disable MethodLength
       def as_tmux
         [].tap do |tmux|
-          # Rename the current window or create a new one
-          if Teamocil.options[:here] && first?
-            if root
-              first_pane_index = panes.first.internal_index
-              tmux << Teamocil::Command::SendKeysToPane.new(index: first_pane_index, keys: %(cd "#{root}"))
-              tmux << Teamocil::Command::SendKeysToPane.new(index: first_pane_index, keys: 'Enter')
-            end
+          # Create a new window or use the current one
+          tmux << spawn_window_commands
 
-            tmux << Teamocil::Command::RenameWindow.new(name: name)
-          else
-            tmux << Teamocil::Command::NewWindow.new(name: name, root: root)
-          end
-
-          # Set window options
-          if options
-            tmux << options.map do |(option, value)|
-              Teamocil::Command::SetWindowOption.new(name: name, option: option, value: value)
-            end
-          end
+          # Set specific window options
+          tmux << set_window_options_commands
 
           # Execute all panes commands
           tmux << panes.map(&:as_tmux).flatten
 
           # Set the focus on the right pane or the first one
-          focused_pane = panes.find(&:focus)
-          focused_index = focused_pane ? focused_pane.internal_index : "#{name}.#{Teamocil::Tmux::Pane.pane_base_index}"
-          tmux << Teamocil::Command::SelectPane.new(index: focused_index)
+          tmux << focus_pane_commands
+
         end.flatten
       end
-      # rubocop:enable MethodLength
 
       def internal_index
         index + self.class.window_base_index
@@ -79,6 +63,35 @@ module Teamocil
       end
 
     protected
+
+      def spawn_window_commands
+        if Teamocil.options[:here] && first?
+          change_working_directory_commands << Teamocil::Command::RenameWindow.new(name: name)
+        else
+          Teamocil::Command::NewWindow.new(name: name, root: root)
+        end
+      end
+
+      def set_window_options_commands
+        options.map do |(option, value)|
+          Teamocil::Command::SetWindowOption.new(name: name, option: option, value: value)
+        end
+      end
+
+      def focus_pane_commands
+        focused_pane = panes.find(&:focus)
+        focused_index = focused_pane ? focused_pane.internal_index : "#{name}.#{Teamocil::Tmux::Pane.pane_base_index}"
+
+        Teamocil::Command::SelectPane.new(index: focused_index)
+      end
+
+      def change_working_directory_commands
+        return [] unless root
+
+        [%(cd "#{root}"), 'Enter'].map do |keys|
+          Teamocil::Command::SendKeysToPane.new(index: panes.first.internal_index, keys: keys)
+        end
+      end
 
       def first?
         index.zero?
