@@ -79,7 +79,7 @@ The [`0.4-stable` branch](https://github.com/remiprev/teamocil/tree/0.4-stable) 
 
 | Key       | Description
 |-----------|----------------------------
-| `name`    | The tmux window name
+| `name`    | The tmux window name _(required)_
 | `root`    | The path where all panes in the window will be started
 | `layout`  | The layout that will be set after all panes are created by Teamocil
 | `panes`   | An `Array` of panes
