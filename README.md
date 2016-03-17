@@ -230,6 +230,16 @@ To get autocompletion when typing `teamocil <Tab>` in a bash session, add this l
 complete -W "$(teamocil --list)" teamocil
 ```
 
+### Fish autocompletion
+
+To get autocompletion when typing `teamocil <Tab>` in a fish session,
+add the following file `~/.config/fish/completions/teamocil.fish` with
+the following content:
+
+```fish
+complete -x -c teamocil -a '(teamocil --list)'
+```
+
 ## Contributors
 
 Feel free to contribute and submit issues/pull requests
