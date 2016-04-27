@@ -87,9 +87,10 @@ module Teamocil
 
       def change_working_directory_commands
         return [] unless root
+        pane_index = panes.any? ? panes.first.internal_index : Teamocil::Tmux::Pane.pane_base_index
 
         [%(cd "#{root}"), 'Enter'].map do |keys|
-          Teamocil::Command::SendKeysToPane.new(index: panes.first.internal_index, keys: keys)
+          Teamocil::Command::SendKeysToPane.new(index: pane_index, keys: keys)
         end
       end
 
