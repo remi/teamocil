@@ -254,6 +254,6 @@ folks did:
 
 ## License
 
-Teamocil is © 2011-2015 [Rémi Prévost](http://exomel.com) and may be freely
+Teamocil is © 2011-2016 [Rémi Prévost](http://exomel.com) and may be freely
 distributed under the [MIT license](https://github.com/remiprev/teamocil/blob/master/LICENSE.md).
 See the `LICENSE.md` file for more information.
