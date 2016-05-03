@@ -130,9 +130,9 @@ RSpec.describe Teamocil::Tmux::Window do
 
       it do
         expect(as_tmux).to eql [
+          Teamocil::Command::RenameWindow.new(name: name),
           Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'cd "/tmp"'),
           Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'Enter'),
-          Teamocil::Command::RenameWindow.new(name: name),
           Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'foo; omg'),
           Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'Enter'),
           Teamocil::Command::SplitWindow.new(name: name, root: root),

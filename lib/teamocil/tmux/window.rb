@@ -66,7 +66,7 @@ module Teamocil
 
       def spawn_window_commands
         if Teamocil.options[:here] && first?
-          change_working_directory_commands << Teamocil::Command::RenameWindow.new(name: name)
+          change_working_directory_commands.unshift(Teamocil::Command::RenameWindow.new(name: name))
         else
           Teamocil::Command::NewWindow.new(name: name, root: root)
         end
