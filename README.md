@@ -240,6 +240,37 @@ the following content:
 complete -x -c teamocil -a '(teamocil --list)'
 ```
 
+### Custom window layout
+
+Teamocil supports all the window layout names supported by tmux.
+
+* `even-horizontal`
+* `even-vertical`
+* `main-horizontal`
+* `main-vertical`
+* `tiled`
+
+However, it also supports the custom format understood by tmux. This is
+especially useful if you want to manually resize your panes and keep using that
+layout in the future.
+
+You can grab the layout for the current window by running this command:
+
+```bash
+tmux list-windows -F "#{window_active} #{window_layout}" | grep "^1" | cut -d " " -f 2
+```
+
+You can then use the result as the `layout` key for any Teamocil window object.
+
+```yaml
+windows:
+  - name: sample-two-uneven-panes
+    layout: 00c7,158x38,0,0[158x9,0,0,37,158x28,0,10,39]
+    panes:
+      - echo foo
+      - echo bar
+```
+
 ## Contributors
 
 Feel free to contribute and submit issues/pull requests
