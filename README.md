@@ -23,6 +23,8 @@ $ mkdir ~/.teamocil
 # Edit ~/.teamocil/sample.yml (look for sample layouts in this very `README.md`)
 $ teamocil --edit sample
 
+**NOTE: the files in ~/.teamocil/*.yml support ERB**
+
 # Launch tmux
 $ tmux
 
