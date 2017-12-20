@@ -97,7 +97,7 @@ RSpec.describe Teamocil::Layout do
     let(:path) { double('Path') }
 
     before do
-      expect(Teamocil).to receive(:system).with("$EDITOR #{path}")
+      expect(Teamocil).to receive(:system).with("${EDITOR:-vi} #{path}")
     end
 
     specify { edit! }
