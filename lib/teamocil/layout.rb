@@ -13,7 +13,7 @@ module Teamocil
     end
 
     def edit!
-      Teamocil.system("$EDITOR #{path}")
+      Teamocil.system("${EDITOR:-vi} #{path}")
     end
 
     def self.print_available_layouts(directory: nil)
