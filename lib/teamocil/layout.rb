@@ -48,7 +48,7 @@ module Teamocil
     end
 
     def raw_content
-      File.read(path)
+      @raw_content ||= ERB.new(File.read(path)).result
     rescue Errno::ENOENT
       raise Teamocil::Error::LayoutNotFound, path
     end
