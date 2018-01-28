@@ -6,8 +6,11 @@ module Teamocil
       def initialize(object)
         super
 
-        # Make sure paths like `~/foo/bar` work
-        self.root = File.expand_path(root.gsub(ENVIRONMENT_VARIABLES_REGEX) { ENV[$1 || $2] }) if root
+        # Make sure paths like `~/foo/bar` and `$PROJECT_DIR/foo/bar` work
+        if root
+          root = substitue_env_vars
+          self.root = File.expand_path(root)
+        end
 
         self.options ||= {}
         self.panes ||= []
@@ -94,6 +97,13 @@ module Teamocil
         [%(cd "#{root}"), 'Enter'].map do |keys|
           Teamocil::Command::SendKeysToPane.new(index: pane_index, keys: keys)
         end
+      end
+
+      def substitue_env_vars
+        return nil unless root
+        match = root.match(ENVIRONMENT_VARIABLES_REGEX)
+        return root unless match
+        root.gsub(ENVIRONMENT_VARIABLES_REGEX, ENV[match.captures[0] || match.captures[1]])
       end
 
       def first?
