@@ -1,11 +1,13 @@
 module Teamocil
   module Tmux
     class Window < ClosedStruct.new(:index, :root, :focus, :layout, :name, :panes, :options)
+      ENVIRONMENT_VARIABLES_REGEX = /\$([a-zA-Z_]+[a-zA-Z0-9_]*)|\$\{(.+)\}/
+
       def initialize(object)
         super
 
         # Make sure paths like `~/foo/bar` work
-        self.root = File.expand_path(root) if root
+        self.root = File.expand_path(root.gsub(ENVIRONMENT_VARIABLES_REGEX) { ENV[$1 || $2] }) if root
 
         self.options ||= {}
         self.panes ||= []
