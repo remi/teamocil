@@ -100,7 +100,6 @@ module Teamocil
       end
 
       def substitue_env_vars
-        return nil unless root
         match = root.match(ENVIRONMENT_VARIABLES_REGEX)
         return root unless match
         root.gsub(ENVIRONMENT_VARIABLES_REGEX, ENV[match.captures[0] || match.captures[1]])
