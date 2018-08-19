@@ -1,3 +1,5 @@
+require 'shellwords'
+
 module Teamocil
   class CLI < ClosedStruct.new(:arguments, :environment)
     DIRECTORY = '$HOME/.teamocil'
@@ -24,7 +26,7 @@ module Teamocil
   private
 
     def root
-      DIRECTORY.sub('$HOME', environment['HOME'])
+      Shellwords.shellescape DIRECTORY.sub('$HOME', environment['HOME'])
     end
 
     def layout_file_path
