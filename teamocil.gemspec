@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.platform     = Gem::Platform::RUBY
   s.authors      = 'Rémi Prévost'
   s.email        = 'remi@exomel.com'
-  s.homepage     = 'http://www.teamocil.com'
+  s.homepage     = 'https://github.com/remi/teamocil'
   s.license      = 'MIT'
   s.description  = 'Teamocil is a simple tool used to automatically create windows and panes in tmux with YAML files.'
   s.summary      = s.description
