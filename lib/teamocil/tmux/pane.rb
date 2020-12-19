@@ -4,8 +4,10 @@ module Teamocil
       def as_tmux
         [].tap do |tmux|
           tmux << Teamocil::Command::SplitWindow.new(root: root, name: name) unless first?
-          tmux << Teamocil::Command::SendKeysToPane.new(index: internal_index, keys: commands.join('; ')) if commands
-          tmux << Teamocil::Command::SendKeysToPane.new(index: internal_index, keys: 'Enter')
+          commands.each do |command|
+            tmux << Teamocil::Command::SendKeysToPane.new(index: internal_index, keys: command)
+            tmux << Teamocil::Command::SendKeysToPane.new(index: internal_index, keys: 'Enter')
+          end
           tmux << Teamocil::Command::SelectLayout.new(layout: layout, name: name) if layout
         end
       end
