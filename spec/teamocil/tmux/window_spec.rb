@@ -31,7 +31,9 @@ RSpec.describe Teamocil::Tmux::Window do
   it do
     expect(as_tmux).to eql [
       Teamocil::Command::NewWindow.new(name: name),
-      Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'foo; omg'),
+      Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'foo'),
+      Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'Enter'),
+      Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'omg'),
       Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'Enter'),
       Teamocil::Command::SplitWindow.new(name: name),
       Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index + 1}", keys: 'bar'),
@@ -46,7 +48,9 @@ RSpec.describe Teamocil::Tmux::Window do
     it do
       expect(as_tmux).to eql [
         Teamocil::Command::NewWindow.new(name: name, root: root),
-        Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'foo; omg'),
+        Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'foo'),
+        Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'Enter'),
+        Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'omg'),
         Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'Enter'),
         Teamocil::Command::SplitWindow.new(name: name, root: root),
         Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index + 1}", keys: 'bar'),
@@ -73,7 +77,9 @@ RSpec.describe Teamocil::Tmux::Window do
     it do
       expect(as_tmux).to eql [
         Teamocil::Command::NewWindow.new(name: name),
-        Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'foo; omg'),
+        Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'foo'),
+        Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'Enter'),
+        Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'omg'),
         Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'Enter'),
         Teamocil::Command::SelectLayout.new(layout: layout, name: name),
         Teamocil::Command::SplitWindow.new(name: name),
@@ -95,7 +101,9 @@ RSpec.describe Teamocil::Tmux::Window do
       expect(as_tmux).to eql [
         Teamocil::Command::NewWindow.new(name: name),
         Teamocil::Command::SetWindowOption.new(name: name, option: 'main-pane-width', value: '100'),
-        Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'foo; omg'),
+        Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'foo'),
+        Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'Enter'),
+        Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'omg'),
         Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'Enter'),
         Teamocil::Command::SelectLayout.new(layout: layout, name: name),
         Teamocil::Command::SplitWindow.new(name: name),
@@ -114,7 +122,9 @@ RSpec.describe Teamocil::Tmux::Window do
       it do
         expect(as_tmux).to eql [
           Teamocil::Command::RenameWindow.new(name: name),
-          Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'foo; omg'),
+          Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'foo'),
+          Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'Enter'),
+          Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'omg'),
           Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'Enter'),
           Teamocil::Command::SplitWindow.new(name: name),
           Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index + 1}", keys: 'bar'),
@@ -133,7 +143,9 @@ RSpec.describe Teamocil::Tmux::Window do
           Teamocil::Command::RenameWindow.new(name: name),
           Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'cd "/tmp"'),
           Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'Enter'),
-          Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'foo; omg'),
+          Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'foo'),
+          Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'Enter'),
+          Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'omg'),
           Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index}", keys: 'Enter'),
           Teamocil::Command::SplitWindow.new(name: name, root: root),
           Teamocil::Command::SendKeysToPane.new(index: "#{name}.#{pane_base_index + 1}", keys: 'bar'),
